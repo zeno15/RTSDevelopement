@@ -29,8 +29,8 @@ public:
 	sf::Font *getFont(FontID _id);
 
 private:
-	std::vector<sf::Font *>					mFonts;
-	std::vector<std::string>				mFilepaths;
+	std::vector<sf::Font *>					m_Fonts;
+	std::vector<std::string>				m_Filepaths;
 
 };
 

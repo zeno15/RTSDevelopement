@@ -85,10 +85,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GUIButton.cpp" />
+    <ClCompile Include="GUIFrame.cpp" />
+    <ClCompile Include="GUIManager.cpp" />
+    <ClCompile Include="GUIObject.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FontManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GUIButton.h" />
+    <ClInclude Include="GUIFrame.h" />
+    <ClInclude Include="GUIManager.h" />
+    <ClInclude Include="GUIObject.h" />
+    <ClInclude Include="InputManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Fonts\OpenSans-Bold.ttf" />
