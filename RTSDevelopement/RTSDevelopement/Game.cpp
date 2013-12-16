@@ -5,6 +5,7 @@
 #include "GUIButton.h"
 #include "GUISlider.h"
 #include "GUIProgressBar.h"
+#include "GUICheckbox.h"
 
 Game::Game(void)
 {
@@ -40,11 +41,15 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	GUISlider *newSlider2 = new GUISlider(true, sf::Vector2f(100.0f, 150.0f), 150.0f, &m_SliderTest);
 
 	GUIProgressBar *newProgress = new GUIProgressBar(true, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(100.0f, 25.0f), &m_SliderTest, &m_SliderTest2);
+	
+	m_CheckboxTest = false;
+	GUICheckbox *newCheckbox = new GUICheckbox(sf::Vector2f(100.0f, 50.0f), &m_CheckboxTest, "Hello!");
 
 	newFrame->addObject(newButton);
 	newFrame->addObject(newSlider);
 	newFrame->addObject(newSlider2);
 	newFrame->addObject(newProgress);
+	newFrame->addObject(newCheckbox);
 
 	m_GUIManager.addFrame(newFrame);
 		
@@ -71,7 +76,7 @@ void Game::run(void)
 
 		clock.restart();
 
-		m_Window.clear();
+		m_Window.clear(sf::Color(25, 25, 25, 255));
 
 		m_Window.draw(m_GUIManager);
 

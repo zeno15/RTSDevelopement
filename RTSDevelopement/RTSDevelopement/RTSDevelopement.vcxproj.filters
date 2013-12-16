@@ -78,6 +78,9 @@
     <ClCompile Include="GUIProgressBar.cpp">
       <Filter>Source Files\GUI Components</Filter>
     </ClCompile>
+    <ClCompile Include="GUICheckbox.cpp">
+      <Filter>Source Files\GUI Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="GUIProgressBar.h">
+      <Filter>Header Files\GUI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GUICheckbox.h">
       <Filter>Header Files\GUI Components</Filter>
     </ClInclude>
   </ItemGroup>

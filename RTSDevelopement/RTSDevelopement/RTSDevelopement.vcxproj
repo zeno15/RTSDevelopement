@@ -87,6 +87,7 @@
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GUIButton.cpp" />
+    <ClCompile Include="GUICheckbox.cpp" />
     <ClCompile Include="GUIFrame.cpp" />
     <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="GUIObject.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GUIButton.h" />
+    <ClInclude Include="GUICheckbox.h" />
     <ClInclude Include="GUIFrame.h" />
     <ClInclude Include="GUIManager.h" />
     <ClInclude Include="GUIObject.h" />

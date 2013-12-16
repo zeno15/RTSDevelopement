@@ -31,6 +31,7 @@ public:
 	bool											m_Running;
 
 	bool											m_ButtonTest;
+	bool											m_CheckboxTest;
 	float 											m_SliderTest;
 	float											m_SliderTest2;
 
