@@ -8,7 +8,8 @@ InputManager::InputManager(void) :
 	m_KeyStates(sf::Keyboard::KeyCount, false),
 	m_KeyRegisterRequests(sf::Keyboard::KeyCount, 0u),
 	m_ButtonStates(sf::Mouse::ButtonCount, false),
-	m_ButtonRegisterRequests(sf::Mouse::ButtonCount, 0u)
+	m_ButtonRegisterRequests(sf::Mouse::ButtonCount, 0u),
+	m_TextInputRegisterRequests(0u)
 {
 }
 
@@ -94,6 +95,21 @@ bool InputManager::getButtonState(sf::Mouse::Button _button)
 	return m_ButtonStates.at(_button);
 }
 
+void InputManager::registerTextInput(void)
+{
+	m_TextInputRegisterRequests += 1;
+	m_TextInputState = true;
+}
+void InputManager::unregisterTextInput(void)
+{
+	m_TextInputRegisterRequests -= 1;
+	if (m_TextInputRegisterRequests <= 0)
+	{
+		m_TextInputRegisterRequests = 0;
+		m_TextInputState = false;
+	}
+}
+
 void InputManager::handleEvent(sf::Event const &_event)
 {
 	if (_event.type == sf::Event::KeyPressed)
@@ -126,6 +142,13 @@ void InputManager::handleEvent(sf::Event const &_event)
 		}
 	}
 
+	if (m_TextInputState && _event.type == sf::Event::TextEntered)
+	{
+		if (_event.text.unicode < 128)
+		{
+			sGame.m_GUIManager.sendTextToTextBoxes(static_cast<char>(_event.text.unicode));
+		}
+	}
 	
 
 

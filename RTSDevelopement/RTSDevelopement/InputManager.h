@@ -19,6 +19,9 @@ public:
 
 	bool getKeyState(sf::Keyboard::Key _key);
 	bool getButtonState(sf::Mouse::Button _button);
+
+	void registerTextInput(void);
+	void unregisterTextInput(void);
 	
 	void handleEvent(sf::Event const &_event);
 	
@@ -30,6 +33,9 @@ private:
 	std::map<sf::Mouse::Button, bool>					m_ButtonDictionary;
 	std::vector<bool>									m_ButtonStates;
 	std::vector<unsigned int>							m_ButtonRegisterRequests;
+
+	bool												m_TextInputState;
+	unsigned int										m_TextInputRegisterRequests;
 };
 
 #endif //~ INCLUDED_INPUTMANAGER_H

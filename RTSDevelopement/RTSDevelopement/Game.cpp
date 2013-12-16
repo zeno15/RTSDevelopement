@@ -7,6 +7,7 @@
 #include "GUIProgressBar.h"
 #include "GUICheckbox.h"
 #include "GUIRadioButtonGroup.h"
+#include "GUITextBox.h"
 
 Game::Game(void)
 {
@@ -54,12 +55,15 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	newRadioGroup->addRadioButton("Fourth");
 	newRadioGroup->addRadioButton("Fifth");
 
+	GUITextBox *newTextBox = new GUITextBox(sf::Vector2f(350.0f, 50.0f), sf::Vector2f(100.0f, 25.0f), true);
+
 	newFrame->addObject(newButton);
 	newFrame->addObject(newSlider);
 	newFrame->addObject(newSlider2);
 	newFrame->addObject(newProgress);
 	newFrame->addObject(newCheckbox);
 	newFrame->addObject(newRadioGroup);
+	newFrame->addObject(newTextBox);
 
 	m_GUIManager.addFrame(newFrame);
 		

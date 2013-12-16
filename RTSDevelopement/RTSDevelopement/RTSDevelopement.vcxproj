@@ -95,6 +95,7 @@
     <ClCompile Include="GUIRadioButton.cpp" />
     <ClCompile Include="GUIRadioButtonGroup.cpp" />
     <ClCompile Include="GUISlider.cpp" />
+    <ClCompile Include="GUITextBox.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="GUIRadioButton.h" />
     <ClInclude Include="GUIRadioButtonGroup.h" />
     <ClInclude Include="GUISlider.h" />
+    <ClInclude Include="GUITextBox.h" />
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="InputManager.h" />
   </ItemGroup>

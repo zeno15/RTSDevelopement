@@ -6,6 +6,8 @@
 
 #include "GUIFrame.h"
 
+class GUITextBox;
+
 class GUIManager : public sf::Drawable
 {
 public:
@@ -18,8 +20,14 @@ public:
 	
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const;
 
+	void sendTextToTextBoxes(char _character);
+
+	void addGUITextBoxToReceiveText(GUITextBox *_textBox);
+	void removeGUITextBoxToReceiveText(GUITextBox *_textBox);
+
 private:
 	std::vector<GUIFrame *>										m_Frames;
+	std::vector<GUITextBox *>									m_TextBoxes;
 };
 
 #endif //~ INCLUDED_GUIMANAGER_H

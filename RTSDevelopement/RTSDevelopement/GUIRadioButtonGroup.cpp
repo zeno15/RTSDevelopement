@@ -14,6 +14,11 @@ GUIRadioButtonGroup::GUIRadioButtonGroup(sf::Vector2f _position, float _separati
 GUIRadioButtonGroup::~GUIRadioButtonGroup(void)
 {
 	sGame.m_InputManager.unregisterButton(sf::Mouse::Left);
+
+	for (GUIRadioButton *radio : m_RadioButtons)
+	{
+		delete radio;
+	}
 }
 
 

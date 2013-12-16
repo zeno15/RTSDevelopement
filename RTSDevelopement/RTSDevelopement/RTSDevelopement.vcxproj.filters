@@ -87,6 +87,9 @@
     <ClCompile Include="GUIRadioButtonGroup.cpp">
       <Filter>Source Files\GUI Components</Filter>
     </ClCompile>
+    <ClCompile Include="GUITextBox.cpp">
+      <Filter>Source Files\GUI Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -103,9 +106,6 @@
     </ClInclude>
     <ClInclude Include="GUIObject.h">
       <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIManager.h">
-      <Filter>Header Files\Management</Filter>
     </ClInclude>
     <ClInclude Include="GUIButton.h">
       <Filter>Header Files\GUI Components</Filter>
@@ -126,6 +126,12 @@
       <Filter>Header Files\GUI Components</Filter>
     </ClInclude>
     <ClInclude Include="GUIRadioButtonGroup.h">
+      <Filter>Header Files\GUI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIManager.h">
+      <Filter>Header Files\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="GUITextBox.h">
       <Filter>Header Files\GUI Components</Filter>
     </ClInclude>
   </ItemGroup>
