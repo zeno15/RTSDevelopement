@@ -32,6 +32,7 @@ public:
 
 	bool											m_ButtonTest;
 	float 											m_SliderTest;
+	float											m_SliderTest2;
 
 	void buttonActivated(void);
 private:

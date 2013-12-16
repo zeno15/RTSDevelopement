@@ -4,6 +4,7 @@
 
 #include "GUIButton.h"
 #include "GUISlider.h"
+#include "GUIProgressBar.h"
 
 Game::Game(void)
 {
@@ -33,10 +34,17 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	GUIButton *newButton = new GUIButton("Mark's Button", &m_ButtonTest, sf::Vector2f(100.0f, 100.0f), sf::Vector2f());
 
 	m_SliderTest = 0.0f;
-	GUISlider *newSlider = new GUISlider(true, sf::Vector2f(100.0f, 200.0f), 150.0f, &m_SliderTest, 5);
+	GUISlider *newSlider = new GUISlider(true, sf::Vector2f(100.0f, 200.0f), 150.0f, &m_SliderTest2);
+
+	m_SliderTest2 = 0.0f;
+	GUISlider *newSlider2 = new GUISlider(true, sf::Vector2f(100.0f, 150.0f), 150.0f, &m_SliderTest);
+
+	GUIProgressBar *newProgress = new GUIProgressBar(true, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(100.0f, 25.0f), &m_SliderTest, &m_SliderTest2);
 
 	newFrame->addObject(newButton);
 	newFrame->addObject(newSlider);
+	newFrame->addObject(newSlider2);
+	newFrame->addObject(newProgress);
 
 	m_GUIManager.addFrame(newFrame);
 		
