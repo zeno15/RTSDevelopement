@@ -58,8 +58,12 @@ GUISlider::GUISlider(bool _horizontal, sf::Vector2f _position, float _size, floa
 		}
 	}
 
-	setSlidePosition(_position);
-	setSlideColour(slideColourState::NORMAL);
+	*m_Value = 0.0f;
+	
+
+	setSlidePosition(_position - sf::Vector2f(m_Horizontal * (m_Size / 2.0f), !m_Horizontal * (m_Size / 2.0f)));
+
+	setNormalColour();
 
 	sGame.m_InputManager.registerButton(sf::Mouse::Left);
 }

@@ -1,0 +1,6 @@
+GUI items to add
+	-	List boxes
+	-	scroll bars
+	-	tabs
+	-	drop down menu
+	-	marking menu

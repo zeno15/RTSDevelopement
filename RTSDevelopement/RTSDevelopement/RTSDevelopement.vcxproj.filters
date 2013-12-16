@@ -90,6 +90,9 @@
     <ClCompile Include="GUITextBox.cpp">
       <Filter>Source Files\GUI Components</Filter>
     </ClCompile>
+    <ClCompile Include="GUIDropDownBox.cpp">
+      <Filter>Source Files\GUI Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files\Management</Filter>
     </ClInclude>
     <ClInclude Include="GUITextBox.h">
+      <Filter>Header Files\GUI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIDropDownBox.h">
       <Filter>Header Files\GUI Components</Filter>
     </ClInclude>
   </ItemGroup>

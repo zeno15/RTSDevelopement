@@ -28,7 +28,6 @@ void InputManager::registerKey(sf::Keyboard::Key _key)
 	{
 		//~ Key is not present, add
 		m_KeyDictionary.insert(std::pair<sf::Keyboard::Key, bool>(_key, true));
-		std::cout << "Key: " << _key << " registered" << std::endl;
 	}
 }
 void InputManager::unRegisterKey(sf::Keyboard::Key _key)
@@ -49,7 +48,6 @@ void InputManager::unRegisterKey(sf::Keyboard::Key _key)
 
 	//~ Key is no longer being inspected, remove it from dictionary
 	m_KeyDictionary.erase(_key);
-		std::cout << "Key: " << _key << " unregistered" << std::endl;
 }
 void InputManager::registerButton(sf::Mouse::Button _button)
 {
@@ -61,7 +59,6 @@ void InputManager::registerButton(sf::Mouse::Button _button)
 	{
 		//~ Button is not present, add
 		m_ButtonDictionary.insert(std::pair<sf::Mouse::Button, bool>(_button, true));
-		std::cout << "Button: " << _button << " registered" << std::endl;
 	}
 }
 void InputManager::unregisterButton(sf::Mouse::Button _button)
@@ -82,7 +79,6 @@ void InputManager::unregisterButton(sf::Mouse::Button _button)
 
 	//~ Button is no longer being inspected, remove it from dictionary
 	m_ButtonDictionary.erase(_button);
-		std::cout << "Button: " << _button << " unregistered" << std::endl;
 }
 
 bool InputManager::getKeyState(sf::Keyboard::Key _key)
