@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Management">
       <UniqueIdentifier>{07373c34-9b19-4f5a-a16b-fee1ac220f59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Misc">
+      <UniqueIdentifier>{ee393606-5d88-4809-9e15-4205951801a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{1a85a9da-fab8-4b1b-9970-f414218c0cce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -63,6 +69,12 @@
     <ClCompile Include="GUIButton.cpp">
       <Filter>Source Files\GUI Components</Filter>
     </ClCompile>
+    <ClCompile Include="GUISlider.cpp">
+      <Filter>Source Files\GUI Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HelperFunctions.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -85,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="GUIButton.h">
       <Filter>Header Files\GUI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GUISlider.h">
+      <Filter>Header Files\GUI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HelperFunctions.h">
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

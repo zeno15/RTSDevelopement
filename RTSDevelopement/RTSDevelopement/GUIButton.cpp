@@ -85,7 +85,6 @@ void GUIButton::update(sf::Time _delta)
 	}
 	else
 	{
-		//~ Mouse is not over button;
 		changeColourState(colourState::NORMAL);
 	}
 }

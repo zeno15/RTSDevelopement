@@ -90,8 +90,10 @@
     <ClCompile Include="GUIFrame.cpp" />
     <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="GUIObject.cpp" />
+    <ClCompile Include="GUISlider.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="HelperFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FontManager.h" />
@@ -100,6 +102,8 @@
     <ClInclude Include="GUIFrame.h" />
     <ClInclude Include="GUIManager.h" />
     <ClInclude Include="GUIObject.h" />
+    <ClInclude Include="GUISlider.h" />
+    <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="InputManager.h" />
   </ItemGroup>
   <ItemGroup>

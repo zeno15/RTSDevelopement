@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "GUIButton.h"
+#include "GUISlider.h"
 
 Game::Game(void)
 {
@@ -31,7 +32,11 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_ButtonTest = false;
 	GUIButton *newButton = new GUIButton("Mark's Button", &m_ButtonTest, sf::Vector2f(100.0f, 100.0f), sf::Vector2f());
 
+	m_SliderTest = 0.0f;
+	GUISlider *newSlider = new GUISlider(true, sf::Vector2f(100.0f, 200.0f), 150.0f, &m_SliderTest, 5);
+
 	newFrame->addObject(newButton);
+	newFrame->addObject(newSlider);
 
 	m_GUIManager.addFrame(newFrame);
 		
@@ -51,7 +56,7 @@ void Game::run(void)
 
 		if (m_ButtonTest)
 		{
-			std::cout << "Yay!" << std::endl;
+			std::cout << "Slider Value is: " << m_SliderTest << std::endl;
 		}
 		
 		handleEvents();

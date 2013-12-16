@@ -2,8 +2,7 @@
 #define INCLUDED_GUIOBJECT_H
 
 #include <SFML/Graphics.hpp>
-
-
+#include <iostream>
 
 class GUIObject : public sf::Drawable
 {
