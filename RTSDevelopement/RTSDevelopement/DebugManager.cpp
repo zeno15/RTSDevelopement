@@ -12,11 +12,15 @@ DebugManager::~DebugManager(void)
 
 void DebugManager::calledNew(void * _object, std::string _file, int _line)
 {
+	#ifdef _DEBUG
 	m_InitialisedPointers.push_back(std::pair<unsigned int, std::string>((unsigned int)(_object), "[" + std::to_string(_line) + "] " + _file));
+	#endif //~ _DEBUG
 }
 void DebugManager::calledDelete(void *_object)
 {
+	#ifdef _DEBUG
 	m_DeletedPointers.push_back((unsigned int)(_object));
+	#endif //~ _DEBUG
 }
 void DebugManager::printPointers(void)
 {
@@ -27,6 +31,7 @@ void DebugManager::printPointers(void)
 }
 void DebugManager::analysePointers(void)
 {
+	#ifdef _DEBUG
 	std::vector<std::pair<unsigned int, std::string>> unDeletedPointers = std::vector<std::pair<unsigned int, std::string>>();
 
 	for (unsigned int i = 0; i < m_InitialisedPointers.size(); i += 1)
@@ -59,4 +64,5 @@ void DebugManager::analysePointers(void)
 	{
 		getchar();
 	}
+	#endif //~ _DEBUG
 }

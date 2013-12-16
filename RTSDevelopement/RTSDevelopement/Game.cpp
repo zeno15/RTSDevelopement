@@ -8,6 +8,7 @@
 #include "GUICheckbox.h"
 #include "GUIRadioButtonGroup.h"
 #include "GUITextBox.h"
+#include "GUIDropDownBox.h"
 
 Game::Game(void)
 {
@@ -68,6 +69,8 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	GUITextBox *newTextBox = new GUITextBox(sf::Vector2f(350.0f, 50.0f), sf::Vector2f(100.0f, 25.0f), true);
 	mDebugNew(newTextBox)
 
+	GUIDropDownBox *newDropDownBox = new GUIDropDownBox(sf::Vector2f(350.0f, 100.0f), sf::Vector2f(100.0f, 250.0f));
+
 	newFrame->addObject(newButton);
 	newFrame->addObject(newSlider);
 	newFrame->addObject(newSlider2);
@@ -75,6 +78,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	newFrame->addObject(newCheckbox);
 	newFrame->addObject(newRadioGroup);
 	newFrame->addObject(newTextBox);
+	newFrame->addObject(newDropDownBox);
 
 	m_GUIManager.addFrame(newFrame);
 		

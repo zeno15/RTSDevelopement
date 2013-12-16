@@ -2,7 +2,7 @@ GUI items to add
 	-	List boxes
 	-	scroll bars
 	-	tabs
-	-	drop down menu
+	-	drop down menu - children are just drop down menus with either no children or more than 0
 	-	marking menu
 
 Lua for data tables?
