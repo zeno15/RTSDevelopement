@@ -6,6 +6,7 @@
 #include "GUISlider.h"
 #include "GUIProgressBar.h"
 #include "GUICheckbox.h"
+#include "GUIRadioButtonGroup.h"
 
 Game::Game(void)
 {
@@ -45,11 +46,20 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_CheckboxTest = false;
 	GUICheckbox *newCheckbox = new GUICheckbox(sf::Vector2f(100.0f, 50.0f), &m_CheckboxTest, "Hello!");
 
+	GUIRadioButtonGroup *newRadioGroup = new GUIRadioButtonGroup(sf::Vector2f(200.0f, 50.0f), 24.0f);
+
+	newRadioGroup->addRadioButton("First");
+	newRadioGroup->addRadioButton("Second");
+	newRadioGroup->addRadioButton("Third");
+	newRadioGroup->addRadioButton("Fourth");
+	newRadioGroup->addRadioButton("Fifth");
+
 	newFrame->addObject(newButton);
 	newFrame->addObject(newSlider);
 	newFrame->addObject(newSlider2);
 	newFrame->addObject(newProgress);
 	newFrame->addObject(newCheckbox);
+	newFrame->addObject(newRadioGroup);
 
 	m_GUIManager.addFrame(newFrame);
 		

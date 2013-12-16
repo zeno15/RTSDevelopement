@@ -59,6 +59,7 @@ GUIButton::~GUIButton(void)
 
 void GUIButton::update(sf::Time _delta)
 {
+	if (!m_Update) return;
 	if (*m_ToActivate && m_Unactivate)
 	{
 		*m_ToActivate = false;

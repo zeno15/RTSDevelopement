@@ -1,6 +1,8 @@
 #ifndef INCLUDED_HELPERFUNCTIONS_H
 #define INCLUDED_HELPERFUNCTIONS_H
 
+#define PI 3.14159265359f
+
 template <typename T>
 T clamp(T _x, T _min, T _max)
 {

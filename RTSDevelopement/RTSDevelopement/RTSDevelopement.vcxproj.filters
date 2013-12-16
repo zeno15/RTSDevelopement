@@ -81,6 +81,12 @@
     <ClCompile Include="GUICheckbox.cpp">
       <Filter>Source Files\GUI Components</Filter>
     </ClCompile>
+    <ClCompile Include="GUIRadioButton.cpp">
+      <Filter>Source Files\GUI Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIRadioButtonGroup.cpp">
+      <Filter>Source Files\GUI Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -114,6 +120,12 @@
       <Filter>Header Files\GUI Components</Filter>
     </ClInclude>
     <ClInclude Include="GUICheckbox.h">
+      <Filter>Header Files\GUI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIRadioButton.h">
+      <Filter>Header Files\GUI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIRadioButtonGroup.h">
       <Filter>Header Files\GUI Components</Filter>
     </ClInclude>
   </ItemGroup>

@@ -92,6 +92,8 @@
     <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="GUIObject.cpp" />
     <ClCompile Include="GUIProgressBar.cpp" />
+    <ClCompile Include="GUIRadioButton.cpp" />
+    <ClCompile Include="GUIRadioButtonGroup.cpp" />
     <ClCompile Include="GUISlider.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -106,6 +108,8 @@
     <ClInclude Include="GUIManager.h" />
     <ClInclude Include="GUIObject.h" />
     <ClInclude Include="GUIProgressBar.h" />
+    <ClInclude Include="GUIRadioButton.h" />
+    <ClInclude Include="GUIRadioButtonGroup.h" />
     <ClInclude Include="GUISlider.h" />
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="InputManager.h" />
