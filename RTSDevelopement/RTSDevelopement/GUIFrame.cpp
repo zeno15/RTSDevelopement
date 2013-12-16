@@ -1,5 +1,7 @@
 #include "GUIFrame.h"
 
+#include "Game.h"
+
 #define BORDER_THICKNESS 1.0f
 
 GUIFrame::GUIFrame(sf::FloatRect _bounds/* = sf::FloatRect()*/) :
@@ -38,6 +40,11 @@ GUIFrame::GUIFrame(sf::FloatRect _bounds/* = sf::FloatRect()*/) :
 
 GUIFrame::~GUIFrame(void)
 {
+	for (GUIObject *object : m_Objects)
+	{
+		mDebugDelete(object)
+		delete object;
+	}
 }
 
 

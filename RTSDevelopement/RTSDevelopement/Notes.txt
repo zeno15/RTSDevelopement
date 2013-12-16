@@ -4,3 +4,17 @@ GUI items to add
 	-	tabs
 	-	drop down menu
 	-	marking menu
+
+Lua for data tables?
+
+Debug log class
+
+sound manager similar to prison architext
+
+profiler
+
+world objects
+
+memory leaks #ifdef CHECKFORLEAKS or something?
+
+smart pointers

@@ -16,7 +16,10 @@ Game::Game(void)
 
 Game::~Game(void)
 {
-	
+	m_FontManager.unloadAllFonts();
+	m_GUIManager.~GUIManager();
+
+	sDebug.analysePointers();
 }
 
 void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
@@ -32,22 +35,29 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_FontManager.loadAllFonts();
 
 	GUIFrame *newFrame = new GUIFrame(sf::FloatRect());
+	mDebugNew(newFrame)
 
 	m_ButtonTest = false;
 	GUIButton *newButton = new GUIButton("Mark's Button", &m_ButtonTest, sf::Vector2f(100.0f, 100.0f), sf::Vector2f());
+	mDebugNew(newButton)
 
 	m_SliderTest = 0.0f;
 	GUISlider *newSlider = new GUISlider(true, sf::Vector2f(100.0f, 200.0f), 150.0f, &m_SliderTest2);
+	mDebugNew(newSlider)
 
 	m_SliderTest2 = 0.0f;
 	GUISlider *newSlider2 = new GUISlider(true, sf::Vector2f(100.0f, 150.0f), 150.0f, &m_SliderTest);
+	mDebugNew(newSlider2)
 
 	GUIProgressBar *newProgress = new GUIProgressBar(true, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(100.0f, 25.0f), &m_SliderTest, &m_SliderTest2);
+	mDebugNew(newProgress)
 	
 	m_CheckboxTest = false;
 	GUICheckbox *newCheckbox = new GUICheckbox(sf::Vector2f(100.0f, 50.0f), &m_CheckboxTest, "Hello!");
+	mDebugNew(newCheckbox)
 
 	GUIRadioButtonGroup *newRadioGroup = new GUIRadioButtonGroup(sf::Vector2f(200.0f, 50.0f), 24.0f);
+	mDebugNew(newRadioGroup)
 
 	newRadioGroup->addRadioButton("First");
 	newRadioGroup->addRadioButton("Second");
@@ -56,6 +66,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	newRadioGroup->addRadioButton("Fifth");
 
 	GUITextBox *newTextBox = new GUITextBox(sf::Vector2f(350.0f, 50.0f), sf::Vector2f(100.0f, 25.0f), true);
+	mDebugNew(newTextBox)
 
 	newFrame->addObject(newButton);
 	newFrame->addObject(newSlider);
@@ -83,7 +94,7 @@ void Game::run(void)
 
 		if (m_ButtonTest)
 		{
-			std::cout << "Slider Value is: " << m_SliderTest << std::endl;
+			std::cout << "Woo button" << std::endl;
 		}
 		
 		handleEvents();

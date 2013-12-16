@@ -6,6 +6,7 @@
 #include "FontManager.h"
 #include "InputManager.h"
 #include "GUIManager.h"
+#include "DebugManager.h"
 
 class Game
 {
@@ -27,6 +28,7 @@ public:
 	FontManager										m_FontManager;
 	InputManager									m_InputManager;
 	GUIManager										m_GUIManager;
+	DebugManager									m_DebugManager;
 
 	bool											m_Running;
 
@@ -46,5 +48,6 @@ private:
 };
 
 #define sGame Game::instance()
+#define sDebug sGame.m_DebugManager
 
 #endif //~ INCLUDED_GAME_H

@@ -1,7 +1,9 @@
 #ifndef INCLUDED_GUIDROPDOWNBOX_H
 #define INCLUDED_GUIDROPDOWNBOX_H
 
-class GUIDropDownBox
+#include "GUIObject.h"
+
+class GUIDropDownBox : GUIObject
 {
 public:
 	GUIDropDownBox(void);

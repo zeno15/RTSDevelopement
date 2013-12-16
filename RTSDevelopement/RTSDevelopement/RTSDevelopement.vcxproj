@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DebugManager.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GUIButton.cpp" />
@@ -102,6 +103,7 @@
     <ClCompile Include="HelperFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DebugManager.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GUIButton.h" />

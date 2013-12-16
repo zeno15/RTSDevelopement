@@ -1,5 +1,6 @@
 #include "FontManager.h"
 
+#include "Game.h"
 
 FontManager::FontManager(void) :
 	m_Fonts(FontID::NUMFONTS, nullptr)
@@ -30,6 +31,7 @@ void FontManager::loadAllFonts(void)
 		if (m_Fonts.at(i) != nullptr) continue;
 
 		m_Fonts.at(i) = new sf::Font();
+		mDebugNew(m_Fonts.at(i))
 		m_Fonts.at(i)->loadFromFile(m_Filepaths.at(i));
 	}
 }
@@ -39,6 +41,7 @@ void FontManager::unloadAllFonts(void)
 	{
 		if (m_Fonts.at(i) == nullptr) continue;
 
+		mDebugDelete(m_Fonts.at(i))
 		delete m_Fonts.at(i);
 		m_Fonts.at(i) = nullptr;
 	}

@@ -9,6 +9,11 @@ GUIManager::GUIManager(void)
 
 GUIManager::~GUIManager(void)
 {
+	for (unsigned int i = 0; i < m_Frames.size(); i += 1)
+	{
+		mDebugDelete(m_Frames.at(i))
+		delete m_Frames.at(i);
+	}
 }
 
 

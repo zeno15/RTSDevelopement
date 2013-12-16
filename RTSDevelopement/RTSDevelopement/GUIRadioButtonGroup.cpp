@@ -17,6 +17,7 @@ GUIRadioButtonGroup::~GUIRadioButtonGroup(void)
 
 	for (GUIRadioButton *radio : m_RadioButtons)
 	{
+		mDebugDelete(radio)
 		delete radio;
 	}
 }
@@ -28,6 +29,7 @@ void GUIRadioButtonGroup::addRadioButton(std::string _text)
 										 m_Position.y  + !m_Horizontal * (m_Separation * m_RadioButtons.size()));
 
 	m_RadioButtons.push_back(new GUIRadioButton(position, _text, (m_RadioButtons.size() == 0)));
+	mDebugNew(m_RadioButtons.back())
 }
 
 void GUIRadioButtonGroup::update(sf::Time _delta)
