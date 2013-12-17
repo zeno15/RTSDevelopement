@@ -176,3 +176,4 @@ void GUITextBox::updateCursorPosition(void)
 		m_Box.resize(8);
 	}
 }
+

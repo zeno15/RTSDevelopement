@@ -69,7 +69,11 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	GUITextBox *newTextBox = new GUITextBox(sf::Vector2f(350.0f, 50.0f), sf::Vector2f(100.0f, 25.0f), true);
 	mDebugNew(newTextBox)
 
-	GUIDropDownBox *newDropDownBox = new GUIDropDownBox(sf::Vector2f(350.0f, 100.0f), sf::Vector2f(100.0f, 250.0f));
+	GUIDropDownBox *newDropDownBox = new GUIDropDownBox(sf::Vector2f(350.0f, 100.0f), sf::Vector2f(100.0f, 25.0f));
+	newDropDownBox->addOption("Option1");
+	newDropDownBox->addOption("Option2");
+	newDropDownBox->addOption("Option3");
+	newDropDownBox->addOption("Option4");
 
 	newFrame->addObject(newButton);
 	newFrame->addObject(newSlider);

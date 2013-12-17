@@ -21,8 +21,14 @@ public:
 private:
 	void extend(void);
 
+	void locateActiveText(void);
+
+	void setNormalColour(void);
+	void setHoverColour(void);
+	void setClickColour(void);
+
 private:
-	sf::Text							m_SelectedOption;
+	sf::Text *							m_SelectedOption;
 
 	sf::VertexArray						m_BackgroundQuads;
 
@@ -30,6 +36,10 @@ private:
 
 	std::vector<sf::Text *>				m_ExtendedOptions;
 
+	sf::Vector2f						m_Size;
+	sf::Vector2f						m_Position;
+
+	sf::FloatRect						m_ActivatorBounds;
 };
 
 #endif //~ INCLUDED_GUIDROPDOWNBOX_H
