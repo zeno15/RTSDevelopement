@@ -19,20 +19,36 @@ public:
 	std::string getActiveOption(void);
 
 private:
-	void extend(void);
+	enum extendState {CLOSED,
+					  EXTENDINGUP,
+					  EXTENDED,
+					  RETRACTING};
 
-	void locateActiveText(void);
+	void changeExtension(void);
+	void extend(void);
+	void updateExtension(sf::Time _delta);
+
+	void locateActiveText(unsigned int _index);
+	void locateListText(unsigned int _index);
+
+	void setActiveIcon(void);
 
 	void setNormalColour(void);
 	void setHoverColour(void);
 	void setClickColour(void);
 
 private:
-	sf::Text *							m_SelectedOption;
+	sf::Text 							m_SelectedOption;
+
+	extendState							m_ExtendedState;
 
 	sf::VertexArray						m_BackgroundQuads;
+	sf::VertexArray						m_ActiveIcon;
+	sf::VertexArray						m_ExtendedBackground;
 
 	bool								m_Extended;
+
+	unsigned int						m_OptionsToDraw;
 
 	std::vector<sf::Text *>				m_ExtendedOptions;
 
