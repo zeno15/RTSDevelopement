@@ -9,6 +9,8 @@
 #include "GUIRadioButtonGroup.h"
 #include "GUITextBox.h"
 #include "GUIDropDownBox.h"
+#include "GUIMarkingMenu.h"
+#include "GUIDropDownMenu.h"
 
 Game::Game(void)
 {
@@ -18,7 +20,7 @@ Game::Game(void)
 Game::~Game(void)
 {
 	m_FontManager.unloadAllFonts();
-	m_GUIManager.~GUIManager();
+	m_GUIManager.~GUIManager(); //~ Just so the pointer analysis is valid
 
 	sDebug.analysePointers();
 }
@@ -70,10 +72,17 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	mDebugNew(newTextBox)
 
 	GUIDropDownBox *newDropDownBox = new GUIDropDownBox(sf::Vector2f(350.0f, 100.0f), sf::Vector2f(100.0f, 25.0f));
+	mDebugNew(newDropDownBox)
 	newDropDownBox->addOption("Option1");
 	newDropDownBox->addOption("Option2");
 	newDropDownBox->addOption("Option3");
 	newDropDownBox->addOption("Option4");
+
+	GUIMarkingMenu *newMarkingMenu = new GUIMarkingMenu();
+	mDebugNew(newMarkingMenu)
+
+	GUIDropDownMenu *newDropDownMenu = new GUIDropDownMenu("DROP DOWN", sf::Vector2f(350.0f, 250.0f), 100.0f);
+	mDebugNew(newDropDownMenu)
 
 	newFrame->addObject(newButton);
 	newFrame->addObject(newSlider);
@@ -83,6 +92,8 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	newFrame->addObject(newRadioGroup);
 	newFrame->addObject(newTextBox);
 	newFrame->addObject(newDropDownBox);
+	newFrame->addObject(newMarkingMenu);
+	newFrame->addObject(newDropDownMenu);
 
 	m_GUIManager.addFrame(newFrame);
 		
@@ -102,7 +113,7 @@ void Game::run(void)
 
 		if (m_ButtonTest)
 		{
-			std::cout << "Woo button" << std::endl;
+			buttonActivated();
 		}
 		
 		handleEvents();

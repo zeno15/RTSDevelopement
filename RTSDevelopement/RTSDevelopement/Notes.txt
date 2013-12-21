@@ -1,8 +1,7 @@
 GUI items to add
-	-	List boxes
 	-	scroll bars
 	-	tabs
-	-	drop down menu - children are just drop down menus with either no children or more than 0
+	-	drop down menu - children are just drop down menus with either no children or more than 0 - need function pointers?
 	-	marking menu
 
 Lua for data tables?
@@ -15,6 +14,16 @@ profiler
 
 world objects
 
-memory leaks #ifdef CHECKFORLEAKS or something?
-
 smart pointers
+
+Marking menu improvements, need to make it less sensitive to subtle changes
+
+===========================================================
+				RTS Gameplay Ideas
+===========================================================
+
+	-	If it becomes interplanetary/maybe even if just global, can knock asteroids into orbit for resources
+	-	Spying, sabotage
+	-	Command and Conquer 3 world battle, similar/better system
+	-	Underground piping for power and repair
+	-	Space elevators

@@ -100,6 +100,14 @@ void GUIDropDownBox::update(sf::Time _delta)
 
 	if (m_ExtendedState == extendState::EXTENDED)
 	{
+		if (!sGame.m_InputManager.getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			if (!m_ExtendedBackground.getBounds().contains((float)(sf::Mouse::getPosition(sGame.m_Window).x), (float)(sf::Mouse::getPosition(sGame.m_Window).y)))
+			{
+				changeExtension();
+			}
+		}
+
 		for (unsigned int i = 0; i < m_ExtendedOptions.size(); i += 1)
 		{
 			if (m_ExtendedOptions.at(i)->getGlobalBounds().contains((float)(sf::Mouse::getPosition(sGame.m_Window).x), (float)(sf::Mouse::getPosition(sGame.m_Window).y)))

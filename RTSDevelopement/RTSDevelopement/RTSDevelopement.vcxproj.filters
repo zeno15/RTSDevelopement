@@ -99,6 +99,15 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Source Files\Management</Filter>
     </ClCompile>
+    <ClCompile Include="GUIMarkingMenu.cpp">
+      <Filter>Source Files\GUI Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIMarkingMenuNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIDropDownMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -151,6 +160,15 @@
     </ClInclude>
     <ClInclude Include="TextureManager.h">
       <Filter>Header Files\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIMarkingMenu.h">
+      <Filter>Header Files\GUI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIMarkingMenuNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIDropDownMenu.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

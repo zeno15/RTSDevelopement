@@ -90,8 +90,11 @@
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUICheckbox.cpp" />
     <ClCompile Include="GUIDropDownBox.cpp" />
+    <ClCompile Include="GUIDropDownMenu.cpp" />
     <ClCompile Include="GUIFrame.cpp" />
     <ClCompile Include="GUIManager.cpp" />
+    <ClCompile Include="GUIMarkingMenu.cpp" />
+    <ClCompile Include="GUIMarkingMenuNode.cpp" />
     <ClCompile Include="GUIObject.cpp" />
     <ClCompile Include="GUIProgressBar.cpp" />
     <ClCompile Include="GUIRadioButton.cpp" />
@@ -110,8 +113,11 @@
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUICheckbox.h" />
     <ClInclude Include="GUIDropDownBox.h" />
+    <ClInclude Include="GUIDropDownMenu.h" />
     <ClInclude Include="GUIFrame.h" />
     <ClInclude Include="GUIManager.h" />
+    <ClInclude Include="GUIMarkingMenu.h" />
+    <ClInclude Include="GUIMarkingMenuNode.h" />
     <ClInclude Include="GUIObject.h" />
     <ClInclude Include="GUIProgressBar.h" />
     <ClInclude Include="GUIRadioButton.h" />
