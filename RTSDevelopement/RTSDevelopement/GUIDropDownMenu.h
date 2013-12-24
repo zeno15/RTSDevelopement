@@ -9,7 +9,7 @@
 class GUIDropDownMenu : public GUIObject
 {
 public:
-	GUIDropDownMenu(std::string _text, sf::Vector2f _position, float _length);
+	GUIDropDownMenu(std::string _text, sf::Vector2f _position, float _length, bool _isRoot = false);
 	~GUIDropDownMenu(void);
 
 	virtual void update(sf::Time _delta);
@@ -18,30 +18,35 @@ public:
 
 	void addSubMenu(GUIDropDownMenu *_subMenu);
 
-	void activate(void);
+	void rootFinaliseMenuPositions(void);
 
 private:
-	enum mouseState {NORMAL,
-					 HOVER};
+	void extend(void);
 
-	void setState(mouseState _state);
+	enum menuState {NORMAL,
+					HOVER,
+					EXTEND};
 
-	void setNormalColour(void);
-	void setHoverColour(void);
+	void setState(menuState _state);
+
+	void findExtensionPosition(void);
+
 
 private:
 	std::vector<GUIDropDownMenu *>				m_SubMenus;
 
+	sf::VertexArray								m_MenuBackground;
+	sf::Text									m_Text;
+
 	sf::Vector2f								m_Position;
-	sf::VertexArray								m_BackgroundQuads;
-	sf::VertexArray								m_SubMenuArrows;
-	sf::VertexArray								m_SubMenuBackground;
-	sf::Text									m_Description;
+	sf::Vector2f								m_ExtendPosition;
 
-	bool										m_Activated;
-	bool										m_IsChild;
+	menuState									m_State;
 
-	mouseState									m_State;
+	float										m_Length;
+
+	bool										m_Extended;
+	bool										m_IsRoot;
 };
 
 #endif //~ INCLUDED_GUIDROPDOWNMENU_H

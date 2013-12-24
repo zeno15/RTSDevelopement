@@ -7,6 +7,10 @@
 #include "InputManager.h"
 #include "GUIManager.h"
 #include "DebugManager.h"
+#include "WorldObjectManager.h"
+#include "TextureManager.h"
+
+#include "World.h"
 
 class Game
 {
@@ -29,15 +33,13 @@ public:
 	InputManager									m_InputManager;
 	GUIManager										m_GUIManager;
 	DebugManager									m_DebugManager;
+	WorldObjectManager								m_WorldObjectManager;
+	TextureManager									m_TextureManager;
+
+	World											m_World;
 
 	bool											m_Running;
 
-	bool											m_ButtonTest;
-	bool											m_CheckboxTest;
-	float 											m_SliderTest;
-	float											m_SliderTest2;
-
-	void buttonActivated(void);
 private:
     Game(void);
     ~Game(void);
@@ -47,7 +49,12 @@ private:
 	void handleEvents(void);
 };
 
-#define sGame Game::instance()
-#define sDebug sGame.m_DebugManager
+#define sGame			Game::instance()
+#define sDebug			sGame.m_DebugManager
+#define sFont			sGame.m_FontManager
+#define sTexture		sGame.m_TextureManager
+#define sGUI			sGame.m_GUIManager
+#define sInput			sGame.m_InputManager
+#define sWorldObj		sGame.m_WorldObjectManager
 
 #endif //~ INCLUDED_GAME_H

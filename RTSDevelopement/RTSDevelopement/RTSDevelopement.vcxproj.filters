@@ -43,6 +43,21 @@
     <Filter Include="Source Files\Misc">
       <UniqueIdentifier>{1a85a9da-fab8-4b1b-9970-f414218c0cce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\World Objects">
+      <UniqueIdentifier>{989742eb-4162-4f80-8f75-0e28f83833b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World Objects">
+      <UniqueIdentifier>{589fbd2e-f68d-403d-af89-50b82ddbc7d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World">
+      <UniqueIdentifier>{8d0407f7-bd04-4b39-b103-2c6f503c758b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World">
+      <UniqueIdentifier>{bc23348a-7914-4c4d-8e5c-e1928b71cd0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Maps">
+      <UniqueIdentifier>{a693c8a4-f396-4214-addb-470b97d1912a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -102,11 +117,23 @@
     <ClCompile Include="GUIMarkingMenu.cpp">
       <Filter>Source Files\GUI Components</Filter>
     </ClCompile>
-    <ClCompile Include="GUIMarkingMenuNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GUIDropDownMenu.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GUI Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIMarkingMenuNode.cpp">
+      <Filter>Source Files\GUI Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldObject.cpp">
+      <Filter>Source Files\World Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldObjectManager.cpp">
+      <Filter>Source Files\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldDataTables.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files\World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,11 +191,23 @@
     <ClInclude Include="GUIMarkingMenu.h">
       <Filter>Header Files\GUI Components</Filter>
     </ClInclude>
-    <ClInclude Include="GUIMarkingMenuNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GUIDropDownMenu.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GUI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIMarkingMenuNode.h">
+      <Filter>Header Files\GUI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldObject.h">
+      <Filter>Header Files\World Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldObjectManager.h">
+      <Filter>Header Files\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldDataTables.h">
+      <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Header Files\World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -210,5 +249,10 @@
     <Text Include="Notes.txt">
       <Filter>Resource Files\Data</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\Tilesheet.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

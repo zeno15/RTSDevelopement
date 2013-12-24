@@ -105,6 +105,10 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="WorldDataTables.cpp" />
+    <ClCompile Include="WorldObject.cpp" />
+    <ClCompile Include="WorldObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugManager.h" />
@@ -127,6 +131,10 @@
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="World.h" />
+    <ClInclude Include="WorldDataTables.h" />
+    <ClInclude Include="WorldObject.h" />
+    <ClInclude Include="WorldObjectManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Fonts\OpenSans-Bold.ttf" />
@@ -143,6 +151,9 @@
   <ItemGroup>
     <Text Include="Changes.txt" />
     <Text Include="Notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\Tilesheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

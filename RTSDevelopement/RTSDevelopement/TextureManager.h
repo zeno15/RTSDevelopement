@@ -9,8 +9,8 @@ public:
 	TextureManager(void);
 	~TextureManager(void);
 
-	enum TextureID {
-				 NUMTEXTURES};
+	enum TextureID {TILESHEET,
+					NUMTEXTURES};
 
 	void loadAllTextures(void);
 	void unloadAllTextures(void);
