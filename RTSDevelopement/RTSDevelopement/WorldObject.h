@@ -2,11 +2,14 @@
 #define INCLUDED_WORLDOBJECT_H
 
 #include <SFML/Graphics.hpp>
+#include <vector>
+
+class CollisionCell;
 
 class WorldObject : public sf::Drawable
 {
 public:
-	enum ObjectType {NUMTYPES};
+	enum ObjectType {TEST, NUMTYPES};
 
 	WorldObject(ObjectType _type, sf::Vector2f _position, sf::Vector2f _size);
 	~WorldObject(void);
@@ -22,13 +25,17 @@ public:
 	void kill(void);
 	bool isAlive(void);
 
+	std::vector<CollisionCell *> *getTouchingCells(void);
+
 protected:
 	ObjectType									m_WorldObjectType;
 
 	sf::Vector2f								m_WorldObjectPosition;
 	sf::Vector2f								m_WorldObjectSize;
 
-	bool										m_Alive;					
+	bool										m_Alive;		
+
+	std::vector<CollisionCell *>				m_TouchingCells;
 
 };
 

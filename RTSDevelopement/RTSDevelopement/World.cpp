@@ -1,6 +1,6 @@
 #include "World.h"
 
-#define WORLD_SCROLL_SPEED 400.0f
+#define WORLD_SCROLL_SPEED 100.0f
 
 #include "Game.h"
 
@@ -11,6 +11,7 @@ World::World(void) :
 
 World::~World(void)
 {
+	m_CollisionGrid.~CollisionGrid();
 }
 
 
@@ -46,6 +47,8 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 	_states.texture = sTexture.getTexture(TextureManager::TextureID::TILESHEET);
 
 	_target.draw(m_MapBackgroundVertices,		_states);
+
+	_target.draw(m_CollisionGrid,				_states);
 }
 
 void World::load(std::string _filename)
@@ -55,6 +58,7 @@ void World::load(std::string _filename)
 	map.loadFromFile(_filename);
 
 	m_MapTileDimensions = map.getSize();
+	m_CollisionGrid.setCollisionArea(m_MapTileDimensions);
 
 	for (unsigned int i = 0; i < m_MapTileDimensions.y; i += 1)
 	{

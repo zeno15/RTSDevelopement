@@ -84,6 +84,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionCell.cpp" />
+    <ClCompile Include="CollisionGrid.cpp" />
     <ClCompile Include="DebugManager.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -104,6 +106,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
+    <ClCompile Include="TestWorldObject.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="WorldDataTables.cpp" />
@@ -111,6 +114,8 @@
     <ClCompile Include="WorldObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CollisionCell.h" />
+    <ClInclude Include="CollisionGrid.h" />
     <ClInclude Include="DebugManager.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
@@ -130,6 +135,7 @@
     <ClInclude Include="GUITextBox.h" />
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="TestWorldObject.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WorldDataTables.h" />
@@ -153,6 +159,7 @@
     <Text Include="Notes.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Maps\map1.png" />
     <Image Include="Resources\Textures\Tilesheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

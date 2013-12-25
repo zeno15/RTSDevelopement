@@ -1,6 +1,8 @@
 #include "Game.h"
 
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 #include "GUIButton.h"
 #include "GUISlider.h"
@@ -12,6 +14,8 @@
 #include "GUIMarkingMenu.h"
 #include "GUIDropDownMenu.h"
 
+#include "TestWorldObject.h"
+
 Game::Game(void)
 {
 }
@@ -22,12 +26,16 @@ Game::~Game(void)
 	m_FontManager.unloadAllFonts();
 	m_TextureManager.unloadAllTextures();
 	m_GUIManager.~GUIManager(); //~ Just so the pointer analysis is valid
+	m_WorldObjectManager.~WorldObjectManager();
+	m_World.~World();
 
 	sDebug.analysePointers();
 }
 
 void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 {
+	srand((unsigned int)time(nullptr));
+
 	m_ScreenSize = _screenSize;
 	
 	
@@ -41,6 +49,8 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 
 	m_World.setInterfaceSized(200.0f, 20.0f);
 	m_World.load("Resources/Maps/map1.png");
+
+	sInput.registerButton(sf::Mouse::Left);
 		
 	run();
 }
@@ -57,6 +67,14 @@ void Game::run(void)
 		m_World.update(clock.getElapsedTime());
 		sGUI.update(clock.getElapsedTime());
 		sWorldObj.update(clock.getElapsedTime());
+
+		if (!sInput.getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			sf::Vector2f offset(m_View.getCenter() - m_View.getSize() / 2.0f);
+			TestWorldObject *newTest = new TestWorldObject(WorldObject::ObjectType::TEST, sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y)) + offset, sf::Vector2f(32.0f, 32.0f));
+			mDebugNew(newTest);
+			sWorldObj.addWorldObject(newTest);
+		}
 
 		handleEvents();
 

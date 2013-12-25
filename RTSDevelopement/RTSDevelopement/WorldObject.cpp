@@ -35,3 +35,8 @@ bool WorldObject::isAlive(void)
 {
 	return m_Alive;
 }
+
+std::vector<CollisionCell *> *WorldObject::getTouchingCells(void)
+{
+	return &m_TouchingCells;
+}

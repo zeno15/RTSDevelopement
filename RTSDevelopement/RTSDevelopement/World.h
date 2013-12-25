@@ -9,6 +9,7 @@
 #include <string>
 
 #include "WorldDataTables.h"
+#include "CollisionGrid.h"
 
 class World : public sf::Drawable
 {
@@ -30,6 +31,8 @@ private:
 
 private:
 	WorldDataTables								m_WorldDataTables;
+
+	CollisionGrid								m_CollisionGrid;
 
 	sf::VertexArray								m_MapBackgroundVertices;
 

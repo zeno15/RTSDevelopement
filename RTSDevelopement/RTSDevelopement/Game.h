@@ -56,5 +56,6 @@ private:
 #define sGUI			sGame.m_GUIManager
 #define sInput			sGame.m_InputManager
 #define sWorldObj		sGame.m_WorldObjectManager
+#define sWorld			sGame.m_World
 
 #endif //~ INCLUDED_GAME_H

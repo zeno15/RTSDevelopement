@@ -135,6 +135,15 @@
     <ClCompile Include="World.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
+    <ClCompile Include="TestWorldObject.cpp">
+      <Filter>Source Files\World Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionCell.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionGrid.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -209,6 +218,15 @@
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
+    <ClInclude Include="TestWorldObject.h">
+      <Filter>Header Files\World Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionCell.h">
+      <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionGrid.h">
+      <Filter>Header Files\World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Fonts\OpenSans-Bold.ttf">
@@ -253,6 +271,9 @@
   <ItemGroup>
     <Image Include="Resources\Textures\Tilesheet.png">
       <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Maps\map1.png">
+      <Filter>Resource Files\Maps</Filter>
     </Image>
   </ItemGroup>
 </Project>
