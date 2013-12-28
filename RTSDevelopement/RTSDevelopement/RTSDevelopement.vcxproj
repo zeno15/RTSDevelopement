@@ -106,6 +106,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
+    <ClCompile Include="TestRandomWanderer.cpp" />
     <ClCompile Include="TestWorldObject.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="World.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="GUITextBox.h" />
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="TestRandomWanderer.h" />
     <ClInclude Include="TestWorldObject.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="World.h" />

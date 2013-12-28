@@ -6,10 +6,22 @@
 
 class CollisionCell;
 
+
+
 class WorldObject : public sf::Drawable
 {
 public:
 	enum ObjectType {TEST, NUMTYPES};
+	enum MovementDirection {NORTH,
+							NORTH_EAST,
+							EAST,
+							SOUTH_EAST,
+							SOUTH,
+							SOUTH_WEST,
+							WEST,
+							NORTH_WEST,
+							NONE,
+							NUM_DIRECTIONS};
 
 	WorldObject(ObjectType _type, sf::Vector2f _position, sf::Vector2f _size);
 	~WorldObject(void);
@@ -25,6 +37,8 @@ public:
 	void kill(void);
 	bool isAlive(void);
 
+	void updateCollisions(void);
+
 	std::vector<CollisionCell *> *getTouchingCells(void);
 
 protected:
@@ -32,6 +46,8 @@ protected:
 
 	sf::Vector2f								m_WorldObjectPosition;
 	sf::Vector2f								m_WorldObjectSize;
+
+	float										m_WorldObjectSpeed;
 
 	bool										m_Alive;		
 

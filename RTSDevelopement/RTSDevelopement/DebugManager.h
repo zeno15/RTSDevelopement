@@ -1,6 +1,7 @@
 #ifndef INCLUDED_DEBUGMANAGER_H
 #define INCLUDED_DEBUGMANAGER_H
 
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -25,6 +26,10 @@ public:
 private:
 	std::vector<std::pair<unsigned int, std::string>>						m_InitialisedPointers;
 	std::vector<unsigned int>												m_DeletedPointers;
+
+	std::vector<float>														m_FrameTimes;
+	unsigned int															m_FrameIndex;
+	sf::Text																m_FPSText;
 
 };
 

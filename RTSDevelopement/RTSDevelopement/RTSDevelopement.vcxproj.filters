@@ -144,6 +144,9 @@
     <ClCompile Include="CollisionGrid.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
+    <ClCompile Include="TestRandomWanderer.cpp">
+      <Filter>Source Files\World Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="CollisionGrid.h">
       <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="TestRandomWanderer.h">
+      <Filter>Header Files\World Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

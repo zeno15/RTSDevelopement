@@ -1,5 +1,6 @@
 #include "WorldObject.h"
 
+#include "Game.h"
 
 WorldObject::WorldObject(ObjectType _type, sf::Vector2f _position, sf::Vector2f _size) :
 	m_WorldObjectType(_type),
@@ -34,6 +35,11 @@ void WorldObject::kill(void)
 bool WorldObject::isAlive(void)
 {
 	return m_Alive;
+}
+
+void WorldObject::updateCollisions(void)
+{
+	sWorld.m_CollisionGrid.updateTouchingCells(this);
 }
 
 std::vector<CollisionCell *> *WorldObject::getTouchingCells(void)

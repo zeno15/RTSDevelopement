@@ -15,6 +15,7 @@
 #include "GUIDropDownMenu.h"
 
 #include "TestWorldObject.h"
+#include "TestRandomWanderer.h"
 
 Game::Game(void)
 {
@@ -71,7 +72,7 @@ void Game::run(void)
 		if (!sInput.getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			sf::Vector2f offset(m_View.getCenter() - m_View.getSize() / 2.0f);
-			TestWorldObject *newTest = new TestWorldObject(WorldObject::ObjectType::TEST, sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y)) + offset, sf::Vector2f(32.0f, 32.0f));
+			TestRandomWanderer *newTest = new TestRandomWanderer(WorldObject::ObjectType::TEST, sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y)) + offset, sf::Vector2f(32.0f, 32.0f));
 			mDebugNew(newTest);
 			sWorldObj.addWorldObject(newTest);
 		}

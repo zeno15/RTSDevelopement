@@ -29,11 +29,12 @@ private:
 
 	void ensureMapWithinBounds(void);
 
-private:
+public:
 	WorldDataTables								m_WorldDataTables;
 
 	CollisionGrid								m_CollisionGrid;
 
+private:
 	sf::VertexArray								m_MapBackgroundVertices;
 
 	sf::Vector2u								m_MapTileDimensions;

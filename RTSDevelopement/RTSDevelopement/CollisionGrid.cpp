@@ -67,7 +67,7 @@ void CollisionGrid::updateTouchingCells(WorldObject *_wObj)
 	{
 		for (float j = wObjBounds.left; j < wObjBounds.left + wObjBounds.width; j += m_CellSize.x)
 		{
-			wObjCurrentCells->push_back(m_Cells.at((unsigned int)(i * (unsigned int)((float)(m_CollisionArea.x) / m_CellSize.x) + j)));
+			wObjCurrentCells->push_back(m_Cells.at((unsigned int)(i / m_CellSize.y) * (unsigned int)(m_CollisionArea.x / m_CellSize.x) + (unsigned int)(j / m_CellSize.x)));
 		}
 	}
 }
