@@ -28,6 +28,7 @@ sf::FloatRect CollisionCell::getBounds(void)
 void CollisionCell::addWorldObject(WorldObject *_wObj)
 {
 	m_TouchingWorldObjects.push_back(_wObj);
+	m_Rectangle.setOutlineColor(sf::Color::Red);
 }
 void CollisionCell::removeWorldObject(WorldObject *_wObj)
 {
@@ -36,7 +37,32 @@ void CollisionCell::removeWorldObject(WorldObject *_wObj)
 		if (m_TouchingWorldObjects.at(i) == _wObj)
 		{
 			m_TouchingWorldObjects.erase(m_TouchingWorldObjects.begin() + i);
-			return;
+			break;
 		}
 	}
+
+	if (m_TouchingWorldObjects.size() == 0)
+	{
+		m_Rectangle.setOutlineColor(sf::Color::White);
+	}
+}
+
+bool CollisionCell::checkCollisionsWithin(std::vector<WorldObject *> *_outputCollisions, WorldObject *_wObj)
+{
+	sf::FloatRect objectBounds = _wObj->getBounds();
+
+	bool collision = false;
+
+	for (unsigned int i = 0; i < m_TouchingWorldObjects.size(); i += 1)
+	{
+		if (m_TouchingWorldObjects.at(i) == _wObj) continue;
+
+		if (objectBounds.intersects(m_TouchingWorldObjects.at(i)->getBounds()))
+		{
+			collision = true;
+			_outputCollisions->push_back(m_TouchingWorldObjects.at(i));
+		}
+	}
+
+	return collision;
 }

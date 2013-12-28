@@ -1,13 +1,24 @@
 #include "DebugManager.h"
 
+#include "Game.h"
 
-DebugManager::DebugManager(void)
+#define DEBUGMANAGER_FRAME_RECALL		10
+
+DebugManager::DebugManager(void) :
+	m_FrameIndex(0),
+	m_FrameTimes(DEBUGMANAGER_FRAME_RECALL, 0.0f)
+{
+}
+
+DebugManager::~DebugManager(void)
 {
 }
 
 
-DebugManager::~DebugManager(void)
+void DebugManager::initialise(void)
 {
+	m_FPSText = sf::Text("00 FPS", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 20);
+	
 }
 
 void DebugManager::calledNew(void * _object, std::string _file, int _line)
@@ -65,4 +76,29 @@ void DebugManager::analysePointers(void)
 		getchar();
 	}
 	#endif //~ _DEBUG
+}
+
+void DebugManager::update(sf::Time _delta)
+{
+	m_FrameTimes.at(m_FrameIndex) = _delta.asSeconds();
+
+	m_FrameIndex += 1;
+	if (m_FrameIndex >= DEBUGMANAGER_FRAME_RECALL) 
+	{
+		m_FrameIndex = 0;
+		float total = 0.0f;
+		for (unsigned int i = 0; i < m_FrameTimes.size(); i += 1)
+		{
+			total += m_FrameTimes.at(i);
+		}
+		m_FPSText.setString(std::to_string(1.0f / (total / (float)DEBUGMANAGER_FRAME_RECALL)) + " FPS");
+	}
+}
+void DebugManager::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
+{
+	_target.setView(sGame.m_Window.getDefaultView());
+
+	_target.draw(m_FPSText,			_states);
+
+	_target.setView(sGame.m_View);
 }

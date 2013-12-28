@@ -48,6 +48,8 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_FontManager.loadAllFonts();
 	m_TextureManager.loadAllTextures();
 
+	m_DebugManager.initialise();
+
 	m_World.setInterfaceSized(200.0f, 20.0f);
 	m_World.load("Resources/Maps/map1.png");
 
@@ -63,11 +65,12 @@ void Game::run(void)
 	sf::Clock clock;
 	while (m_Running)
 	{
-		sf::sleep(sf::milliseconds(10));
+		//sf::sleep(sf::milliseconds(10));
 
 		m_World.update(clock.getElapsedTime());
 		sGUI.update(clock.getElapsedTime());
 		sWorldObj.update(clock.getElapsedTime());
+		sDebug.update(clock.getElapsedTime());
 
 		if (!sInput.getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
@@ -84,9 +87,10 @@ void Game::run(void)
 		m_Window.setView(m_View);
 		m_Window.clear(sf::Color(25, 25, 25, 255));
 
-		m_Window.draw(m_World);
+		m_Window.draw(sWorld);
 		m_Window.draw(sWorldObj);
 		m_Window.draw(sGUI);
+		m_Window.draw(sDebug);
 
 		m_Window.display();
 	}

@@ -27,6 +27,10 @@ sf::Vector2f WorldObject::getSize(void)
 {
 	return m_WorldObjectSize;
 }
+sf::FloatRect WorldObject::getBounds(void)
+{
+	return sf::FloatRect(m_WorldObjectPosition - m_WorldObjectSize / 2.0f, m_WorldObjectSize);
+}
 
 void WorldObject::kill(void)
 {

@@ -57,17 +57,23 @@ void CollisionGrid::draw(sf::RenderTarget &_target, sf::RenderStates _states) co
 
 void CollisionGrid::updateTouchingCells(WorldObject *_wObj)
 {
-	sf::FloatRect wObjBounds = sf::FloatRect(_wObj->getPosition(), _wObj->getSize());
+	sf::FloatRect wObjBounds = sf::FloatRect(_wObj->getPosition() - _wObj->getSize() / 2.0f, _wObj->getSize());
 
 	std::vector<CollisionCell *> *wObjCurrentCells = _wObj->getTouchingCells();
 
+	for (unsigned int i = 0; i < wObjCurrentCells->size(); i += 1)
+	{
+		wObjCurrentCells->at(i)->removeWorldObject(_wObj);
+	}
+
 	wObjCurrentCells->clear();
 
-	for (float i = wObjBounds.top; i < wObjBounds.top + wObjBounds.height; i += m_CellSize.y)
+	for (float i = wObjBounds.top; i <= wObjBounds.top + wObjBounds.height; i += wObjBounds.height)
 	{
-		for (float j = wObjBounds.left; j < wObjBounds.left + wObjBounds.width; j += m_CellSize.x)
+		for (float j = wObjBounds.left; j <= wObjBounds.left + wObjBounds.width; j += wObjBounds.width)
 		{
 			wObjCurrentCells->push_back(m_Cells.at((unsigned int)(i / m_CellSize.y) * (unsigned int)(m_CollisionArea.x / m_CellSize.x) + (unsigned int)(j / m_CellSize.x)));
+			wObjCurrentCells->back()->addWorldObject(_wObj);
 		}
 	}
 }
@@ -75,4 +81,20 @@ void CollisionGrid::updateTouchingCells(WorldObject *_wObj)
 sf::Vector2u CollisionGrid::pixelsToCells(sf::Vector2f _pixelCoordinates)
 {
 	return sf::Vector2u((unsigned int)(_pixelCoordinates.x / m_CellSize.x), (unsigned int)(_pixelCoordinates.y / m_CellSize.y));
+}
+
+bool CollisionGrid::checkCollisions(std::vector<WorldObject *> *_outputCollisions, WorldObject *_wObj)
+{
+	std::vector<CollisionCell *> *collisionCells = _wObj->getTouchingCells();
+
+	bool collisions = false;
+
+	for (unsigned int i = 0; i < collisionCells->size(); i += 1)
+	{
+		if (collisionCells->at(i)->checkCollisionsWithin(_outputCollisions, _wObj))
+		{
+			collisions = true;
+		}
+	}
+	return collisions;
 }

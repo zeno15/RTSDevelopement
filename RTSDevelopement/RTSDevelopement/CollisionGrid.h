@@ -17,6 +17,8 @@ public:
 
 	void updateTouchingCells(WorldObject *_wObj);
 
+	bool checkCollisions(std::vector<WorldObject *> *_outputCollisions, WorldObject *_wObj);
+
 private:
 	sf::Vector2u pixelsToCells(sf::Vector2f _pixelCoordinates);
 

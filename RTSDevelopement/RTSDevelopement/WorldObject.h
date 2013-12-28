@@ -11,7 +11,8 @@ class CollisionCell;
 class WorldObject : public sf::Drawable
 {
 public:
-	enum ObjectType {TEST, NUMTYPES};
+	enum ObjectType {TEST, 
+					 NUMTYPES};
 	enum MovementDirection {NORTH,
 							NORTH_EAST,
 							EAST,
@@ -33,6 +34,7 @@ public:
 
 	sf::Vector2f getPosition(void);
 	sf::Vector2f getSize(void);
+	sf::FloatRect getBounds(void);
 
 	void kill(void);
 	bool isAlive(void);

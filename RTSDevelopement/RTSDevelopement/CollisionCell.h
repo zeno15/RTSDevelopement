@@ -19,6 +19,8 @@ public:
 	void addWorldObject(WorldObject *_wObj);
 	void removeWorldObject(WorldObject *_wObj);
 
+	bool checkCollisionsWithin(std::vector<WorldObject *> *_outputCollisions, WorldObject *_wObj);
+
 private:
 	sf::FloatRect					m_Bounds;
 

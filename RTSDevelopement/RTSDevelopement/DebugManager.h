@@ -9,11 +9,13 @@
 #define mDebugNew(X) sGame.m_DebugManager.calledNew(X, __FILE__, __LINE__);
 #define mDebugDelete(X) sGame.m_DebugManager.calledDelete(X);
 
-class DebugManager
+class DebugManager : public sf::Drawable
 {
 public:
 	DebugManager(void);
 	~DebugManager(void);
+
+	void initialise(void);
 
 	void calledNew(void * _object, std::string _file, int _line);
 	void calledDelete(void *_object);
@@ -22,6 +24,9 @@ public:
 	
 	void log(std::string _text);
 	void logError(std::string _text);
+
+	virtual void update(sf::Time _delta);	
+	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const;
 
 private:
 	std::vector<std::pair<unsigned int, std::string>>						m_InitialisedPointers;

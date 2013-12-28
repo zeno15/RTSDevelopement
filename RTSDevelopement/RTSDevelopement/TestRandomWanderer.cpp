@@ -53,6 +53,7 @@ void TestRandomWanderer::update(sf::Time _delta)
 		}
 		move(m_MovementDirection, _delta);
 	}
+
 }	
 void TestRandomWanderer::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
@@ -64,6 +65,20 @@ void TestRandomWanderer::move(WorldObject::MovementDirection _dir, sf::Time _del
 	m_WorldObjectPosition += getUnitVector(_dir) * _delta.asSeconds() * m_WorldObjectSpeed;
 	m_Rectangle.setPosition(m_WorldObjectPosition);
 	updateCollisions();
+
+	std::vector<WorldObject *> collidedWorldObjects = std::vector<WorldObject *>();
+
+	sWorld.m_CollisionGrid.checkCollisions(&collidedWorldObjects, this);
+
+	if (collidedWorldObjects.size() > 0)
+	{
+		m_Rectangle.setOutlineThickness(2.0f);
+		m_Rectangle.setOutlineColor(sf::Color::Green);
+	}
+	else
+	{
+		m_Rectangle.setOutlineThickness(0.0f);
+	}
 }
 
 sf::Vector2f TestRandomWanderer::getUnitVector(WorldObject::MovementDirection _dir)
