@@ -19,6 +19,8 @@ public:
 
 	WorldObject *getObject(unsigned int _index);
 
+	unsigned int getWorldObjectCount(void);
+
 private:
 	std::vector<WorldObject *>					m_WorldObjects;
 

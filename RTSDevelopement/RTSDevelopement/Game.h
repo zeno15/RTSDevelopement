@@ -2,6 +2,7 @@
 #define INCLUDED_GAME_H
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 #include "FontManager.h"
 #include "InputManager.h"
@@ -11,6 +12,8 @@
 #include "TextureManager.h"
 
 #include "World.h"
+
+#include "PathfindingNode.h"
 
 class Game
 {
@@ -37,6 +40,8 @@ public:
 	TextureManager									m_TextureManager;
 
 	World											m_World;
+
+	std::vector<PathfindingNode *>					DEBUG_PathNodes;
 
 	bool											m_Running;
 

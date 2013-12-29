@@ -35,6 +35,7 @@ private:
 	std::vector<float>														m_FrameTimes;
 	unsigned int															m_FrameIndex;
 	sf::Text																m_FPSText;
+	sf::Text																m_WorldObjectCountText;
 
 };
 

@@ -2,7 +2,7 @@
 
 #include "Game.h"
 
-#define DEBUGMANAGER_FRAME_RECALL		10
+#define DEBUGMANAGER_FRAME_RECALL		100
 
 DebugManager::DebugManager(void) :
 	m_FrameIndex(0),
@@ -18,7 +18,8 @@ DebugManager::~DebugManager(void)
 void DebugManager::initialise(void)
 {
 	m_FPSText = sf::Text("00 FPS", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 20);
-	
+	m_WorldObjectCountText = sf::Text("00 World Objects", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 20);
+	m_WorldObjectCountText.setPosition(0.0f, 20.0f);
 }
 
 void DebugManager::calledNew(void * _object, std::string _file, int _line)
@@ -92,6 +93,8 @@ void DebugManager::update(sf::Time _delta)
 			total += m_FrameTimes.at(i);
 		}
 		m_FPSText.setString(std::to_string(1.0f / (total / (float)DEBUGMANAGER_FRAME_RECALL)) + " FPS");
+
+		m_WorldObjectCountText.setString(std::to_string(sGame.m_WorldObjectManager.getWorldObjectCount()) + " World Objects");
 	}
 }
 void DebugManager::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
@@ -99,6 +102,7 @@ void DebugManager::draw(sf::RenderTarget &_target, sf::RenderStates _states) con
 	_target.setView(sGame.m_Window.getDefaultView());
 
 	_target.draw(m_FPSText,			_states);
-
+	_target.draw(m_WorldObjectCountText,			_states);
+	
 	_target.setView(sGame.m_View);
 }

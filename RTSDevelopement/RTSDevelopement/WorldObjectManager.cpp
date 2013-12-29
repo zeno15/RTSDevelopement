@@ -47,3 +47,7 @@ WorldObject *WorldObjectManager::getObject(unsigned int _index)
 {
 	return m_WorldObjects.at(_index);
 }
+unsigned int WorldObjectManager::getWorldObjectCount(void)
+{
+	return m_WorldObjects.size();
+}

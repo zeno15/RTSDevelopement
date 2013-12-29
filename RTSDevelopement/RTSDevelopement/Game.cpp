@@ -74,10 +74,30 @@ void Game::run(void)
 
 		if (!sInput.getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			sf::Vector2f offset(m_View.getCenter() - m_View.getSize() / 2.0f);
+			/*sf::Vector2f offset(m_View.getCenter() - m_View.getSize() / 2.0f);
 			TestRandomWanderer *newTest = new TestRandomWanderer(WorldObject::ObjectType::TEST, sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y)) + offset, sf::Vector2f(32.0f, 32.0f));
 			mDebugNew(newTest);
-			sWorldObj.addWorldObject(newTest);
+			sWorldObj.addWorldObject(newTest);*/
+
+			PathfindingNode *newPathNode = nullptr;
+
+			sf::Vector2u mousePos = sf::Vector2u(((unsigned int)(sf::Mouse::getPosition(m_Window).x) / 32u) * 32u, ((unsigned int)(sf::Mouse::getPosition(m_Window).y) / 32u) * 32u);
+			std::cout << "Mouse pos x: " << mousePos.x << ", y: " << mousePos.y << std::endl;
+			if (DEBUG_PathNodes.size() == 0)
+			{
+				newPathNode = new PathfindingNode(mousePos, mousePos, nullptr);
+			}
+			else
+			{
+				newPathNode = new PathfindingNode(mousePos, mousePos, DEBUG_PathNodes.back());
+			}
+
+			for (PathfindingNode *node : DEBUG_PathNodes)
+			{
+				node->changePathEnd(mousePos);
+			}
+
+			DEBUG_PathNodes.push_back(newPathNode);
 		}
 
 		handleEvents();
@@ -91,6 +111,11 @@ void Game::run(void)
 		m_Window.draw(sWorldObj);
 		m_Window.draw(sGUI);
 		m_Window.draw(sDebug);
+
+		for (PathfindingNode *node : DEBUG_PathNodes)
+		{
+			m_Window.draw(*node);
+		}
 
 		m_Window.display();
 	}

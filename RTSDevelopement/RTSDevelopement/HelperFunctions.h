@@ -1,7 +1,9 @@
 #ifndef INCLUDED_HELPERFUNCTIONS_H
 #define INCLUDED_HELPERFUNCTIONS_H
 
-#define PI 3.14159265359f
+#define PI					3.14159265359f
+#define TO_RADIANS			PI / 180.0f
+#define TO_DEGREES			180.0f / PI
 
 #include <SFML/System/Vector2.hpp>
 #include <cmath>

@@ -106,6 +106,8 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
+    <ClCompile Include="PathfindingGrid.cpp" />
+    <ClCompile Include="PathfindingNode.cpp" />
     <ClCompile Include="TestRandomWanderer.cpp" />
     <ClCompile Include="TestWorldObject.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -136,6 +138,8 @@
     <ClInclude Include="GUITextBox.h" />
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="PathfindingGrid.h" />
+    <ClInclude Include="PathfindingNode.h" />
     <ClInclude Include="TestRandomWanderer.h" />
     <ClInclude Include="TestWorldObject.h" />
     <ClInclude Include="TextureManager.h" />

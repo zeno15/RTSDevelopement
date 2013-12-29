@@ -17,7 +17,7 @@ TestRandomWanderer::TestRandomWanderer(ObjectType _type, sf::Vector2f _position,
 	m_Rectangle.setFillColor(sf::Color(rand() % 255, rand() % 255, rand() % 255, 255));
 	m_Rectangle.setOrigin(_size.x / 2.0f, _size.y / 2.0f);
 	m_Rectangle.setPosition(_position);
-
+	m_Rectangle.setOutlineColor(sf::Color::Green);
 }
 
 TestRandomWanderer::~TestRandomWanderer(void)
@@ -51,6 +51,14 @@ void TestRandomWanderer::update(sf::Time _delta)
 		{
 			m_MovementDirection = SOUTH;
 		}
+		if (m_WorldObjectPosition.x > sGame.m_ScreenSize.x)
+		{
+			m_MovementDirection = WEST;
+		}
+		else if (m_WorldObjectPosition.y > sGame.m_ScreenSize.y)
+		{
+			m_MovementDirection = NORTH;
+		}
 		move(m_MovementDirection, _delta);
 	}
 
@@ -73,7 +81,6 @@ void TestRandomWanderer::move(WorldObject::MovementDirection _dir, sf::Time _del
 	if (collidedWorldObjects.size() > 0)
 	{
 		m_Rectangle.setOutlineThickness(2.0f);
-		m_Rectangle.setOutlineColor(sf::Color::Green);
 	}
 	else
 	{
