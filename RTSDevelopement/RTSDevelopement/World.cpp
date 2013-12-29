@@ -67,6 +67,8 @@ void World::load(std::string _filename)
 			loadToVertex(sf::Vector2f(TILESIZE_f * j, TILESIZE_f * i), map.getPixel(j, i));
 		}
 	}
+
+	m_PathfindingGrid.initialise(sf::Vector2u(10, 10));
 }
 
 void World::loadToVertex(sf::Vector2f _position, sf::Color _colour)

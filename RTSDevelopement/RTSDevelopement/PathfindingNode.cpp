@@ -17,49 +17,31 @@ PathfindingNode::PathfindingNode(sf::Vector2u _gridPosition, sf::Vector2u _final
 	m_F_Text("0", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 8),
 	m_G_Text("0", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 8),
 	m_H_Text("0", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 8),
-	m_ParentPointerSprite(*sGame.m_TextureManager.getTexture(TextureManager::TextureID::TILESHEET), PATHFINDINGNODE_NONROOT_TEXTURE)
+	m_ParentPointer(sf::Lines, 0)
 {
 	m_Outline.setPosition((float)(m_PathfindingGridCoordinates.x) + 1.0f, (float)(m_PathfindingGridCoordinates.y) + 1.0f);
 	m_Outline.setFillColor(sf::Color::Transparent);
 	m_Outline.setOutlineColor(sf::Color::Blue);
 	m_Outline.setOutlineThickness(1.0f);
 	
+	
 
-	m_ParentPointerSprite.setOrigin(m_ParentPointerSprite.getGlobalBounds().width / 2.0f,
-									m_ParentPointerSprite.getGlobalBounds().height / 2.0f);
-
-	m_ParentPointerSprite.setPosition(m_Outline.getPosition() + sf::Vector2f(TILESIZE_f / 2.0f, TILESIZE_f / 2.0f));
-
-
-	if (m_ParentNode == nullptr)
+	if (m_ParentNode != nullptr)
 	{
-		m_ParentPointerSprite.setTextureRect(PATHFINDINGNODE_ROOT_TEXTURE);
+		m_ParentPointer.append(sf::Vertex(m_Outline.getPosition() + sf::Vector2f(TILESIZE_f / 2.0f, TILESIZE_f / 2.0f), sf::Color::Green));
+		m_ParentPointer.append(sf::Vertex(m_ParentPointer[0].position  - 0.5f * sf::Vector2f((float)(m_PathfindingGridCoordinates.x) - (float)(m_ParentNode->m_PathfindingGridCoordinates.x), 
+																							 (float)(m_PathfindingGridCoordinates.y) - (float)(m_ParentNode->m_PathfindingGridCoordinates.y)),
+										  sf::Color::Red));
 	}
-	else
-	{
-		float o = (float)(m_PathfindingGridCoordinates.y) - (float)(m_ParentNode->m_PathfindingGridCoordinates.y);
-		float a = (float)(m_PathfindingGridCoordinates.x) - (float)(m_ParentNode->m_PathfindingGridCoordinates.x);
-		float h = sqrtf(a * a + o * o);
 
-		if (o != 0.0f && a != 0.0f)
-		{
-			m_ParentPointerSprite.setRotation(TO_DEGREES * (atanf(o / a)));
-			std::cout << "T - Rotation: " << m_ParentPointerSprite.getRotation() << std::endl;
-		}
-		else if (o == 0.0f)
-		{
-			m_ParentPointerSprite.setRotation(TO_DEGREES * (acosf(a / h)));
-			std::cout << "A - Rotation: " << m_ParentPointerSprite.getRotation() << std::endl;
-		}
-		else 
-		{
-			m_ParentPointerSprite.setRotation(TO_DEGREES * (asinf(o / h)));
-			std::cout << "S - Roation: " << m_ParentPointerSprite.getRotation() << std::endl;
-		}
+	m_F_Text.setPosition(m_Outline.getPosition());
 
-		
-		
-	}
+	m_G_Text.setOrigin(m_G_Text.getGlobalBounds().left, m_G_Text.getGlobalBounds().top + m_G_Text.getGlobalBounds().height);
+	m_G_Text.setPosition(m_Outline.getPosition() + sf::Vector2f(0.0f, TILESIZE_f - 2.0f));
+
+	m_H_Text.setOrigin(m_H_Text.getGlobalBounds().left, m_H_Text.getGlobalBounds().top + m_H_Text.getGlobalBounds().height);
+	m_H_Text.setPosition(m_Outline.getPosition() + sf::Vector2f((TILESIZE_f - 2.0f) / 2.0f, TILESIZE_f - 2.0f));
+	m_H_Text.setColor(sf::Color(205, 205, 205, 255));
 
 	updateAndPositionText();
 }
@@ -73,10 +55,10 @@ PathfindingNode::~PathfindingNode(void)
 void PathfindingNode::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
 	_target.draw(m_Outline,					_states);
+	_target.draw(m_ParentPointer,			_states);
 	_target.draw(m_F_Text,					_states);
 	_target.draw(m_G_Text,					_states);
 	_target.draw(m_H_Text,					_states);
-	_target.draw(m_ParentPointerSprite,		_states);
 }
 
 void PathfindingNode::updateAndPositionText(void)
@@ -88,11 +70,11 @@ void PathfindingNode::updateAndPositionText(void)
 		if (m_ParentNode->m_PathfindingGridCoordinates.x == m_PathfindingGridCoordinates.x ||
 			m_ParentNode->m_PathfindingGridCoordinates.y == m_PathfindingGridCoordinates.y)
 		{
-			m_GValue = 10u;
+			m_GValue = 10u + m_ParentNode->m_GValue;
 		}
 		else
 		{
-			m_GValue = 14;
+			m_GValue = 14 + m_ParentNode->m_GValue;
 		}
 	}
 	else
@@ -103,16 +85,9 @@ void PathfindingNode::updateAndPositionText(void)
 
 	m_FValue = m_GValue + m_HValue;
 
-	m_F_Text.setPosition(m_Outline.getPosition());
 	m_F_Text.setString(std::to_string(m_FValue));
-
 	m_G_Text.setString(std::to_string(m_GValue));
-	m_G_Text.setOrigin(m_G_Text.getGlobalBounds().left, m_G_Text.getGlobalBounds().top + m_G_Text.getGlobalBounds().height);
-	m_G_Text.setPosition(m_Outline.getPosition() + sf::Vector2f(0.0f, TILESIZE_f - 2.0f));
-
 	m_H_Text.setString(std::to_string(m_HValue));
-	m_H_Text.setOrigin(m_H_Text.getGlobalBounds().left + m_H_Text.getGlobalBounds().width, m_H_Text.getGlobalBounds().top + m_H_Text.getGlobalBounds().height);
-	m_H_Text.setPosition(m_Outline.getPosition() + sf::Vector2f(TILESIZE_f - 2.0f, TILESIZE_f - 2.0f));
 }
 
 void PathfindingNode::changePathEnd(sf::Vector2u _finalGridPosition)
@@ -120,4 +95,9 @@ void PathfindingNode::changePathEnd(sf::Vector2u _finalGridPosition)
 	m_EndpointGridCoordinates = _finalGridPosition;
 
 	updateAndPositionText();
+}
+
+unsigned int PathfindingNode::getFValue(void)
+{
+	return m_FValue;
 }

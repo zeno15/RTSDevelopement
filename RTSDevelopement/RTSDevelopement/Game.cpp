@@ -53,7 +53,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_World.setInterfaceSized(200.0f, 20.0f);
 	m_World.load("Resources/Maps/map1.png");
 
-	sInput.registerButton(sf::Mouse::Left);
+	sInput.registerButton(sf::Mouse::Right);
 		
 	run();
 }
@@ -72,7 +72,7 @@ void Game::run(void)
 		sWorldObj.update(clock.getElapsedTime());
 		sDebug.update(clock.getElapsedTime());
 
-		if (!sInput.getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (!sInput.getButtonState(sf::Mouse::Right) && sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
 			/*sf::Vector2f offset(m_View.getCenter() - m_View.getSize() / 2.0f);
 			TestRandomWanderer *newTest = new TestRandomWanderer(WorldObject::ObjectType::TEST, sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y)) + offset, sf::Vector2f(32.0f, 32.0f));
@@ -82,7 +82,7 @@ void Game::run(void)
 			PathfindingNode *newPathNode = nullptr;
 
 			sf::Vector2u mousePos = sf::Vector2u(((unsigned int)(sf::Mouse::getPosition(m_Window).x) / 32u) * 32u, ((unsigned int)(sf::Mouse::getPosition(m_Window).y) / 32u) * 32u);
-			std::cout << "Mouse pos x: " << mousePos.x << ", y: " << mousePos.y << std::endl;
+			
 			if (DEBUG_PathNodes.size() == 0)
 			{
 				newPathNode = new PathfindingNode(mousePos, mousePos, nullptr);
@@ -111,7 +111,7 @@ void Game::run(void)
 		m_Window.draw(sWorldObj);
 		m_Window.draw(sGUI);
 		m_Window.draw(sDebug);
-
+		m_Window.setView(m_View);
 		for (PathfindingNode *node : DEBUG_PathNodes)
 		{
 			m_Window.draw(*node);

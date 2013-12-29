@@ -13,6 +13,8 @@ public:
 
 	void changePathEnd(sf::Vector2u _finalGridPosition);
 
+	unsigned int getFValue(void);
+
 private:
 	void updateAndPositionText(void);
 
@@ -29,7 +31,7 @@ private:
 	sf::Text						m_H_Text;
 	unsigned int					m_HValue;
 
-	sf::Sprite						m_ParentPointerSprite;
+	sf::VertexArray					m_ParentPointer;
 
 	sf::RectangleShape				m_Outline;
 };

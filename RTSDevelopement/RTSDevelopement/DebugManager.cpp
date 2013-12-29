@@ -2,7 +2,7 @@
 
 #include "Game.h"
 
-#define DEBUGMANAGER_FRAME_RECALL		100
+#define DEBUGMANAGER_FRAME_RECALL		250
 
 DebugManager::DebugManager(void) :
 	m_FrameIndex(0),

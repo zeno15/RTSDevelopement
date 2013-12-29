@@ -7,6 +7,8 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <cmath>
+#include <iostream>
+#include <string>
 
 template <typename T>
 T clamp(T _x, T _min, T _max)
@@ -21,5 +23,11 @@ T distance2d(sf::Vector2<T> _point1, sf::Vector2<T> _point2)
 }
 
 bool signChange2d(sf::Vector2f _dir1, sf::Vector2f _dir2);
+
+template <typename T>
+void printvector2(sf::Vector2<T> _vector, std::string _description = "")
+{
+	std::cout << _description << " x: " << _vector.x << ", y: " << _vector.y << std::endl;
+}
 
 #endif //~ INCLUDED_HELPERFUNCTIONS_H

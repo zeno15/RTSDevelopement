@@ -10,6 +10,7 @@
 
 #include "WorldDataTables.h"
 #include "CollisionGrid.h"
+#include "PathfindingGrid.h"
 
 class World : public sf::Drawable
 {
@@ -34,6 +35,7 @@ public:
 
 	CollisionGrid								m_CollisionGrid;
 
+	PathfindingGrid								m_PathfindingGrid;
 private:
 	sf::VertexArray								m_MapBackgroundVertices;
 
