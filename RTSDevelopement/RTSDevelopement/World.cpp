@@ -49,6 +49,7 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 	_target.draw(m_MapBackgroundVertices,		_states);
 
 	//_target.draw(m_CollisionGrid,				_states);
+	_target.draw(m_PathfindingGrid,				_states);
 }
 
 void World::load(std::string _filename)
@@ -68,7 +69,7 @@ void World::load(std::string _filename)
 		}
 	}
 
-	m_PathfindingGrid.initialise(sf::Vector2u(10, 10));
+	m_PathfindingGrid.initialise(sf::Vector2u(25, 25));
 }
 
 void World::loadToVertex(sf::Vector2f _position, sf::Color _colour)

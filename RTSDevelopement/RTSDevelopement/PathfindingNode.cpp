@@ -17,7 +17,8 @@ PathfindingNode::PathfindingNode(sf::Vector2u _gridPosition, sf::Vector2u _final
 	m_F_Text("0", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 8),
 	m_G_Text("0", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 8),
 	m_H_Text("0", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 8),
-	m_ParentPointer(sf::Lines, 0)
+	m_ParentPointer(sf::Lines, 2),
+	m_ListOption(ListOption::NONE)
 {
 	m_Outline.setPosition((float)(m_PathfindingGridCoordinates.x) + 1.0f, (float)(m_PathfindingGridCoordinates.y) + 1.0f);
 	m_Outline.setFillColor(sf::Color::Transparent);
@@ -26,13 +27,7 @@ PathfindingNode::PathfindingNode(sf::Vector2u _gridPosition, sf::Vector2u _final
 	
 	
 
-	if (m_ParentNode != nullptr)
-	{
-		m_ParentPointer.append(sf::Vertex(m_Outline.getPosition() + sf::Vector2f(TILESIZE_f / 2.0f, TILESIZE_f / 2.0f), sf::Color::Green));
-		m_ParentPointer.append(sf::Vertex(m_ParentPointer[0].position  - 0.5f * sf::Vector2f((float)(m_PathfindingGridCoordinates.x) - (float)(m_ParentNode->m_PathfindingGridCoordinates.x), 
-																							 (float)(m_PathfindingGridCoordinates.y) - (float)(m_ParentNode->m_PathfindingGridCoordinates.y)),
-										  sf::Color::Red));
-	}
+	
 
 	m_F_Text.setPosition(m_Outline.getPosition());
 
@@ -63,19 +58,14 @@ void PathfindingNode::draw(sf::RenderTarget &_target, sf::RenderStates _states) 
 
 void PathfindingNode::updateAndPositionText(void)
 {
-	m_HValue = 10u * (abs((int)(m_PathfindingGridCoordinates.x - m_EndpointGridCoordinates.x)) + abs((int)(m_PathfindingGridCoordinates.y - m_EndpointGridCoordinates.y))) / TILESIZE_u;
+	sf::Vector2u difference = sf::Vector2u((unsigned int)((fabsf)((float)(m_PathfindingGridCoordinates.x / TILESIZE_u) - (float)(m_EndpointGridCoordinates.x / TILESIZE_u))),
+										   (unsigned int)((fabsf)((float)(m_PathfindingGridCoordinates.y / TILESIZE_u) - (float)(m_EndpointGridCoordinates.y / TILESIZE_u))));
+
+	m_HValue = (difference.x + difference.y) * 10;
 
 	if (m_ParentNode != nullptr)
 	{
-		if (m_ParentNode->m_PathfindingGridCoordinates.x == m_PathfindingGridCoordinates.x ||
-			m_ParentNode->m_PathfindingGridCoordinates.y == m_PathfindingGridCoordinates.y)
-		{
-			m_GValue = 10u + m_ParentNode->m_GValue;
-		}
-		else
-		{
-			m_GValue = 14 + m_ParentNode->m_GValue;
-		}
+		m_GValue = generateGValue(m_ParentNode);
 	}
 	else
 	{
@@ -88,6 +78,14 @@ void PathfindingNode::updateAndPositionText(void)
 	m_F_Text.setString(std::to_string(m_FValue));
 	m_G_Text.setString(std::to_string(m_GValue));
 	m_H_Text.setString(std::to_string(m_HValue));
+
+	if (m_ParentNode != nullptr)
+	{
+		m_ParentPointer[0] = (sf::Vertex(m_Outline.getPosition() + sf::Vector2f(TILESIZE_f / 2.0f, TILESIZE_f / 2.0f), sf::Color::Green));
+		m_ParentPointer[1] = (sf::Vertex(m_ParentPointer[0].position  - 0.5f * sf::Vector2f((float)(m_PathfindingGridCoordinates.x) - (float)(m_ParentNode->m_PathfindingGridCoordinates.x), 
+																							 (float)(m_PathfindingGridCoordinates.y) - (float)(m_ParentNode->m_PathfindingGridCoordinates.y)),
+										  sf::Color::Red));
+	}
 }
 
 void PathfindingNode::changePathEnd(sf::Vector2u _finalGridPosition)
@@ -96,8 +94,44 @@ void PathfindingNode::changePathEnd(sf::Vector2u _finalGridPosition)
 
 	updateAndPositionText();
 }
+void PathfindingNode::setParent(PathfindingNode *_parent)
+{
+	m_ParentNode = _parent;
+
+	updateAndPositionText();
+}
+PathfindingNode *PathfindingNode::getParent(void)
+{
+	return m_ParentNode;
+}
+bool PathfindingNode::changeParent(PathfindingNode *_parent)
+{
+	return generateGValue(_parent) < generateGValue(m_ParentNode);
+}
+
+void PathfindingNode::setFillColour(sf::Color _colour)
+{
+	m_Outline.setFillColor(_colour);
+}
 
 unsigned int PathfindingNode::getFValue(void)
 {
 	return m_FValue;
+}
+sf::Vector2u PathfindingNode::getGridCoords(void)
+{
+	return m_PathfindingGridCoordinates;
+}
+
+unsigned int PathfindingNode::generateGValue(PathfindingNode *_parent)
+{
+	if (_parent->m_PathfindingGridCoordinates.x == m_PathfindingGridCoordinates.x ||
+		_parent->m_PathfindingGridCoordinates.y == m_PathfindingGridCoordinates.y)
+	{
+		return 10u + _parent->m_GValue;
+	}
+	else
+	{
+		return 14 + _parent->m_GValue;
+	}
 }

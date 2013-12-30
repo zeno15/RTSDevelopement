@@ -4,6 +4,8 @@
 #include <ctime>
 #include <cstdlib>
 
+#include "HelperFunctions.h"
+
 #include "GUIButton.h"
 #include "GUISlider.h"
 #include "GUIProgressBar.h"
@@ -62,6 +64,11 @@ void Game::run(void)
 {
 	m_Running = true;
 
+	int state = 0;
+
+	sf::Vector2f start;
+	sf::Vector2f end;
+
 	sf::Clock clock;
 	while (m_Running)
 	{
@@ -78,26 +85,28 @@ void Game::run(void)
 			TestRandomWanderer *newTest = new TestRandomWanderer(WorldObject::ObjectType::TEST, sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y)) + offset, sf::Vector2f(32.0f, 32.0f));
 			mDebugNew(newTest);
 			sWorldObj.addWorldObject(newTest);*/
-
-			PathfindingNode *newPathNode = nullptr;
-
-			sf::Vector2u mousePos = sf::Vector2u(((unsigned int)(sf::Mouse::getPosition(m_Window).x) / 32u) * 32u, ((unsigned int)(sf::Mouse::getPosition(m_Window).y) / 32u) * 32u);
-			
-			if (DEBUG_PathNodes.size() == 0)
+			if (state == 0)
 			{
-				newPathNode = new PathfindingNode(mousePos, mousePos, nullptr);
+				//~ First press, add starting point
+				start = sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y));
+				printvector2(start, "Start point");
+				state = 1;
+			}
+			else if (state == 1)
+			{
+				//~ Second press, add end point and calculate
+				end = sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y));
+				printvector2(end, "End point");
+				state = 2;
+				sWorld.m_PathfindingGrid.requestPath(start, end, &DEBUG_PathNodes);
 			}
 			else
 			{
-				newPathNode = new PathfindingNode(mousePos, mousePos, DEBUG_PathNodes.back());
+				//~ Third press clear.
+				state = 0;
+				DEBUG_PathNodes.clear();
 			}
 
-			for (PathfindingNode *node : DEBUG_PathNodes)
-			{
-				node->changePathEnd(mousePos);
-			}
-
-			DEBUG_PathNodes.push_back(newPathNode);
 		}
 
 		handleEvents();
@@ -112,9 +121,10 @@ void Game::run(void)
 		m_Window.draw(sGUI);
 		m_Window.draw(sDebug);
 		m_Window.setView(m_View);
-		for (PathfindingNode *node : DEBUG_PathNodes)
+		
+		for (unsigned int i = 0; i < DEBUG_PathNodes.size(); i += 1)
 		{
-			m_Window.draw(*node);
+			m_Window.draw(*DEBUG_PathNodes.at(i));
 		}
 
 		m_Window.display();

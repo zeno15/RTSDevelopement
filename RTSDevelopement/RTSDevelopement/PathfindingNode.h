@@ -12,11 +12,24 @@ public:
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const;
 
 	void changePathEnd(sf::Vector2u _finalGridPosition);
+	void setParent(PathfindingNode *_parent);
+	PathfindingNode *getParent(void);
+	bool changeParent(PathfindingNode *_parent);
+
+	void setFillColour(sf::Color _colour);
 
 	unsigned int getFValue(void);
+	sf::Vector2u getGridCoords(void);
+
+	enum ListOption {NONE,
+					 OPEN,
+					 CLOSED};
+
+	ListOption						m_ListOption;
 
 private:
 	void updateAndPositionText(void);
+	unsigned int generateGValue(PathfindingNode *_parent);
 
 private:
 	sf::Vector2u					m_PathfindingGridCoordinates;
