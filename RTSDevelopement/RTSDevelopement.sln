@@ -2,6 +2,17 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RTSDevelopement", "RTSDevelopement\RTSDevelopement.vcxproj", "{DE138887-E595-4C05-B41A-0F4D271817C7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{43D6A0B0-9495-41EE-90D4-1593321736D5} = {43D6A0B0-9495-41EE-90D4-1593321736D5}
+		{95B24BE9-C919-4B1F-A854-F2503B69D035} = {95B24BE9-C919-4B1F-A854-F2503B69D035}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MapEditor", "..\MapEditor\MapEditor\MapEditor.vcxproj", "{95B24BE9-C919-4B1F-A854-F2503B69D035}"
+	ProjectSection(ProjectDependencies) = postProject
+		{43D6A0B0-9495-41EE-90D4-1593321736D5} = {43D6A0B0-9495-41EE-90D4-1593321736D5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenosGUI", "..\ZenosGUI\ZenosGUI\ZenosGUI.vcxproj", "{43D6A0B0-9495-41EE-90D4-1593321736D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +24,14 @@ Global
 		{DE138887-E595-4C05-B41A-0F4D271817C7}.Debug|Win32.Build.0 = Debug|Win32
 		{DE138887-E595-4C05-B41A-0F4D271817C7}.Release|Win32.ActiveCfg = Release|Win32
 		{DE138887-E595-4C05-B41A-0F4D271817C7}.Release|Win32.Build.0 = Release|Win32
+		{95B24BE9-C919-4B1F-A854-F2503B69D035}.Debug|Win32.ActiveCfg = Debug|Win32
+		{95B24BE9-C919-4B1F-A854-F2503B69D035}.Debug|Win32.Build.0 = Debug|Win32
+		{95B24BE9-C919-4B1F-A854-F2503B69D035}.Release|Win32.ActiveCfg = Release|Win32
+		{95B24BE9-C919-4B1F-A854-F2503B69D035}.Release|Win32.Build.0 = Release|Win32
+		{43D6A0B0-9495-41EE-90D4-1593321736D5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{43D6A0B0-9495-41EE-90D4-1593321736D5}.Debug|Win32.Build.0 = Debug|Win32
+		{43D6A0B0-9495-41EE-90D4-1593321736D5}.Release|Win32.ActiveCfg = Release|Win32
+		{43D6A0B0-9495-41EE-90D4-1593321736D5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

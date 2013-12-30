@@ -4,9 +4,6 @@
 
 PathfindingGrid::PathfindingGrid(void)
 {
-	timer = sf::Time::Zero;
-	timer2 = sf::Time::Zero;
-	timer3 = sf::Time::Zero;
 }
 
 PathfindingGrid::~PathfindingGrid(void)
@@ -97,6 +94,7 @@ void PathfindingGrid::requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, 
 		m_AllNodes.at(i).changePathEnd(sf::Vector2u((unsigned int)(_endPos.x), (unsigned int)(_endPos.y)));
 	}
 
+
 	//~ Input is in pixels, convert to tiles
 	sf::Vector2u startNodeCoords  = sf::Vector2u((unsigned int)(_startPos.x / TILESIZE_f), (unsigned int)(_startPos.y / TILESIZE_f));
 	sf::Vector2u finishNodeCoords = sf::Vector2u((unsigned int)(_endPos.x / TILESIZE_f), (unsigned int)(_endPos.y / TILESIZE_f));
@@ -108,7 +106,9 @@ void PathfindingGrid::requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, 
 	bool pathfindingComplete = false;
 
 	PathfindingNode *lowFScore = nullptr;
-	
+
+	std::vector<sf::Time> whileLoopTimes = std::vector<sf::Time>();
+
 	while (!pathfindingComplete)
 	{
 		lowFScore = findLowestFScoreOnOpenListAndRemove();
@@ -138,11 +138,11 @@ void PathfindingGrid::requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, 
 			}
 			else
 			{
-				//~ Not on the open list
 				m_AllNodes.at(coords.y * m_GridSize.x + coords.x).setParent(lowFScore);
 				m_OpenList.push_back(&m_AllNodes.at(coords.y * m_GridSize.x + coords.x));
 				m_AllNodes.at(coords.y * m_GridSize.x + coords.x).m_ListOption = PathfindingNode::ListOption::OPEN;
 			}
+			
 		}
 
 		if (m_OpenList.size() == 0 || isNodeOnList(endNode, PathfindingNode::ListOption::CLOSED))
@@ -150,7 +150,7 @@ void PathfindingGrid::requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, 
 			pathfindingComplete = true;
 			continue;
 		}
-
+		
 	}
 
 	PathfindingNode *routeNode = endNode;
@@ -170,9 +170,6 @@ void PathfindingGrid::requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, 
 	float seconds = clock.getElapsedTime().asSeconds();
 
 	std::cout << "Time taken for a " << count << " long path: " << seconds << " seconds, " << seconds / (float)count << "seconds/cell" << std::endl;
-
-	std::cout << "Time in finding lowest f score: " << timer.asSeconds() << " seconds, " << 100.0f * timer.asSeconds() / seconds << "% of total time." << std::endl;
-	std::cout << "Time in finding nodes in lists: " << timer2.asSeconds() << " seconds, " << 100.0f * timer2.asSeconds() / seconds << "% of total time." << std::endl;
 
 	for (unsigned int i = 0; i < m_AllNodes.size(); i += 1)
 	{
@@ -199,8 +196,6 @@ PathfindingNode *PathfindingGrid::findLowestFScoreOnOpenList(void)
 }
 PathfindingNode *PathfindingGrid::findLowestFScoreOnOpenListAndRemove(void)
 {
-	mclock.restart();
-
 	unsigned int lowF = m_OpenList.at(0)->getFValue();
 	unsigned int lowIndex = 0u;
 
@@ -217,7 +212,7 @@ PathfindingNode *PathfindingGrid::findLowestFScoreOnOpenListAndRemove(void)
 	PathfindingNode *lowest = m_OpenList.at(lowIndex);
 
 	m_OpenList.erase(m_OpenList.begin() + lowIndex);
-	timer += mclock.getElapsedTime();
+
 	return lowest;
 }
 

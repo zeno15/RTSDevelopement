@@ -50,10 +50,12 @@ PathfindingNode::~PathfindingNode(void)
 void PathfindingNode::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
 	_target.draw(m_Outline,					_states);
+	#ifdef _DEBUG
 	_target.draw(m_ParentPointer,			_states);
 	_target.draw(m_F_Text,					_states);
 	_target.draw(m_G_Text,					_states);
 	_target.draw(m_H_Text,					_states);
+	#endif //~ _DEBUG
 }
 
 void PathfindingNode::updateAndPositionText(void)
@@ -74,7 +76,7 @@ void PathfindingNode::updateAndPositionText(void)
 	}
 
 	m_FValue = m_GValue + m_HValue;
-
+	#ifdef _DEBUG
 	m_F_Text.setString(std::to_string(m_FValue));
 	m_G_Text.setString(std::to_string(m_GValue));
 	m_H_Text.setString(std::to_string(m_HValue));
@@ -86,6 +88,7 @@ void PathfindingNode::updateAndPositionText(void)
 																							 (float)(m_PathfindingGridCoordinates.y) - (float)(m_ParentNode->m_PathfindingGridCoordinates.y)),
 										  sf::Color::Red));
 	}
+	#endif //~ _DEBUG
 }
 
 void PathfindingNode::changePathEnd(sf::Vector2u _finalGridPosition)

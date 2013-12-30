@@ -31,9 +31,6 @@ void FontManager::loadAllFonts(void)
 		if (m_Fonts.at(i) != nullptr) continue;
 
 		m_Fonts.at(i) = new sf::Font();
-		#ifdef INCLUDED_DEBUGMANAGER_H
-		mDebugNew(m_Fonts.at(i))
-		#endif //~ INCLUDED_DEBUGMANAGER_H
 		m_Fonts.at(i)->loadFromFile(m_Filepaths.at(i));
 	}
 }
@@ -42,9 +39,7 @@ void FontManager::unloadAllFonts(void)
 	for (unsigned int i = 0; i < m_Fonts.size(); i += 1)
 	{
 		if (m_Fonts.at(i) == nullptr) continue;
-		#ifdef INCLUDED_DEBUGMANAGER_H
-		mDebugDelete(m_Fonts.at(i))
-		#endif //~ INCLUDED_DEBUGMANAGER_H
+
 		delete m_Fonts.at(i);
 		m_Fonts.at(i) = nullptr;
 	}

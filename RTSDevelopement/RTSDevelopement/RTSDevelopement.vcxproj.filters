@@ -147,11 +147,11 @@
     <ClCompile Include="TestRandomWanderer.cpp">
       <Filter>Source Files\World Objects</Filter>
     </ClCompile>
-    <ClCompile Include="PathfindingGrid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PathfindingNode.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="PathfindingGrid.cpp">
+      <Filter>Source Files\World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,11 +239,11 @@
     <ClInclude Include="TestRandomWanderer.h">
       <Filter>Header Files\World Objects</Filter>
     </ClInclude>
-    <ClInclude Include="PathfindingGrid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PathfindingNode.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="PathfindingGrid.h">
+      <Filter>Header Files\World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

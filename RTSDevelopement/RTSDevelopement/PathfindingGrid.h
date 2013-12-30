@@ -48,11 +48,6 @@ private:
 	std::vector<Obstacle>					m_ObstacleGrid;
 
 	sf::Vector2u							m_GridSize;
-
-	sf::Clock mclock;
-	sf::Time	timer;
-	sf::Time	timer2;
-	sf::Time	timer3;
 };
 
 #endif //~ INCLUDED_PATHFINDINGGRID_H

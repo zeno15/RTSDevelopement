@@ -23,7 +23,6 @@ void TextureManager::loadAllTextures(void)
 		if (m_Textures.at(i) != nullptr) continue;
 
 		m_Textures.at(i) = new sf::Texture();
-		mDebugNew(m_Textures.at(i))
 		m_Textures.at(i)->loadFromFile(m_Filepaths.at(i));
 	}
 }
@@ -33,7 +32,6 @@ void TextureManager::unloadAllTextures(void)
 	{
 		if (m_Textures.at(i) == nullptr) continue;
 
-		mDebugDelete(m_Textures.at(i))
 		delete m_Textures.at(i);
 		m_Textures.at(i) = nullptr;
 	}
