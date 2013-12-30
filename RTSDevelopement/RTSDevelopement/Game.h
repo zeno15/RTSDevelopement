@@ -7,9 +7,10 @@
 #include "../../ZenosGUI/ZenosGUI/FontManager.h"
 #include "../../ZenosGUI/ZenosGUI/GUIManager.h"
 #include "../../ZenosGUI/ZenosGUI/InputManager.h"
+#include "../../ZenosGUI/ZenosGUI/TextureManager.h"
 #include "DebugManager.h"
 #include "WorldObjectManager.h"
-#include "TextureManager.h"
+
 
 #include "World.h"
 

@@ -1,0 +1,29 @@
+1-TILE_INFO_BEGIN
+~Tile Name Begin
+Default Grass Tile
+~Tile Name End
+~Texture Coordinates Begin
+0
+0
+~Texture Coordinates End
+1-TILE_INFO_END
+
+2-TILE_INFO_BEGIN
+~Tile Name Begin
+Stone Ground Tile
+~Tile Name End
+~Texture Coordinates Begin
+32
+0
+~Texture Coordinates End
+2-TILE_INFO_END
+
+3-TILE_INFO_BEGIN
+~Tile Name Begin
+Water Tile
+~Tile Name End
+~Texture Coordinates Begin
+64
+0
+~Texture Coordinates End
+3-TILE_INFO_END

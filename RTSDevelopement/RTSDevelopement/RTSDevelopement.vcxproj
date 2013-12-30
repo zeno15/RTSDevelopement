@@ -94,7 +94,6 @@
     <ClCompile Include="PathfindingNode.cpp" />
     <ClCompile Include="TestRandomWanderer.cpp" />
     <ClCompile Include="TestWorldObject.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="WorldDataTables.cpp" />
     <ClCompile Include="WorldObject.cpp" />
@@ -110,7 +109,6 @@
     <ClInclude Include="PathfindingNode.h" />
     <ClInclude Include="TestRandomWanderer.h" />
     <ClInclude Include="TestWorldObject.h" />
-    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WorldDataTables.h" />
     <ClInclude Include="WorldObject.h" />

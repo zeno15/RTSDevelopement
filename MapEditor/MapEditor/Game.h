@@ -5,9 +5,8 @@
 #include <vector>
 #include <iostream>
 
-#include "TextureManager.h"
-
 #include "../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
+#include "Map.h"
 
 class Game
 {
@@ -33,6 +32,8 @@ public:
 
 	bool											m_Running;
 
+	Map												m_Map;
+
 private:
     Game(void);
     ~Game(void);
@@ -45,5 +46,6 @@ private:
 #define sGame			Game::instance()
 #define sFont			sGame.m_FontManager
 #define sTexture		sGame.m_TextureManager
+#define sInput			sGame.m_InputManager
 
 #endif //~ INCLUDED_GAME_H

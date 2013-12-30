@@ -3,6 +3,7 @@
 #include <ctime>
 #include <cstdlib>
 
+#include "NewMapInterface.h"
 
 Game::Game(void)
 {
@@ -35,7 +36,11 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	sGUIMANAGER.linkFontManager(&m_FontManager);
 	sGUIMANAGER.linkInputManager(&m_InputManager);
 
-	
+	//NewMapInterface *newMap = new NewMapInterface(sf::Vector2f((float)(_screenSize.x), (float)(_screenSize.y)));
+
+	//sGUIMANAGER.addFrame(newMap);
+
+	m_Map.create(sf::Vector2u(128, 128));
 		
 	run();
 }

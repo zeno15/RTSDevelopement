@@ -72,6 +72,9 @@
     <ClCompile Include="GUITextBox.cpp">
       <Filter>Source Files\GUIComponents</Filter>
     </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIManager.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="GUITextBox.h">
       <Filter>Header Files\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

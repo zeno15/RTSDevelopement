@@ -18,5 +18,6 @@
 #include "GUIManager.h"
 #include "InputManager.h"
 #include "FontManager.h"
+#include "TextureManager.h"
 
 #endif //~ INCLUDED_ZENOSGUIGLOBALINCLUDE

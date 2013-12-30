@@ -15,7 +15,10 @@
 class GUITextBox : public GUIObject
 {
 public:
-	GUITextBox(sf::Vector2f _position, sf::Vector2f _size, bool _scrolls = false);
+	enum TextBoxType {REGULAR, NUMERICAL};
+	enum LabelPosition {ABOVE, LEFT, BELOW, RIGHT};
+
+	GUITextBox(sf::Vector2f _position, sf::Vector2f _size, TextBoxType _type, bool _scrolls = false);
 	~GUITextBox(void);
 
 	virtual void update(sf::Time _delta);
@@ -27,6 +30,8 @@ public:
 	void appendTextInput(char _character);
 
 	std::string getString(void);
+
+	void setLabel(std::string _text, LabelPosition _position);
 
 private:
 	void updateCursorPosition(void);
@@ -42,6 +47,9 @@ private:
 	sf::VertexArray											m_Box;
 
 	sf::Text												m_Text;
+	sf::Text												m_Label;
+
+	TextBoxType												m_Type;
 
 };
 

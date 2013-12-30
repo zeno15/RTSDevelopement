@@ -88,16 +88,23 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="NewMapInterface.cpp" />
+    <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
-    <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="NewMapInterface.h" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ZenosGUI\ZenosGUI\ZenosGUI.vcxproj">
       <Project>{43d6a0b0-9495-41ee-90d4-1593321736d5}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Resources\Maps\Map Data\Tile Information.RTSD" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

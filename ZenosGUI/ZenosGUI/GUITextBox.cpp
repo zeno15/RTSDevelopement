@@ -7,10 +7,11 @@
 #define GUI_TEXTBOX_CURSOR_WIDTH		2.0f
 
 
-GUITextBox::GUITextBox(sf::Vector2f _position, sf::Vector2f _size, bool _scrolls/* = false*/) :
+GUITextBox::GUITextBox(sf::Vector2f _position, sf::Vector2f _size, TextBoxType _type, bool _scrolls/* = false*/) :
 	m_Box(sf::Quads, 12),
 	m_Scrolls(_scrolls),
-	m_Active(false)
+	m_Active(false),
+	m_Type(_type)
 {
 	m_Box[0] = sf::Vertex(sf::Vector2f(_position.x - _size.x / 2.0f,
 									   _position.y - _size.y / 2.0f),
@@ -92,7 +93,22 @@ void GUITextBox::update(sf::Time _delta)
 			}
 			else
 			{
-				m_DisplayedString += m_PendingChars.front();
+				if (m_Type == TextBoxType::REGULAR)
+				{
+					m_DisplayedString += m_PendingChars.front();
+				}
+				else if (m_Type == TextBoxType::NUMERICAL)
+				{
+					char *numbers = "0123456789";
+					for (unsigned int i = 0; i < 10; i += 1)
+					{
+						if (numbers[i] == m_PendingChars.front())
+						{
+							m_DisplayedString += m_PendingChars.front();
+							break;
+						}
+					}
+				}
 			}
 			m_PendingChars.erase(m_PendingChars.begin());
 		}
@@ -139,6 +155,7 @@ void GUITextBox::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 
 	_target.draw(m_Box,		_states);
 	_target.draw(m_Text,	_states);
+	_target.draw(m_Label,	_states);
 }
 
 bool GUITextBox::active(void)
@@ -177,3 +194,30 @@ void GUITextBox::updateCursorPosition(void)
 	}
 }
 
+void GUITextBox::setLabel(std::string _text, LabelPosition _position)
+{
+	m_Label = sf::Text(_text, *sGUIFONTS->getFont(FontManager::FontID::OPENSANS_REGULAR), m_Text.getCharacterSize());
+
+	//m_Label.setOrigin((m_Label.getGlobalBounds().left + m_Label.getGlobalBounds().width) / 2.0f, (m_Label.getGlobalBounds().top + m_Label.getGlobalBounds().height) / 2.0f);
+
+	switch (_position)
+	{
+	case (LabelPosition::ABOVE):
+		m_Label.setOrigin((m_Label.getGlobalBounds().left + m_Label.getGlobalBounds().width) / 2.0f, (m_Label.getGlobalBounds().top + m_Label.getGlobalBounds().height));
+		m_Label.setPosition(sf::Vector2f(m_Box.getBounds().left + m_Box.getBounds().width / 2.0f, m_Box.getBounds().top + m_Box.getBounds().height / 2.0f) + sf::Vector2f(0.0f, - m_Box.getBounds().height));
+		break;
+	case (LabelPosition::LEFT):
+		m_Label.setOrigin((m_Label.getGlobalBounds().left + m_Label.getGlobalBounds().width), (m_Label.getGlobalBounds().top + m_Label.getGlobalBounds().height) / 2.0f);
+		m_Label.setPosition(sf::Vector2f(m_Box.getBounds().left + m_Box.getBounds().width / 2.0f, m_Box.getBounds().top + m_Box.getBounds().height / 2.0f) + sf::Vector2f(- m_Box.getBounds().width, 0.0f));
+		break;
+	case (LabelPosition::RIGHT):
+		m_Label.setOrigin(m_Label.getGlobalBounds().left, (m_Label.getGlobalBounds().top + m_Label.getGlobalBounds().height) / 2.0f);
+		m_Label.setPosition(sf::Vector2f(m_Box.getBounds().left + m_Box.getBounds().width / 2.0f, m_Box.getBounds().top + m_Box.getBounds().height / 2.0f) + sf::Vector2f(+ m_Box.getBounds().width, 0.0f));
+		break;
+	case (LabelPosition::BELOW):
+	default:
+		m_Label.setOrigin((m_Label.getGlobalBounds().left + m_Label.getGlobalBounds().width) / 2.0f, m_Label.getGlobalBounds().top);
+		m_Label.setPosition(sf::Vector2f(m_Box.getBounds().left + m_Box.getBounds().width / 2.0f, m_Box.getBounds().top + m_Box.getBounds().height / 2.0f) + sf::Vector2f(0.0f, + m_Box.getBounds().height));
+		break;
+	};
+}

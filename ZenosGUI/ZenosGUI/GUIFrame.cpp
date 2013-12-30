@@ -29,11 +29,11 @@ GUIFrame::GUIFrame(sf::FloatRect _bounds/* = sf::FloatRect()*/) :
 		{
 			m_VerticesBorder     = sf::VertexArray(sf::LinesStrip, 5);
 
-			m_VerticesBorder[0] = sf::Vertex(sf::Vector2f(_bounds.left + BORDER_THICKNESS,								_bounds.top + BORDER_THICKNESS * 2.0f),						borderColour);
+			m_VerticesBorder[0] = sf::Vertex(sf::Vector2f(_bounds.left + BORDER_THICKNESS * 2.0f,						_bounds.top + BORDER_THICKNESS * 2.0f),						borderColour);
 			m_VerticesBorder[1] = sf::Vertex(sf::Vector2f(_bounds.left + _bounds.width - BORDER_THICKNESS * 2.0f,		_bounds.top + BORDER_THICKNESS * 2.0f),						borderColour);
 			m_VerticesBorder[2] = sf::Vertex(sf::Vector2f(_bounds.left + _bounds.width - BORDER_THICKNESS * 2.0f,		_bounds.top + _bounds.height - BORDER_THICKNESS * 2.0f),	borderColour);
-			m_VerticesBorder[3] = sf::Vertex(sf::Vector2f(_bounds.left + BORDER_THICKNESS,								_bounds.top + _bounds.height - BORDER_THICKNESS * 2.0f),	borderColour);
-			m_VerticesBorder[4] = sf::Vertex(sf::Vector2f(_bounds.left + BORDER_THICKNESS,								_bounds.top + BORDER_THICKNESS * 2.0f),						borderColour);
+			m_VerticesBorder[3] = sf::Vertex(sf::Vector2f(_bounds.left + BORDER_THICKNESS * 2.0f,						_bounds.top + _bounds.height - BORDER_THICKNESS * 2.0f),	borderColour);
+			m_VerticesBorder[4] = sf::Vertex(sf::Vector2f(_bounds.left + BORDER_THICKNESS * 2.0f,						_bounds.top + BORDER_THICKNESS * 2.0f),						borderColour);
 		}
 	}
 }

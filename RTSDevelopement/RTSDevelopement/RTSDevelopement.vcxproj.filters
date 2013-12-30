@@ -66,9 +66,6 @@
     <ClCompile Include="DebugManager.cpp">
       <Filter>Source Files\Management</Filter>
     </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Source Files\Management</Filter>
-    </ClCompile>
     <ClCompile Include="WorldObject.cpp">
       <Filter>Source Files\World Objects</Filter>
     </ClCompile>
@@ -108,9 +105,6 @@
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="DebugManager.h">
-      <Filter>Header Files\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.h">
       <Filter>Header Files\Management</Filter>
     </ClInclude>
     <ClInclude Include="WorldObject.h">

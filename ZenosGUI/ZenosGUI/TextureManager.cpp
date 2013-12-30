@@ -1,12 +1,8 @@
 #include "TextureManager.h"
 
-#include "Game.h"
-
 TextureManager::TextureManager(void) :
 	m_Textures(TextureID::NUMTEXTURES, nullptr)
 {
-	std::cout << "Maximum texture dimensions: " << sf::Texture::getMaximumSize() << std::endl;
-
 	m_Filepaths.push_back("../../Resources/Textures/Tilesheet.png");
 }
 

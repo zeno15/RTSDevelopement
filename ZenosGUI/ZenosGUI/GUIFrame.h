@@ -22,7 +22,7 @@ public:
 
 	void toggleVisibility(void);
 
-private:
+protected:
 	std::vector<GUIObject *>						m_Objects;
 
 	bool											m_ToRemove;
