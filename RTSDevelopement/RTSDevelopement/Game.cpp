@@ -28,7 +28,7 @@ Game::~Game(void)
 {
 	m_FontManager.unloadAllFonts();
 	m_TextureManager.unloadAllTextures();
-	m_GUIManager.~GUIManager(); //~ Just so the pointer analysis is valid
+	
 	m_WorldObjectManager.~WorldObjectManager();
 	m_World.~World();
 
@@ -56,6 +56,8 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_World.load("Resources/Maps/map1.png");
 
 	sInput.registerButton(sf::Mouse::Right);
+
+
 		
 	run();
 }

@@ -5,9 +5,7 @@
 #include <vector>
 #include <iostream>
 
-#include "FontManager.h"
 #include "TextureManager.h"
-#include "InputManager.h"
 
 #include "../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 

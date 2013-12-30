@@ -12,7 +12,7 @@ GUIProgressBar::GUIProgressBar(bool _horizontal, sf::Vector2f _position, sf::Vec
 {
 	if (_underwayPercentage == nullptr)
 	{
-		*_underwayPercentage = 0.0f;
+		_underwayPercentage = nullptr;
 	}
 	else
 	{
@@ -88,13 +88,14 @@ void GUIProgressBar::resizeProgressBar(void)
 	m_Vertices[11].position = m_Vertices[8].position + sf::Vector2f(0.0f, m_Size.y - 2.0f * GUI_PROGRESS_INSET);
 		 
 
+	if (m_UnderwayPercentage)
+	{
+		m_Vertices[12].position = m_Vertices[9].position;
 
-	m_Vertices[12].position = m_Vertices[9].position;
+		m_Vertices[13].position = m_Vertices[12].position + sf::Vector2f((m_Size.x - 2.0f * GUI_PROGRESS_INSET) * (*m_UnderwayPercentage), 0.0f);
 
-	m_Vertices[13].position = m_Vertices[12].position + sf::Vector2f((m_Size.x - 2.0f * GUI_PROGRESS_INSET) * (*m_UnderwayPercentage), 0.0f);
+		m_Vertices[14].position = m_Vertices[13].position + sf::Vector2f(0.0f, m_Size.y - 2.0f * GUI_PROGRESS_INSET);
 
-	m_Vertices[14].position = m_Vertices[13].position + sf::Vector2f(0.0f, m_Size.y - 2.0f * GUI_PROGRESS_INSET);
-
-	m_Vertices[15].position = m_Vertices[12].position + sf::Vector2f(0.0f, m_Size.y - 2.0f * GUI_PROGRESS_INSET);
-
+		m_Vertices[15].position = m_Vertices[12].position + sf::Vector2f(0.0f, m_Size.y - 2.0f * GUI_PROGRESS_INSET);
+	}
 }

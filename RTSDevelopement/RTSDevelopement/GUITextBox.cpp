@@ -52,12 +52,12 @@ GUITextBox::GUITextBox(sf::Vector2f _position, sf::Vector2f _size, bool _scrolls
 	m_Text.setString(m_DisplayedString);
 	updateCursorPosition();
 
-	sGame.m_GUIManager.addGUITextBoxToReceiveText(this);
+	sGUI.addGUITextBoxToReceiveText(this);
 }
 
 GUITextBox::~GUITextBox(void)
 {
-	sGame.m_GUIManager.removeGUITextBoxToReceiveText(this);
+	sGUI.removeGUITextBoxToReceiveText(this);
 }
 
 

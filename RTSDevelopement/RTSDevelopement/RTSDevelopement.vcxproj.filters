@@ -22,12 +22,6 @@
     <Filter Include="Resource Files\Sounds">
       <UniqueIdentifier>{36db3fb1-99eb-472b-925e-a1a0b2f45ed1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GUI Components">
-      <UniqueIdentifier>{e9c619fb-6a2e-4ffa-ab0d-21d0486da9c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GUI Components">
-      <UniqueIdentifier>{ab721793-e486-4493-bf72-fe2cab402a1f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\Data">
       <UniqueIdentifier>{5ec71f00-233f-4a69-9a21-788c6b69e91f}</UniqueIdentifier>
     </Filter>
@@ -63,65 +57,17 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FontManager.cpp">
-      <Filter>Source Files\Management</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files\Management</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUIFrame.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIObject.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIManager.cpp">
-      <Filter>Source Files\Management</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIButton.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUISlider.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
     <ClCompile Include="HelperFunctions.cpp">
       <Filter>Source Files\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIProgressBar.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUICheckbox.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIRadioButton.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIRadioButtonGroup.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUITextBox.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIDropDownBox.cpp">
-      <Filter>Source Files\GUI Components</Filter>
     </ClCompile>
     <ClCompile Include="DebugManager.cpp">
       <Filter>Source Files\Management</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
       <Filter>Source Files\Management</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIMarkingMenu.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIDropDownMenu.cpp">
-      <Filter>Source Files\GUI Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIMarkingMenuNode.cpp">
-      <Filter>Source Files\GUI Components</Filter>
     </ClCompile>
     <ClCompile Include="WorldObject.cpp">
       <Filter>Source Files\World Objects</Filter>
@@ -155,65 +101,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InputManager.h">
-      <Filter>Header Files\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="FontManager.h">
-      <Filter>Header Files\Management</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUIFrame.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIObject.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIButton.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUISlider.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
     <ClInclude Include="HelperFunctions.h">
       <Filter>Header Files\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIProgressBar.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUICheckbox.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIRadioButton.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIRadioButtonGroup.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIManager.h">
-      <Filter>Header Files\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="GUITextBox.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIDropDownBox.h">
-      <Filter>Header Files\GUI Components</Filter>
     </ClInclude>
     <ClInclude Include="DebugManager.h">
       <Filter>Header Files\Management</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
       <Filter>Header Files\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIMarkingMenu.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIDropDownMenu.h">
-      <Filter>Header Files\GUI Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIMarkingMenuNode.h">
-      <Filter>Header Files\GUI Components</Filter>
     </ClInclude>
     <ClInclude Include="WorldObject.h">
       <Filter>Header Files\World Objects</Filter>

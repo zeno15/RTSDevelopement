@@ -6,7 +6,6 @@
 #include "GUIDropDownBox.h"
 #include "GUIDropDownMenu.h"
 #include "GUIFrame.h"
-#include "GUIManager.h"
 #include "GUIMarkingMenu.h"
 #include "GUIMarkingMenuNode.h"
 #include "GUIObject.h"
@@ -15,6 +14,9 @@
 #include "GUIRadioButtonGroup.h"
 #include "GUISlider.h"
 #include "GUITextBox.h"
+
+#include "GUIManager.h"
 #include "InputManager.h"
+#include "FontManager.h"
 
 #endif //~ INCLUDED_ZENOSGUIGLOBALINCLUDE

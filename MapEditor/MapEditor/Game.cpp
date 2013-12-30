@@ -29,11 +29,13 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_FontManager.loadAllFonts();
 	m_TextureManager.loadAllTextures();
 
-	//m_InputManager.registerGUIManager(&sGUIMANAGER);
+	m_InputManager.registerGUIManager(&sGUIMANAGER);
 
-	//sGUIMANAGER.linkWindow(&m_Window);
-	//sGUIMANAGER.linkFontManager(&m_FontManager);
-	//sGUIMANAGER.linkInputManager(&m_InputManager);
+	sGUIMANAGER.linkWindow(&m_Window);
+	sGUIMANAGER.linkFontManager(&m_FontManager);
+	sGUIMANAGER.linkInputManager(&m_InputManager);
+
+	
 		
 	run();
 }
@@ -42,17 +44,13 @@ void Game::run(void)
 {
 	m_Running = true;
 
-	int state = 0;
-
-	sf::Vector2f start;
-	sf::Vector2f end;
-
 	sf::Clock clock;
+
 	while (m_Running)
 	{
-		//sf::sleep(sf::milliseconds(10));
+		sf::sleep(sf::milliseconds(10));
 
-		//sGUIMANAGER.update(clock.getElapsedTime());
+		sGUIMANAGER.update(clock.getElapsedTime());
 
 		handleEvents();
 
@@ -61,7 +59,7 @@ void Game::run(void)
 		m_Window.setView(m_View);
 		m_Window.clear(sf::Color(25, 25, 25, 255));
 
-		//m_Window.draw(sGUIMANAGER);
+		m_Window.draw(sGUIMANAGER);
 
 		m_Window.display();
 	}
@@ -76,6 +74,10 @@ void Game::handleEvents(void)
 		if (event.type == sf::Event::Closed)
 		{
 			m_Running = false;
+		}
+		else 
+		{
+			m_InputManager.handleEvent(event);
 		}
 	}
 }

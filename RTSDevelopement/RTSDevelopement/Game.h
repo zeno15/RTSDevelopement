@@ -4,9 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "FontManager.h"
-#include "InputManager.h"
-#include "GUIManager.h"
+#include "../../ZenosGUI/ZenosGUI/FontManager.h"
+#include "../../ZenosGUI/ZenosGUI/GUIManager.h"
+#include "../../ZenosGUI/ZenosGUI/InputManager.h"
 #include "DebugManager.h"
 #include "WorldObjectManager.h"
 #include "TextureManager.h"
@@ -34,7 +34,7 @@ public:
 
 	FontManager										m_FontManager;
 	InputManager									m_InputManager;
-	GUIManager										m_GUIManager;
+	GUIManager *									m_GUIManager;
 	DebugManager									m_DebugManager;
 	WorldObjectManager								m_WorldObjectManager;
 	TextureManager									m_TextureManager;
@@ -58,7 +58,7 @@ private:
 #define sDebug			sGame.m_DebugManager
 #define sFont			sGame.m_FontManager
 #define sTexture		sGame.m_TextureManager
-#define sGUI			sGame.m_GUIManager
+#define sGUI			GUIManager::instance()
 #define sInput			sGame.m_InputManager
 #define sWorldObj		sGame.m_WorldObjectManager
 #define sWorld			sGame.m_World
