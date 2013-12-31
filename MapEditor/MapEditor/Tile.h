@@ -1,7 +1,7 @@
 #ifndef INCLUDED_TILE_H
 #define INCLUDED_TILE_H
 
-#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics.hpp>
 #include <string>
 
 class Tile

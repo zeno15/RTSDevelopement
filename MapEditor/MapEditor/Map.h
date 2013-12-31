@@ -9,6 +9,8 @@
 
 #include "Tile.h"
 #include "Minimap.h"
+#include "Sidebar.h"
+#include "TopBar.h"
 
 #define TILESIZE_f 32.0f
 #define TILESIZE_u 32u
@@ -50,6 +52,8 @@ private:
 	float											m_TopBarHeight;
 
 	Minimap											m_Minimap;
+	Sidebar											m_SideBar;
+	TopBar											m_TopBar;
 };
 
 #endif //~ INCLUDED_MAP_H

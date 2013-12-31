@@ -40,7 +40,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 
 	//sGUIMANAGER.addFrame(newMap);
 
-	m_Map.create(sf::Vector2u(32, 32), Map::TileType::DEFAULT_GRASS);
+	m_Map.create(sf::Vector2u(192, 192), Map::TileType::DEFAULT_GRASS);
 		
 	run();
 }

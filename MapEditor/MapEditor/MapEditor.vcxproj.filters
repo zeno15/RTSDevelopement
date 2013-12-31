@@ -19,6 +19,12 @@
     <Filter Include="Resource Files\Maps\Map Data">
       <UniqueIdentifier>{6e217957-d296-4eca-931d-4f19c6343f21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Interface">
+      <UniqueIdentifier>{be6d9c4e-d26b-4c24-a234-7e5a3b1f0a20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interface">
+      <UniqueIdentifier>{6cc46780-1acb-480f-99af-84098aacd5e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -36,8 +42,14 @@
     <ClCompile Include="Tile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TopBar.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Sidebar.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
     <ClCompile Include="Minimap.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +66,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Minimap.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Sidebar.h">
+      <Filter>Header Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="TopBar.h">
+      <Filter>Header Files\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

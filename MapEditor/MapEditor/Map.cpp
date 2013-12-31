@@ -2,7 +2,7 @@
 
 #include "Game.h"
 
-#define MAP_SCROLL_SPEED	100.0f
+#define MAP_SCROLL_SPEED	500.0f
 
 Map::Map(void) :
 	m_BackgroundTiles(sf::Quads, 0)
@@ -22,6 +22,17 @@ void Map::load(std::string _filename)
 }
 void Map::create(sf::Vector2u _mapDimensions, TileType _defaultTileType)
 {
+	if (_mapDimensions.x > 192) 
+	{
+		_mapDimensions.x = 192; 
+		std::cout << "Map width limited to 192 Tiles." << std::endl;
+	}
+	if (_mapDimensions.y > 192) 
+	{
+		_mapDimensions.x = 192; 
+		std::cout << "Map height limited to 192 Tiles." << std::endl;
+	}
+
 	m_MapDimensions = _mapDimensions;
 	m_BackgroundTiles.resize(m_MapDimensions.x * m_MapDimensions.y * 4);
 
@@ -30,6 +41,16 @@ void Map::create(sf::Vector2u _mapDimensions, TileType _defaultTileType)
 									   m_SideBarWidth, 
 									   m_SideBarWidth),
 									   m_MapDimensions);
+
+	m_SideBar.initialise(sf::FloatRect((float)(sGame.m_ScreenSize.x - m_SideBarWidth),
+									   m_SideBarWidth,
+									   m_SideBarWidth,
+									   (float)(sGame.m_ScreenSize.y - m_SideBarWidth)));
+
+	m_TopBar.initialise(sf::FloatRect(0.0f,
+									  0.0f,
+									  (float)(sGame.m_ScreenSize.x - m_SideBarWidth),
+									  m_TopBarHeight));
 
 	for (unsigned int i = 0; i < m_MapDimensions.y; i += 1)
 	{
@@ -63,6 +84,9 @@ void Map::update(sf::Time _delta)
 
 	ensureWithinBounds();
 
+	m_SideBar.update(_delta);
+	m_TopBar.update(_delta);
+
 	m_Minimap.update(_delta);
 }
 void Map::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
@@ -72,6 +96,8 @@ void Map::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 	_target.draw(m_BackgroundTiles,		_states);
 
 	_target.draw(m_Minimap,				_states);
+	_target.draw(m_SideBar,				_states);
+	_target.draw(m_TopBar,				_states);
 }
 
 void Map::changeTile(unsigned int _xTile, unsigned int _yTile, TileType _type)

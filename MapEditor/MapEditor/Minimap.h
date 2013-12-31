@@ -17,9 +17,14 @@ public:
 	void updateColour(unsigned int _x, unsigned int _y, sf::Color _colour);
 
 private:
+	void updateViewPortOutlinePosition(void);
+
+private:
 	sf::Image													m_MapImage;
 	sf::Texture													m_MapTexture;
 	sf::Sprite													m_MapSprite;
+
+	sf::RectangleShape											m_ViewportOutline;
 
 	unsigned int												m_MapStartY;
 	unsigned int												m_MapStartX;
