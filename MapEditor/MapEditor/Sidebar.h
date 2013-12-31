@@ -16,6 +16,8 @@ public:
 
 private:
 	sf::VertexArray													m_BackgroundQuads;
+
+	bool															m_SelectButtonActive;
 };
 
 #endif //~ INCLUDED_SIDEBAR_H

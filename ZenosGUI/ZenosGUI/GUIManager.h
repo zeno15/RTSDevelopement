@@ -7,6 +7,7 @@
 #include "GUIFrame.h"
 #include "FontManager.h"
 #include "InputManager.h"
+#include "TextureManager.h"
 #include "../../RTSDevelopement/RTSDevelopement/HelperFunctions.h"
 
 class GUITextBox;
@@ -34,6 +35,9 @@ public:
 	void linkFontManager(FontManager *_fontManager);
 	FontManager *getFontManager(void);
 
+	void linkTextureManager(TextureManager *_textureManager);
+	TextureManager *getTextureManager(void);
+
 	void linkInputManager(InputManager *_inputManager);
 	InputManager *getInputManager(void);
 
@@ -49,12 +53,14 @@ private:
 	std::vector<GUITextBox *>									m_TextBoxes;
 
 	FontManager *												m_FontManager;
+	TextureManager *											m_TextureManager;
 	InputManager *												m_InputManager;
 	sf::RenderWindow *											m_Window;
 };
 
 #define sGUIMANAGER GUIManager::instance()
 #define sGUIFONTS	GUIManager::instance().getFontManager()
+#define sGUITEX		GUIManager::instance().getTextureManager()
 #define sGUIINPUT	GUIManager::instance().getInputManager()
 #define sGUIWINDOW	GUIManager::instance().getWindow()
 

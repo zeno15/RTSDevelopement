@@ -1,15 +1,15 @@
-#ifndef INCLUDED_GUIBUTTON_H
-#define INCLUDED_GUIBUTTON_H
+#ifndef INCLUDED_GUIBUTTONTEXTURED_H
+#define INCLUDED_GUIBUTTONTEXTURED_H
 
 #include <string>
 
 #include "GUIObject.h"
 
-class GUIButton : public GUIObject
+class GUIButtonTextured : public GUIObject
 {
 public:
-	GUIButton(std::string _text, bool *_toActivate, sf::Vector2f _position, sf::Vector2f _size = sf::Vector2f());
-	~GUIButton(void);
+	GUIButtonTextured(sf::Vector2f _position, sf::Vector2f _size, bool *_toActivate, sf::Texture *_texture, sf::FloatRect _textureBounds);
+	~GUIButtonTextured(void);
 
 	virtual void update(sf::Time _delta);
 	
@@ -25,14 +25,14 @@ private:
 	void setPressedColours(void);
 
 private:
-	sf::Text										m_Text;
 	sf::VertexArray									m_Vertices;
 
-	bool											m_DisplayText;
+	sf::Texture *									m_Texture;
+
 	bool											m_Unactivate;
 	bool *											m_ToActivate;
 	
 	colourState										m_CurrentState;
 };
 
-#endif //~ INCLUDED_GUIBUTTON_H
+#endif //~ INCLUDED_GUIBUTTONTEXTURED_H

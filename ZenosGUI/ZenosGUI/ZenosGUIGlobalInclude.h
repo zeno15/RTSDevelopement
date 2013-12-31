@@ -2,6 +2,7 @@
 #define INCLUDED_ZENOSGUIGLOBALINCLUDE
 
 #include "GUIButton.h"
+#include "GUIButtonTextured.h"
 #include "GUICheckbox.h"
 #include "GUIDropDownBox.h"
 #include "GUIDropDownMenu.h"

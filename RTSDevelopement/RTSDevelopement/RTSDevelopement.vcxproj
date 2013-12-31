@@ -58,8 +58,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Mark\Documents\GitHub\RTSDevelopement\RTSDevelopement\Release;C:\programminglibs\SFML-2.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;sfml-audio-s-d.lib;%(AdditionalDependencies);ZenosGUI.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Mark\Documents\GitHub\RTSDevelopement\RTSDevelopement\Release;C:\Users\Mark\Documents\GitHub\RTSDevelopement\RTSDevelopement\Debug;C:\programminglibs\SFML-2.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;sfml-audio-s-d.lib;%(AdditionalDependencies);ZenosGUI-d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -81,6 +81,15 @@ FontManager *GUIManager::getFontManager(void)
 	return m_FontManager;
 }
 
+void GUIManager::linkTextureManager(TextureManager *_textureManager)
+{
+	m_TextureManager = _textureManager;
+}
+TextureManager *GUIManager::getTextureManager(void)
+{
+	return m_TextureManager;
+}
+
 void GUIManager::linkInputManager(InputManager *_inputManager)
 {
 	m_InputManager = _inputManager;

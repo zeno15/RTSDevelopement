@@ -75,6 +75,9 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GUIButtonTextured.cpp">
+      <Filter>Source Files\GUIComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIManager.h">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="TextureManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIButtonTextured.h">
+      <Filter>Header Files\GUIComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

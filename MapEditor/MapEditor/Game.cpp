@@ -35,12 +35,13 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	sGUIMANAGER.linkWindow(&m_Window);
 	sGUIMANAGER.linkFontManager(&m_FontManager);
 	sGUIMANAGER.linkInputManager(&m_InputManager);
+	sGUIMANAGER.linkTextureManager(&m_TextureManager);
 
 	//NewMapInterface *newMap = new NewMapInterface(sf::Vector2f((float)(_screenSize.x), (float)(_screenSize.y)));
 
 	//sGUIMANAGER.addFrame(newMap);
 
-	m_Map.create(sf::Vector2u(192, 192), Map::TileType::DEFAULT_GRASS);
+	m_Map.create(sf::Vector2u(128, 128), Map::TileType::DEFAULT_GRASS);
 		
 	run();
 }
@@ -66,6 +67,8 @@ void Game::run(void)
 		m_Window.clear(sf::Color(25, 25, 25, 255));
 
 		m_Window.draw(m_Map);
+
+		m_Window.setView(m_Window.getDefaultView());
 		m_Window.draw(sGUIMANAGER);
 
 		m_Window.display();
