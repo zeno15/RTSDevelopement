@@ -59,7 +59,7 @@ void Minimap::updateColour(unsigned int _x, unsigned int _y, sf::Color _colour)
 
 void Minimap::updateViewPortOutlinePosition(void)
 {
-	static sf::Vector2f viewPortCentre = sGame.m_View.getCenter();
+	static sf::Vector2f viewPortCentre = sf::Vector2f();
 
 	if (viewPortCentre == sGame.m_View.getCenter()) return;
 	viewPortCentre = sGame.m_View.getCenter();

@@ -30,6 +30,8 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_FontManager.loadAllFonts();
 	m_TextureManager.loadAllTextures();
 
+	m_CursorManager.initialise();
+
 	m_InputManager.registerGUIManager(&sGUIMANAGER);
 
 	sGUIMANAGER.linkWindow(&m_Window);
@@ -58,6 +60,7 @@ void Game::run(void)
 
 		m_Map.update(clock.getElapsedTime());
 		sGUIMANAGER.update(clock.getElapsedTime());
+		m_CursorManager.update(clock.getElapsedTime());
 
 		handleEvents();
 
@@ -70,6 +73,9 @@ void Game::run(void)
 
 		m_Window.setView(m_Window.getDefaultView());
 		m_Window.draw(sGUIMANAGER);
+
+		m_Window.setView(m_View);
+		m_Window.draw(m_CursorManager);
 
 		m_Window.display();
 	}

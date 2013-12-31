@@ -7,6 +7,7 @@
 
 #include "../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 #include "Map.h"
+#include "CursorManager.h"
 
 class Game
 {
@@ -30,6 +31,8 @@ public:
 
 	InputManager									m_InputManager;
 
+	CursorManager									m_CursorManager;
+
 	bool											m_Running;
 
 	Map												m_Map;
@@ -47,5 +50,6 @@ private:
 #define sFont			sGame.m_FontManager
 #define sTexture		sGame.m_TextureManager
 #define sInput			sGame.m_InputManager
+#define sCursor			sGame.m_CursorManager
 
 #endif //~ INCLUDED_GAME_H

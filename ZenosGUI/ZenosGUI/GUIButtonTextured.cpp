@@ -8,7 +8,7 @@
 
 GUIButtonTextured::GUIButtonTextured(sf::Vector2f _position, sf::Vector2f _size, bool *_toActivate, sf::Texture *_texture, sf::FloatRect _textureBounds) :
 	m_Vertices(sf::Quads, 12),
-	m_CurrentState(colourState::NORMAL),
+	m_CurrentState(colourState::HOVER),
 	m_ToActivate(_toActivate),
 	m_Unactivate(false),
 	m_Texture(_texture)
@@ -105,15 +105,15 @@ void GUIButtonTextured::changeColourState(colourState _state){
 
 void  GUIButtonTextured::setDefaultColours(void)
 {
-	m_Vertices[0].color = sf::Color(155, 155, 155, 255);
-	m_Vertices[1].color = sf::Color(155, 155, 155, 255);
-	m_Vertices[2].color = sf::Color(155, 155, 155, 255);
-	m_Vertices[3].color = sf::Color(155, 155, 155, 255);
+	m_Vertices[0].color = sf::Color(125, 125, 125, 255);
+	m_Vertices[1].color = sf::Color(125, 125, 125, 255);
+	m_Vertices[2].color = sf::Color(125, 125, 125, 255);
+	m_Vertices[3].color = sf::Color(125, 125, 125, 255);
 
-	m_Vertices[4].color = sf::Color(100, 100, 100, 255);
-	m_Vertices[5].color = sf::Color(100, 100, 100, 255);
-	m_Vertices[6].color = sf::Color(100, 100, 100, 255);
-	m_Vertices[7].color = sf::Color(100, 100, 100, 255);
+	m_Vertices[4].color = sf::Color(175, 175, 175, 255);
+	m_Vertices[5].color = sf::Color(175, 175, 175, 255);
+	m_Vertices[6].color = sf::Color(175, 175, 175, 255);
+	m_Vertices[7].color = sf::Color(175, 175, 175, 255);
 }
 void  GUIButtonTextured::setHoverColours(void)
 {
@@ -129,10 +129,10 @@ void  GUIButtonTextured::setHoverColours(void)
 }
 void  GUIButtonTextured::setPressedColours(void)
 {
-	m_Vertices[0].color = sf::Color(94, 155, 255, 255);
-	m_Vertices[1].color = sf::Color(94, 155, 255, 255);
-	m_Vertices[2].color = sf::Color(94, 155, 255, 255);
-	m_Vertices[3].color = sf::Color(94, 155, 255, 255);
+	m_Vertices[0].color = sf::Color(84, 175, 255, 255);
+	m_Vertices[1].color = sf::Color(84, 175, 255, 255);
+	m_Vertices[2].color = sf::Color(84, 175, 255, 255);
+	m_Vertices[3].color = sf::Color(84, 175, 255, 255);
 
 	m_Vertices[4].color = sf::Color(65, 65, 65, 255);
 	m_Vertices[5].color = sf::Color(65, 65, 65, 255);

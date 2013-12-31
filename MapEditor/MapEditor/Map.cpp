@@ -45,7 +45,8 @@ void Map::create(sf::Vector2u _mapDimensions, TileType _defaultTileType)
 	m_SideBar.initialise(sf::FloatRect((float)(sGame.m_ScreenSize.x - m_SideBarWidth),
 									   m_SideBarWidth,
 									   m_SideBarWidth,
-									   (float)(sGame.m_ScreenSize.y - m_SideBarWidth)));
+									   (float)(sGame.m_ScreenSize.y - m_SideBarWidth)),
+									   &m_TileInformation);
 
 	m_TopBar.initialise(sf::FloatRect(0.0f,
 									  0.0f,
