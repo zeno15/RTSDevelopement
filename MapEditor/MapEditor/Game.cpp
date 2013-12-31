@@ -40,7 +40,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 
 	//sGUIMANAGER.addFrame(newMap);
 
-	m_Map.create(sf::Vector2u(128, 128));
+	m_Map.create(sf::Vector2u(32, 32), Map::TileType::DEFAULT_GRASS);
 		
 	run();
 }
@@ -55,6 +55,7 @@ void Game::run(void)
 	{
 		sf::sleep(sf::milliseconds(10));
 
+		m_Map.update(clock.getElapsedTime());
 		sGUIMANAGER.update(clock.getElapsedTime());
 
 		handleEvents();
@@ -64,6 +65,7 @@ void Game::run(void)
 		m_Window.setView(m_View);
 		m_Window.clear(sf::Color(25, 25, 25, 255));
 
+		m_Window.draw(m_Map);
 		m_Window.draw(sGUIMANAGER);
 
 		m_Window.display();

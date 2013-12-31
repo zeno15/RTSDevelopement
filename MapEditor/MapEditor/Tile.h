@@ -13,6 +13,7 @@ public:
 public:
 	std::string							m_TileName;
 	sf::Vector2f						m_TileTextureCoordinates;
+	sf::Color							m_TileMinimapColour;
 };
 
 #endif //~ INCLUDED_TILE_H

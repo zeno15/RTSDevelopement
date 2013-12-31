@@ -21,10 +21,16 @@ NewMapInterface::NewMapInterface(sf::Vector2f _screenSize) :
 	mapHeightText->setLabel("Height", GUITextBox::LabelPosition::BELOW);
 	m_HeightIndex = 2u;
 
+	GUIDropDownBox *defaultTerrain = new GUIDropDownBox(sf::Vector2f(bounds.left + bounds.width * 2.5f / 5.0f, bounds.top + bounds.height * 3.0f / 5.0f), sf::Vector2f(80.0f, 24.0f));
+	defaultTerrain->addOption("Grass");
+	defaultTerrain->addOption("Stone");
+	defaultTerrain->addOption("Water");
+
 
 	addObject(confirmButton);
 	addObject(mapWidthText);
 	addObject(mapHeightText);
+	addObject(defaultTerrain);
 
 	sInput.registerButton(sf::Mouse::Left);
 }

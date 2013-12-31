@@ -6,6 +6,11 @@ Default Grass Tile
 0
 0
 ~Texture Coordinates End
+~MinimapColour Begin
+0
+209
+33
+~MinimapColour End
 1-TILE_INFO_END
 
 2-TILE_INFO_BEGIN
@@ -16,6 +21,11 @@ Stone Ground Tile
 32
 0
 ~Texture Coordinates End
+~MinimapColour Begin
+155
+155
+155
+~MinimapColour End
 2-TILE_INFO_END
 
 3-TILE_INFO_BEGIN
@@ -26,4 +36,9 @@ Water Tile
 64
 0
 ~Texture Coordinates End
+~MinimapColour Begin
+0
+0
+255
+~MinimapColour End
 3-TILE_INFO_END
