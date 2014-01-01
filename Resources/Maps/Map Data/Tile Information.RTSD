@@ -42,3 +42,153 @@ Water Tile
 255
 ~MinimapColour End
 3-TILE_INFO_END
+
+4-TILE_INFO_BEGIN
+~Tile Name Begin
+Dirt Tile
+~Tile Name End
+~Texture Coordinates Begin
+96
+0
+~Texture Coordinates End
+~MinimapColour Begin
+127
+51
+0
+~MinimapColour End
+4-TILE_INFO_END
+
+5-TILE_INFO_BEGIN
+~Tile Name Begin
+Snow Tile
+~Tile Name End
+~Texture Coordinates Begin
+128
+0
+~Texture Coordinates End
+~MinimapColour Begin
+229
+229
+229
+~MinimapColour End
+5-TILE_INFO_END
+
+6-TILE_INFO_BEGIN
+~Tile Name Begin
+Grass To Water Corner Top Left
+~Tile Name End
+~Texture Coordinates Begin
+160
+0
+~Texture Coordinates End
+~MinimapColour Begin
+255
+216
+0
+~MinimapColour End
+6-TILE_INFO_END
+
+7-TILE_INFO_BEGIN
+~Tile Name Begin
+Grass To Water Corner Top Right
+~Tile Name End
+~Texture Coordinates Begin
+192
+0
+~Texture Coordinates End
+~MinimapColour Begin
+255
+216
+0
+~MinimapColour End
+7-TILE_INFO_END
+
+8-TILE_INFO_BEGIN
+~Tile Name Begin
+Grass To Water Corner Bottom Left
+~Tile Name End
+~Texture Coordinates Begin
+160
+32
+~Texture Coordinates End
+~MinimapColour Begin
+255
+216
+0
+~MinimapColour End
+8-TILE_INFO_END
+
+9-TILE_INFO_BEGIN
+~Tile Name Begin
+Grass To Water Corner Bottom Right
+~Tile Name End
+~Texture Coordinates Begin
+192
+32
+~Texture Coordinates End
+~MinimapColour Begin
+255
+216
+0
+~MinimapColour End
+9-TILE_INFO_END
+
+10-TILE_INFO_BEGIN
+~Tile Name Begin
+Water To Grass Corner Top Left
+~Tile Name End
+~Texture Coordinates Begin
+224
+0
+~Texture Coordinates End
+~MinimapColour Begin
+255
+216
+0
+~MinimapColour End
+10-TILE_INFO_END
+
+11-TILE_INFO_BEGIN
+~Tile Name Begin
+Water To Grass Corner Top Right
+~Tile Name End
+~Texture Coordinates Begin
+256
+0
+~Texture Coordinates End
+~MinimapColour Begin
+255
+216
+0
+~MinimapColour End
+11-TILE_INFO_END
+
+12-TILE_INFO_BEGIN
+~Tile Name Begin
+Water To Grass Corner Bottom Left
+~Tile Name End
+~Texture Coordinates Begin
+224
+32
+~Texture Coordinates End
+~MinimapColour Begin
+255
+216
+0
+~MinimapColour End
+12-TILE_INFO_END
+
+13-TILE_INFO_BEGIN
+~Tile Name Begin
+Water To Grass Corner Bottom Right
+~Tile Name End
+~Texture Coordinates Begin
+256
+32
+~Texture Coordinates End
+~MinimapColour Begin
+255
+216
+0
+~MinimapColour End
+13-TILE_INFO_END

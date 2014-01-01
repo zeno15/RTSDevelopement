@@ -40,6 +40,19 @@ void Minimap::update(sf::Time _delta)
 	}
 
 	updateViewPortOutlinePosition();
+
+	sf::FloatRect minimapMapBounds = sf::FloatRect(m_MapSprite.getGlobalBounds().left + (float)(m_MapStartX), 
+												   m_MapSprite.getGlobalBounds().top + (float)(m_MapStartY), 
+												   m_MapSprite.getGlobalBounds().width - (float)(m_MapStartX * 2), 
+												   m_MapSprite.getGlobalBounds().height - (float)(m_MapStartY * 2));
+
+	if (minimapMapBounds.contains((float)(sf::Mouse::getPosition(*sGUIWINDOW).x), (float)(sf::Mouse::getPosition(*sGUIWINDOW).y)))
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			sGame.m_View.setCenter((sf::Vector2f((float)(sf::Mouse::getPosition(*sGUIWINDOW).x), (float)(sf::Mouse::getPosition(*sGUIWINDOW).y)) - sf::Vector2f(minimapMapBounds.left, minimapMapBounds.top)) * TILESIZE_f);
+		}
+	}
 }
 void Minimap::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {

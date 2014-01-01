@@ -83,12 +83,12 @@ void Map::update(sf::Time _delta)
 		sGame.m_View.move(0.0f, + MAP_SCROLL_SPEED * _delta.asSeconds());
 	}
 
-	ensureWithinBounds();
-
 	m_SideBar.update(_delta);
 	m_TopBar.update(_delta);
 
 	m_Minimap.update(_delta);
+
+	ensureWithinBounds();
 }
 void Map::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
@@ -130,15 +130,20 @@ void Map::loadTileInformation(void)
 		if (line.size() == 0) continue;
 		if (line.at(0) == '~') continue;
 
-		if (line.substr(1, line.size()) == "-TILE_INFO_BEGIN")
+		int location = line.find('-');
+
+		if (location != std::string::npos)
 		{
-			continue;
-		}
-		else if (line.substr(1, line.size()) == "-TILE_INFO_END")
-		{
-			loadIndividualTileInfo(&tileInfoStrings);
-			tileInfoStrings.clear();
-			continue;
+			if (line.substr(location, line.size()) == "-TILE_INFO_BEGIN")
+			{
+				continue;
+			}
+			else if (line.substr(location, line.size()) == "-TILE_INFO_END")
+			{
+				loadIndividualTileInfo(&tileInfoStrings);
+				tileInfoStrings.clear();
+				continue;
+			}
 		}
 
 		tileInfoStrings.push_back(line);

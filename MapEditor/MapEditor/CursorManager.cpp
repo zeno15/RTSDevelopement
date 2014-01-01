@@ -55,5 +55,8 @@ void CursorManager::update(sf::Time _delta)
 }
 void CursorManager::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
-	if (m_DrawCursor) _target.draw(m_Cursor,			_states);
+	if (m_DrawCursor) 
+	{
+		_target.draw(m_Cursor,			_states);
+	}
 }
