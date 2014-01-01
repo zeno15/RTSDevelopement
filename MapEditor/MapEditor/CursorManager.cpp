@@ -21,6 +21,10 @@ CursorManager::CursorManager(void) :
 										 256,
 										 32,
 										 32));
+	m_TextureRects.push_back(sf::IntRect(96,
+										 256,
+										 32,
+										 32));
 }
 
 CursorManager::~CursorManager(void)

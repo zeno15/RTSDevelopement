@@ -69,6 +69,10 @@ void Minimap::updateColour(unsigned int _x, unsigned int _y, sf::Color _colour)
 	m_MapImage.setPixel(m_MapStartX + _x, m_MapStartY + _y, _colour);
 	m_RefreshMap = true;
 }
+sf::Color Minimap::getColour(unsigned int _x, unsigned int _y)
+{
+	return m_MapImage.getPixel(m_MapStartX + _x, m_MapStartY + _y);
+}
 
 void Minimap::updateViewPortOutlinePosition(void)
 {

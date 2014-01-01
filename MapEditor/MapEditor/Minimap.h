@@ -15,6 +15,7 @@ public:
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const;
 
 	void updateColour(unsigned int _x, unsigned int _y, sf::Color _colour);
+	sf::Color getColour(unsigned int _x, unsigned int _y);
 
 private:
 	void updateViewPortOutlinePosition(void);

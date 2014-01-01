@@ -36,6 +36,10 @@ private:
 
 	void ensureWithinBounds(void);
 
+	void fill(Tile _replacingTile, Tile _newTile, sf::Vector2u _tileCoords);
+
+	Tile getTileFromCoords(unsigned int _x, unsigned int _y);
+
 private:
 	sf::Vector2u									m_MapDimensions; //~ In 32x32 pixel tiles
 

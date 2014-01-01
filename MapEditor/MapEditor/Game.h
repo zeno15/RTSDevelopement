@@ -9,8 +9,8 @@
 #include "Map.h"
 #include "CursorManager.h"
 
-#define MOUSE_POSITION_WINDOW		sf::Vector2f((float)(sf::Mouse::getPosition(sGame.m_Window).x), (float)(sf::Mouse::getPosition(sGame.m_Window).y))
-#define MOUSE_POSITION_VIEW			sf::Vector2f((float)(sf::Mouse::getPosition(sGame.m_Window).x), (float)(sf::Mouse::getPosition(sGame.m_Window).y)) + sGame.m_View.getCenter() - sGame.m_View.getSize() / 2.0f
+#define MOUSE_POSITION_WINDOW		(sf::Vector2f((float)(sf::Mouse::getPosition(sGame.m_Window).x), (float)(sf::Mouse::getPosition(sGame.m_Window).y)))
+#define MOUSE_POSITION_VIEW			(sf::Vector2f((float)(sf::Mouse::getPosition(sGame.m_Window).x), (float)(sf::Mouse::getPosition(sGame.m_Window).y)) + sGame.m_View.getCenter() - sGame.m_View.getSize() / 2.0f)
 
 class Game
 {

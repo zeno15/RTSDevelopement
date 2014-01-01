@@ -12,6 +12,7 @@ public:
 					 SELECT,
 					 PAINT,
 					 ERASE,
+					 FILL,
 					 NUM_CURSORS};
 
 	CursorManager(void);

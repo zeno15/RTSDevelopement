@@ -103,6 +103,31 @@ void Map::update(sf::Time _delta)
 					   m_SideBar.getCurrentTile());
 		}
 	}
+
+	if (!sGUIINPUT->getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (m_SideBar.getCurrentTool() == Sidebar::FILL && mapBounds.contains(MOUSE_POSITION_WINDOW))
+		{
+			sf::Color colour = m_Minimap.getColour((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_u), (unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_u));
+
+			for (unsigned int i = 0; i < m_TileInformation.size(); i += 1)
+			{
+				if (colour == m_TileInformation.at(i).m_TileMinimapColour)
+				{
+					fill(m_TileInformation.at(i), m_SideBar.getCurrentTile(), sf::Vector2u((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_u), (unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_u)));
+					break;
+				}
+			}		
+		}
+	}
+
+	if (!sGUIINPUT->getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (m_SideBar.getCurrentTool() == Sidebar::SELECT && mapBounds.contains(MOUSE_POSITION_WINDOW))
+		{
+			std::cout << getTileFromCoords((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_u), (unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_u)).m_TileName << std::endl;
+		}
+	}
 }
 void Map::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
@@ -194,4 +219,72 @@ void Map::ensureWithinBounds(void)
 	{
 		sGame.m_View.setCenter(sGame.m_View.getCenter().x, m_MapDimensions.y * TILESIZE_f - sGame.m_View.getSize().y / 2.0f);
 	}
+}
+
+void Map::fill(Tile _replacingTile, Tile _newTile, sf::Vector2u _tileCoords)
+{
+	if (getTileFromCoords(_tileCoords.x, _tileCoords.y).m_TileName == _newTile.m_TileName) return;
+
+	std::vector<sf::Vector2u> coordstoCheck = std::vector<sf::Vector2u>();
+	coordstoCheck.push_back(_tileCoords);
+
+	while (coordstoCheck.size() > 0)
+	{
+		
+		if (getTileFromCoords(coordstoCheck.at(0).x, coordstoCheck.at(0).y).m_TileName == _replacingTile.m_TileName)
+		{
+			changeTile(coordstoCheck.at(0).x, coordstoCheck.at(0).y, _newTile);
+		}
+		else
+		{
+			coordstoCheck.erase(coordstoCheck.begin());
+			continue;
+		}
+
+		if (coordstoCheck.at(0).x > 0)
+		{
+			if (getTileFromCoords(coordstoCheck.at(0).x - 1, coordstoCheck.at(0).y).m_TileName == _replacingTile.m_TileName)
+			{
+				coordstoCheck.push_back(sf::Vector2u(coordstoCheck.at(0).x - 1, coordstoCheck.at(0).y));
+			}
+		}
+		if (coordstoCheck.at(0).y > 0)
+		{
+			if (getTileFromCoords(coordstoCheck.at(0).x, coordstoCheck.at(0).y - 1).m_TileName == _replacingTile.m_TileName)
+			{
+				coordstoCheck.push_back(sf::Vector2u(coordstoCheck.at(0).x, coordstoCheck.at(0).y - 1));
+			}
+		}
+		if (coordstoCheck.at(0).x + 1 < m_MapDimensions.x)
+		{
+			if (getTileFromCoords(coordstoCheck.at(0).x + 1, coordstoCheck.at(0).y).m_TileName == _replacingTile.m_TileName)
+			{
+				coordstoCheck.push_back(sf::Vector2u(coordstoCheck.at(0).x + 1, coordstoCheck.at(0).y));
+			}
+		}
+		if (coordstoCheck.at(0).y + 1 < m_MapDimensions.y)
+		{
+			if (getTileFromCoords(coordstoCheck.at(0).x, coordstoCheck.at(0).y + 1).m_TileName == _replacingTile.m_TileName)
+			{
+				coordstoCheck.push_back(sf::Vector2u(coordstoCheck.at(0).x, coordstoCheck.at(0).y + 1));
+			}
+		}
+		coordstoCheck.erase(coordstoCheck.begin());
+	}
+	
+	
+}
+
+Tile Map::getTileFromCoords(unsigned int _x, unsigned int _y)
+{
+	sf::Color colour = m_Minimap.getColour(_x, _y);
+
+	for (unsigned int i = 0; i < m_TileInformation.size(); i += 1)
+	{
+		if (colour == m_TileInformation.at(i).m_TileMinimapColour)
+		{
+			return m_TileInformation.at(i);
+		}
+	}	
+	return m_SideBar.getCurrentTile();
 }

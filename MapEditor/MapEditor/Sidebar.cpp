@@ -40,8 +40,6 @@ void Sidebar::initialise(sf::FloatRect _bounds, std::vector<Tile> *_tileInfo)
 
 	GUIFrame *interaceGUI = new GUIFrame(); 
 
-	
-
 	GUIButtonTextured *leftButton =   new GUIButtonTextured(sf::Vector2f(_bounds.left + 32.0f, _bounds.top + 96.0f), 
 															sf::Vector2f(32.0f, 32.0f), 
 															&m_LeftArrowButtonActive, 
@@ -68,6 +66,15 @@ void Sidebar::initialise(sf::FloatRect _bounds, std::vector<Tile> *_tileInfo)
 	interaceGUI->addObject(leftButton);
 	interaceGUI->addObject(rightButton);
 	interaceGUI->addObject(toolSelection);
+
+	m_ActiveToolDisplay[0].position = sf::Vector2f(_bounds.left + _bounds.width - 32.0f - 16.0f,
+												   _bounds.top + 32.0f - 16.0f);
+	m_ActiveToolDisplay[1].position = sf::Vector2f(_bounds.left + _bounds.width - 32.0f + 16.0f,
+												   _bounds.top + 32.0f - 16.0f);
+	m_ActiveToolDisplay[2].position = sf::Vector2f(_bounds.left + _bounds.width - 32.0f + 16.0f,
+												   _bounds.top + 32.0f + 16.0f);
+	m_ActiveToolDisplay[3].position = sf::Vector2f(_bounds.left + _bounds.width - 32.0f - 16.0f,
+												   _bounds.top + 32.0f + 16.0f);
 
 	sGUIMANAGER.addFrame(interaceGUI);
 
@@ -247,26 +254,49 @@ void Sidebar::changeTool(std::string _toolName)
 
 	m_ActiveToolName = _toolName;
 
+	sf::FloatRect texBounds;
+
 	if (m_ActiveToolName == "Select")
 	{
 		sCursor.changeCursor(CursorManager::CursorType::DEFAULT);
 		m_ActiveTool = Tool::SELECT;
+		texBounds = sf::FloatRect(0.0f,
+								  256.0f,
+								  TILESIZE_f,
+								  TILESIZE_f);
 	}
 	else if (m_ActiveToolName == "Paint")
 	{
 		sCursor.changeCursor(CursorManager::CursorType::PAINT);
 		m_ActiveTool = Tool::PAINT;
+		texBounds = sf::FloatRect(64.0f,
+								  256.0f,
+								  TILESIZE_f,
+								  TILESIZE_f);
 	}
 	else if (m_ActiveToolName == "Fill")
 	{
-		//sCursor.changeCursor(CursorManager::CursorType::DEFAULT);
-		//m_ActiveTool = Tool::SELECT;
+		sCursor.changeCursor(CursorManager::CursorType::FILL);
+		m_ActiveTool = Tool::FILL;
+		texBounds = sf::FloatRect(96.0f,
+								  256.0f,
+								  TILESIZE_f,
+								  TILESIZE_f);
 	}
 	else if (m_ActiveToolName == "Erase")
 	{
 		sCursor.changeCursor(CursorManager::CursorType::ERASE);
 		m_ActiveTool = Tool::ERASE;
+		texBounds = sf::FloatRect(32.0f,
+								  256.0f,
+								  TILESIZE_f,
+								  TILESIZE_f);
 	}
+
+	m_ActiveToolDisplay[0].texCoords = sf::Vector2f(texBounds.left,					texBounds.top);
+	m_ActiveToolDisplay[1].texCoords = sf::Vector2f(texBounds.left + TILESIZE_f,	texBounds.top);
+	m_ActiveToolDisplay[2].texCoords = sf::Vector2f(texBounds.left + TILESIZE_f,	texBounds.top + TILESIZE_f);
+	m_ActiveToolDisplay[3].texCoords = sf::Vector2f(texBounds.left,					texBounds.top + TILESIZE_f);
 
 	std::cout << "Active tool: " << m_ActiveToolName << std::endl;
 }
