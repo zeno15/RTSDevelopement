@@ -22,18 +22,13 @@ public:
 	Map(void);
 	~Map(void);
 
-	enum TileType {DEFAULT_GRASS,
-				   STONE,
-				   WATER,
-				   NUM_TILES};
-
 	void load(std::string _filename);
-	void create(sf::Vector2u _mapDimensions, TileType _defaultTileType);	//~ Add in default tile type etc later
+	void create(sf::Vector2u _mapDimensions);	//~ Add in default tile type etc later
 
 	void update(sf::Time _delta);
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const;
 
-	void changeTile(unsigned int _xTile, unsigned int _yTile, TileType _type);
+	void changeTile(unsigned int _xTile, unsigned int _yTile, Tile _type);
 
 private:
 	void loadTileInformation(void);

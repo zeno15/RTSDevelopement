@@ -55,8 +55,12 @@ void CursorManager::update(sf::Time _delta)
 }
 void CursorManager::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
+	_target.setView(_target.getDefaultView());
+
 	if (m_DrawCursor) 
 	{
 		_target.draw(m_Cursor,			_states);
 	}
+
+	_target.setView(sGame.m_View);
 }

@@ -5,14 +5,14 @@
 Sidebar::Sidebar(void) :
 	m_BackgroundQuads(sf::Quads, 4),
 	m_SelectableTileQuads(sf::Quads, 0),
-	m_SelectButtonActive(false),
-	m_EraseButtonActive(false),
-	m_PaintButtonActive(false),
+	m_ActiveToolDisplay(sf::Quads, 4),
 	m_RightArrowButtonActive(false),
 	m_LeftArrowButtonActive(false),
 	m_PressedOverTile(false),
 	m_CurrentPage(1),
-	m_CurrentTile(0)
+	m_CurrentTile(0),
+	m_ActiveTool(Tool::SELECT),
+	m_ActiveToolName("DEFAULT")
 {
 }
 
@@ -38,25 +38,9 @@ void Sidebar::initialise(sf::FloatRect _bounds, std::vector<Tile> *_tileInfo)
 
 	m_TileInfo = _tileInfo;
 
-	GUIFrame *ToolButtons = new GUIFrame(); 
+	GUIFrame *interaceGUI = new GUIFrame(); 
 
-	GUIButtonTextured *selectButton = new GUIButtonTextured(sf::Vector2f(_bounds.left + 32.0f, _bounds.top + 32.0f), 
-															sf::Vector2f(32.0f, 32.0f), 
-															&m_SelectButtonActive, 
-															sGUITEX->getTexture(TextureManager::TextureID::TILESHEET), 
-															sf::FloatRect(0.0f, 256.0f, TILESIZE_f, TILESIZE_f)); 
-
-	GUIButtonTextured *paintButton =  new GUIButtonTextured(sf::Vector2f(_bounds.left + _bounds.width / 2.0f, _bounds.top + 32.0f), 
-															sf::Vector2f(32.0f, 32.0f), 
-															&m_PaintButtonActive, 
-															sGUITEX->getTexture(TextureManager::TextureID::TILESHEET), 
-															sf::FloatRect(64.0f, 256.0f, TILESIZE_f, TILESIZE_f)); 
-
-	GUIButtonTextured *eraseButton =  new GUIButtonTextured(sf::Vector2f(_bounds.left + _bounds.width - 32.0f, _bounds.top + 32.0f), 
-															sf::Vector2f(32.0f, 32.0f), 
-															&m_EraseButtonActive, 
-															sGUITEX->getTexture(TextureManager::TextureID::TILESHEET), 
-															sf::FloatRect(32.0f, 256.0f, TILESIZE_f, TILESIZE_f));
+	
 
 	GUIButtonTextured *leftButton =   new GUIButtonTextured(sf::Vector2f(_bounds.left + 32.0f, _bounds.top + 96.0f), 
 															sf::Vector2f(32.0f, 32.0f), 
@@ -70,32 +54,32 @@ void Sidebar::initialise(sf::FloatRect _bounds, std::vector<Tile> *_tileInfo)
 															sGUITEX->getTexture(TextureManager::TextureID::TILESHEET), 
 															sf::FloatRect(0.0f, 288.0f, TILESIZE_f, TILESIZE_f));
 
-	ToolButtons->addObject(selectButton);
-	ToolButtons->addObject(paintButton);
-	ToolButtons->addObject(eraseButton);
-	ToolButtons->addObject(leftButton);
-	ToolButtons->addObject(rightButton);
+	GUIDropDownBox *toolSelection = new GUIDropDownBox(sf::Vector2f(_bounds.left + _bounds.width / 2.0f - 32.0f,
+																	_bounds.top + 32.0f),
+													   sf::Vector2f(96.0f,
+																	20.0f));
+	toolSelection->addOption("Select");
+	toolSelection->addOption("Paint");
+	toolSelection->addOption("Fill");
+	toolSelection->addOption("Erase");
 
-	sGUIMANAGER.addFrame(ToolButtons);
+	m_ToolSelect = toolSelection;
+
+	interaceGUI->addObject(leftButton);
+	interaceGUI->addObject(rightButton);
+	interaceGUI->addObject(toolSelection);
+
+	sGUIMANAGER.addFrame(interaceGUI);
 
 	initialiseTileSelection();
+
+	changeTool(toolSelection->getActiveOption());
 }
 
 void Sidebar::update(sf::Time _delta)
 {
-	if (m_SelectButtonActive)
-	{
-		sCursor.changeCursor(CursorManager::CursorType::DEFAULT);
-	}
-	else if (m_EraseButtonActive)
-	{
-		sCursor.changeCursor(CursorManager::CursorType::ERASE);
-	}
-	else if (m_PaintButtonActive)
-	{
-		sCursor.changeCursor(CursorManager::CursorType::PAINT);
-	}
-	else if (m_LeftArrowButtonActive)
+	changeTool(m_ToolSelect->getActiveOption());
+	if (m_LeftArrowButtonActive)
 	{
 		if (m_CurrentPage > 1)
 		{
@@ -156,11 +140,10 @@ void Sidebar::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 	_target.setView(_target.getDefaultView());
 
 	_target.draw(m_BackgroundQuads,			_states);
+	_target.draw(m_ActiveToolDisplay,		_states);
 	_target.draw(m_SelectableTileQuads,		_states);
 
 	_target.draw(m_PageNumber,				_states);
-	//std::cout << "X: " << m_PageNumber.getPosition().x << ", Y: " << m_PageNumber.getPosition().y << std::endl;
-	//std::cout << "String: " << m_PageNumber.getString().toAnsiString() << std::endl;
 
 	_target.setView(sGame.m_View);
 }
@@ -168,6 +151,10 @@ void Sidebar::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 Tile Sidebar::getCurrentTile(void)
 {
 	return m_TileInfo->at(m_CurrentTile);
+}
+Sidebar::Tool Sidebar::getCurrentTool(void)
+{
+	return m_ActiveTool;
 }
 
 void Sidebar::initialiseTileSelection(void)
@@ -252,4 +239,34 @@ void Sidebar::modifyTileSelection(unsigned int _page)
 														 m_TileInfo->at(m_CurrentTile).m_TileTextureCoordinates.y + TILESIZE_f)));
 
 	m_PageNumber.setString(std::to_string(m_CurrentPage) + " / " + std::to_string(m_MaxPages));
+}
+
+void Sidebar::changeTool(std::string _toolName)
+{
+	if (m_ActiveToolName == _toolName) return;
+
+	m_ActiveToolName = _toolName;
+
+	if (m_ActiveToolName == "Select")
+	{
+		sCursor.changeCursor(CursorManager::CursorType::DEFAULT);
+		m_ActiveTool = Tool::SELECT;
+	}
+	else if (m_ActiveToolName == "Paint")
+	{
+		sCursor.changeCursor(CursorManager::CursorType::PAINT);
+		m_ActiveTool = Tool::PAINT;
+	}
+	else if (m_ActiveToolName == "Fill")
+	{
+		//sCursor.changeCursor(CursorManager::CursorType::DEFAULT);
+		//m_ActiveTool = Tool::SELECT;
+	}
+	else if (m_ActiveToolName == "Erase")
+	{
+		sCursor.changeCursor(CursorManager::CursorType::ERASE);
+		m_ActiveTool = Tool::ERASE;
+	}
+
+	std::cout << "Active tool: " << m_ActiveToolName << std::endl;
 }

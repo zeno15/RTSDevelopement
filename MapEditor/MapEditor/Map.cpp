@@ -20,7 +20,7 @@ Map::~Map(void)
 void Map::load(std::string _filename)
 {
 }
-void Map::create(sf::Vector2u _mapDimensions, TileType _defaultTileType)
+void Map::create(sf::Vector2u _mapDimensions)
 {
 	if (_mapDimensions.x > 192) 
 	{
@@ -57,7 +57,7 @@ void Map::create(sf::Vector2u _mapDimensions, TileType _defaultTileType)
 	{
 		for (unsigned int j = 0; j < m_MapDimensions.x; j += 1)
 		{
-			changeTile(j, i, _defaultTileType);
+			changeTile(j, i, m_TileInformation.at(0));
 		}
 	}
 
@@ -89,6 +89,20 @@ void Map::update(sf::Time _delta)
 	m_Minimap.update(_delta);
 
 	ensureWithinBounds();
+
+	sf::FloatRect mapBounds(0.0f, m_TopBarHeight, (float)(sGame.m_ScreenSize.x - m_SideBarWidth), (float)(sGame.m_ScreenSize.y - m_TopBarHeight));
+
+	
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (m_SideBar.getCurrentTool() == Sidebar::PAINT && mapBounds.contains(MOUSE_POSITION_WINDOW))
+		{
+			changeTile((unsigned int)(sf::Mouse::getPosition(*sGUIWINDOW).x + sGame.m_View.getCenter().x - sGame.m_View.getSize().x / 2.0f) / TILESIZE_u, 
+					   (unsigned int)(sf::Mouse::getPosition(*sGUIWINDOW).y + sGame.m_View.getCenter().y - sGame.m_View.getSize().y / 2.0f) / TILESIZE_u,
+					   m_SideBar.getCurrentTile());
+		}
+	}
 }
 void Map::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
@@ -101,18 +115,18 @@ void Map::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 	_target.draw(m_TopBar,				_states);
 }
 
-void Map::changeTile(unsigned int _xTile, unsigned int _yTile, TileType _type)
+void Map::changeTile(unsigned int _xTile, unsigned int _yTile, Tile _type)
 {
 	m_BackgroundTiles[4 * (_yTile * m_MapDimensions.x + _xTile) + 0] = sf::Vertex(sf::Vector2f((_xTile + 0) * TILESIZE_f, (_yTile + 0) * TILESIZE_f), 
-																				  sf::Vector2f((float)(m_TileInformation.at(_type).m_TileTextureCoordinates.x),					(float)(m_TileInformation.at(_type).m_TileTextureCoordinates.y)));
+																				  sf::Vector2f((float)(_type.m_TileTextureCoordinates.x),				(float)(_type.m_TileTextureCoordinates.y)));
 	m_BackgroundTiles[4 * (_yTile * m_MapDimensions.x + _xTile) + 1] = sf::Vertex(sf::Vector2f((_xTile + 1) * TILESIZE_f, (_yTile + 0) * TILESIZE_f), 
-																				  sf::Vector2f((float)(m_TileInformation.at(_type).m_TileTextureCoordinates.x) + TILESIZE_f,	(float)(m_TileInformation.at(_type).m_TileTextureCoordinates.y)));
+																				  sf::Vector2f((float)(_type.m_TileTextureCoordinates.x) + TILESIZE_f,	(float)(_type.m_TileTextureCoordinates.y)));
 	m_BackgroundTiles[4 * (_yTile * m_MapDimensions.x + _xTile) + 2] = sf::Vertex(sf::Vector2f((_xTile + 1) * TILESIZE_f, (_yTile + 1) * TILESIZE_f), 
-																				  sf::Vector2f((float)(m_TileInformation.at(_type).m_TileTextureCoordinates.x) + TILESIZE_f,	(float)(m_TileInformation.at(_type).m_TileTextureCoordinates.y) + TILESIZE_f));
+																				  sf::Vector2f((float)(_type.m_TileTextureCoordinates.x) + TILESIZE_f,	(float)(_type.m_TileTextureCoordinates.y) + TILESIZE_f));
 	m_BackgroundTiles[4 * (_yTile * m_MapDimensions.x + _xTile) + 3] = sf::Vertex(sf::Vector2f((_xTile + 0) * TILESIZE_f, (_yTile + 1) * TILESIZE_f), 
-																				  sf::Vector2f((float)(m_TileInformation.at(_type).m_TileTextureCoordinates.x),					(float)(m_TileInformation.at(_type).m_TileTextureCoordinates.y) + TILESIZE_f));
+																				  sf::Vector2f((float)(_type.m_TileTextureCoordinates.x),				(float)(_type.m_TileTextureCoordinates.y) + TILESIZE_f));
 
-	m_Minimap.updateColour(_xTile, _yTile, m_TileInformation.at(_type).m_TileMinimapColour);
+	m_Minimap.updateColour(_xTile, _yTile, _type.m_TileMinimapColour);
 }
 
 void Map::loadTileInformation(void)

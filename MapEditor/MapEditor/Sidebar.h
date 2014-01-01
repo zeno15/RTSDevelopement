@@ -5,11 +5,19 @@
 
 #include "Tile.h"
 
+#include "../../ZenosGUI/ZenosGUI/GUIDropDownBox.h"
+
 class Sidebar : public sf::Drawable
 {
 public:
 	Sidebar(void);
 	~Sidebar(void);
+
+	enum Tool {SELECT,
+			   PAINT,
+			   ERASE,
+			   FILL,
+			   NUM_TOOLS};
 
 	void initialise(sf::FloatRect _bounds, std::vector<Tile> *_tileInfo);
 
@@ -17,15 +25,23 @@ public:
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const;
 
 	Tile getCurrentTile(void);
+	Tool getCurrentTool(void);
 
 private:
 	void initialiseTileSelection(void);
 	void modifyTileSelection(unsigned int _page);
 
+	void changeTool(std::string _toolName);
+
 private:
 	sf::VertexArray													m_BackgroundQuads;
 
 	sf::VertexArray													m_SelectableTileQuads;
+	sf::VertexArray													m_ActiveToolDisplay;
+
+	std::string														m_ActiveToolName;
+
+	GUIDropDownBox *												m_ToolSelect;
 
 	sf::Text														m_PageNumber;
 
@@ -35,12 +51,10 @@ private:
 	unsigned int													m_TilesPerColumn;
 	unsigned int													m_TilesPerRow;
 
-	bool															m_SelectButtonActive;
-	bool															m_EraseButtonActive;
-	bool															m_PaintButtonActive;
-
 	bool															m_LeftArrowButtonActive;
 	bool															m_RightArrowButtonActive;
+
+	Tool															m_ActiveTool;
 
 	bool															m_PressedOverTile;
 
