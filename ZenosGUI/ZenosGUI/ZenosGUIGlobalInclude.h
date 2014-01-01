@@ -15,6 +15,7 @@
 #include "GUIRadioButtonGroup.h"
 #include "GUISlider.h"
 #include "GUITextBox.h"
+#include "GUIThrowawayNotification.h"
 
 #include "GUIManager.h"
 #include "InputManager.h"

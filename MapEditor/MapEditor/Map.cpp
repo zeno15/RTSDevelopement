@@ -10,6 +10,8 @@ Map::Map(void) :
 	loadTileInformation();
 	m_SideBarWidth = 200.0f;
 	m_TopBarHeight = 20.0f;
+
+	
 }
 
 Map::~Map(void)
@@ -61,7 +63,17 @@ void Map::create(sf::Vector2u _mapDimensions)
 		}
 	}
 
-	
+	GUIFrame *messageFrame = new GUIFrame();
+
+	GUIThrowawayNotification *message = new GUIThrowawayNotification(sf::Vector2f((float)(sGame.m_ScreenSize.x) / 2.0f,
+																				  (float)(sGame.m_ScreenSize.y) / 2.0f),
+																	 sf::Vector2f((float)(sGame.m_ScreenSize.x) / 4.0f,
+																				  (float)(sGame.m_ScreenSize.y) / 4.0f),
+																	 "Testing!");
+
+	messageFrame->addObject(message);
+
+	sGUIMANAGER.addFrame(messageFrame);
 }
 
 void Map::update(sf::Time _delta)

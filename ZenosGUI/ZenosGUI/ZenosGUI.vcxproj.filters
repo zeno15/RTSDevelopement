@@ -78,6 +78,9 @@
     <ClCompile Include="GUIButtonTextured.cpp">
       <Filter>Source Files\GUIComponents</Filter>
     </ClCompile>
+    <ClCompile Include="GUIThrowawayNotification.cpp">
+      <Filter>Source Files\GUIComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIManager.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUIButtonTextured.h">
+      <Filter>Header Files\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIThrowawayNotification.h">
       <Filter>Header Files\GUIComponents</Filter>
     </ClInclude>
   </ItemGroup>

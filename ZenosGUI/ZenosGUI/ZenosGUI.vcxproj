@@ -96,6 +96,7 @@
     <ClCompile Include="GUIRadioButtonGroup.cpp" />
     <ClCompile Include="GUISlider.cpp" />
     <ClCompile Include="GUITextBox.cpp" />
+    <ClCompile Include="GUIThrowawayNotification.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
@@ -116,6 +117,7 @@
     <ClInclude Include="GUIRadioButtonGroup.h" />
     <ClInclude Include="GUISlider.h" />
     <ClInclude Include="GUITextBox.h" />
+    <ClInclude Include="GUIThrowawayNotification.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="ZenosGUIGlobalInclude.h" />

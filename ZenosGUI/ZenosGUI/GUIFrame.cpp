@@ -57,6 +57,13 @@ void GUIFrame::update(sf::Time _delta)
 	for (unsigned int i = 0; i < m_Objects.size(); i += 1)
 	{
 		m_Objects.at(i)->update(_delta);
+
+		if (m_Objects.at(i)->remove())
+		{
+			delete m_Objects.at(i);
+			m_Objects.erase(m_Objects.begin() + i);
+			if (m_Objects.size() == 0) m_ToRemove = true;
+		}
 	}
 }
 void GUIFrame::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
