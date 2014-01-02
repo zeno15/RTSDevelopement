@@ -37,18 +37,32 @@ private:
 	void ensureWithinBounds(void);
 
 	void fill(Tile _replacingTile, Tile _newTile, sf::Vector2u _tileCoords);
+	void fillRect(Tile _replacingTile, Tile _newTile, sf::Vector2u _tileCoords, sf::RectangleShape _rect);
 
 	Tile getTileFromCoords(unsigned int _x, unsigned int _y);
+
+	void createSavedMapFrame(void);
+	void saveMap(std::string _filename);
+
+	void updateSelectionBox(bool _finalise);
 
 private:
 	sf::Vector2u									m_MapDimensions; //~ In 32x32 pixel tiles
 
 	sf::VertexArray									m_BackgroundTiles;
+	sf::VertexArray									m_OverlayQuads;
 
 	std::vector<Tile>								m_TileInformation;
 
 	float											m_SideBarWidth;
 	float											m_TopBarHeight;
+
+	bool											m_Selecting;
+	bool											m_DisplaySelectionBox;
+	sf::Vector2f									m_InitialSelectedPosition;
+	std::vector<sf::RectangleShape>					m_SelectionBox;
+
+	Tile::unitType									m_OverlayToDraw;
 
 	Minimap											m_Minimap;
 	Sidebar											m_SideBar;

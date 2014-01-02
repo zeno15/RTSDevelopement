@@ -146,7 +146,12 @@ void Sidebar::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
 	_target.setView(_target.getDefaultView());
 
+	_states.texture = nullptr;
+
 	_target.draw(m_BackgroundQuads,			_states);
+
+	_states.texture = sTexture.getTexture(TextureManager::TextureID::TILESHEET);
+
 	_target.draw(m_ActiveToolDisplay,		_states);
 	_target.draw(m_SelectableTileQuads,		_states);
 

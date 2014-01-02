@@ -11,6 +11,13 @@ Default Grass Tile
 209
 33
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 1-TILE_INFO_END
 
 2-TILE_INFO_BEGIN
@@ -26,6 +33,13 @@ Stone Ground Tile
 155
 155
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 2-TILE_INFO_END
 
 3-TILE_INFO_BEGIN
@@ -41,6 +55,13 @@ Water Tile
 0
 255
 ~MinimapColour End
+~Unit Pass Types Begin
+false
+false
+false
+true
+true
+~Unit Pass Types End
 3-TILE_INFO_END
 
 4-TILE_INFO_BEGIN
@@ -56,6 +77,13 @@ Dirt Tile
 51
 0
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 4-TILE_INFO_END
 
 5-TILE_INFO_BEGIN
@@ -71,6 +99,13 @@ Snow Tile
 229
 229
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 5-TILE_INFO_END
 
 6-TILE_INFO_BEGIN
@@ -86,6 +121,13 @@ Grass To Water Corner Top Left
 216
 0
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 6-TILE_INFO_END
 
 7-TILE_INFO_BEGIN
@@ -101,6 +143,13 @@ Grass To Water Corner Top Right
 216
 0
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 7-TILE_INFO_END
 
 8-TILE_INFO_BEGIN
@@ -116,6 +165,13 @@ Grass To Water Corner Bottom Left
 216
 0
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 8-TILE_INFO_END
 
 9-TILE_INFO_BEGIN
@@ -131,6 +187,13 @@ Grass To Water Corner Bottom Right
 216
 0
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 9-TILE_INFO_END
 
 10-TILE_INFO_BEGIN
@@ -146,6 +209,13 @@ Water To Grass Corner Top Left
 216
 0
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 10-TILE_INFO_END
 
 11-TILE_INFO_BEGIN
@@ -161,6 +231,13 @@ Water To Grass Corner Top Right
 216
 0
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 11-TILE_INFO_END
 
 12-TILE_INFO_BEGIN
@@ -176,6 +253,13 @@ Water To Grass Corner Bottom Left
 216
 0
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 12-TILE_INFO_END
 
 13-TILE_INFO_BEGIN
@@ -191,4 +275,11 @@ Water To Grass Corner Bottom Right
 216
 0
 ~MinimapColour End
+~Unit Pass Types Begin
+true
+true
+true
+false
+true
+~Unit Pass Types End
 13-TILE_INFO_END

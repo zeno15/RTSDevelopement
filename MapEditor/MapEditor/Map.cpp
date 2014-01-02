@@ -2,16 +2,19 @@
 
 #include "Game.h"
 
+#include <algorithm>
+
 #define MAP_SCROLL_SPEED	500.0f
 
 Map::Map(void) :
-	m_BackgroundTiles(sf::Quads, 0)
+	m_BackgroundTiles(sf::Quads, 0),
+	m_OverlayQuads(sf::Quads, 0),
+	m_OverlayToDraw(Tile::unitType::NUM_TYPES),
+	m_Selecting(false)
 {
 	loadTileInformation();
 	m_SideBarWidth = 200.0f;
 	m_TopBarHeight = 20.0f;
-
-	
 }
 
 Map::~Map(void)
@@ -37,6 +40,7 @@ void Map::create(sf::Vector2u _mapDimensions)
 
 	m_MapDimensions = _mapDimensions;
 	m_BackgroundTiles.resize(m_MapDimensions.x * m_MapDimensions.y * 4);
+	m_OverlayQuads.resize(m_MapDimensions.x * m_MapDimensions.y * 4);
 
 	m_Minimap.initialise(sf::FloatRect((float)(sGame.m_ScreenSize.x - m_SideBarWidth), 
 									   0.0f, 
@@ -60,20 +64,21 @@ void Map::create(sf::Vector2u _mapDimensions)
 		for (unsigned int j = 0; j < m_MapDimensions.x; j += 1)
 		{
 			changeTile(j, i, m_TileInformation.at(0));
+
+			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 0] = sf::Vertex(sf::Vector2f((j + 0) * TILESIZE_f,
+																						  (i + 0) * TILESIZE_f),
+																			 sf::Color(255, 0, 0, 105));
+			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 1] = sf::Vertex(sf::Vector2f((j + 1) * TILESIZE_f,
+																						  (i + 0) * TILESIZE_f),
+																			 sf::Color(255, 0, 0, 105));
+			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 2] = sf::Vertex(sf::Vector2f((j + 1) * TILESIZE_f,
+																						  (i + 1) * TILESIZE_f),
+																			 sf::Color(255, 0, 0, 105));
+			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 3] = sf::Vertex(sf::Vector2f((j + 0) * TILESIZE_f,
+																						  (i + 1) * TILESIZE_f),
+																			 sf::Color(255, 0, 0, 105));
 		}
 	}
-
-	GUIFrame *messageFrame = new GUIFrame();
-
-	GUIThrowawayNotification *message = new GUIThrowawayNotification(sf::Vector2f((float)(sGame.m_ScreenSize.x) / 2.0f,
-																				  (float)(sGame.m_ScreenSize.y) / 2.0f),
-																	 sf::Vector2f((float)(sGame.m_ScreenSize.x) / 4.0f,
-																				  (float)(sGame.m_ScreenSize.y) / 4.0f),
-																	 "Testing!");
-
-	messageFrame->addObject(message);
-
-	sGUIMANAGER.addFrame(messageFrame);
 }
 
 void Map::update(sf::Time _delta)
@@ -122,6 +127,24 @@ void Map::update(sf::Time _delta)
 		{
 			sf::Color colour = m_Minimap.getColour((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_u), (unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_u));
 
+			if (m_SelectionBox.size() > 0)
+			{
+				for (unsigned int i = 0; i < m_SelectionBox.size(); i += 1)
+				{
+					if (m_SelectionBox.at(i).getGlobalBounds().contains(MOUSE_POSITION_VIEW))
+					{
+						for (unsigned int j = 0; j < m_TileInformation.size(); j += 1)
+						{
+							if (colour == m_TileInformation.at(j).m_TileMinimapColour)
+							{
+								fillRect(m_TileInformation.at(j), m_SideBar.getCurrentTile(), sf::Vector2u((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_u), (unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_u)), m_SelectionBox.at(i));
+								return;
+							}
+						}
+					}
+				}
+			}
+
 			for (unsigned int i = 0; i < m_TileInformation.size(); i += 1)
 			{
 				if (colour == m_TileInformation.at(i).m_TileMinimapColour)
@@ -137,7 +160,29 @@ void Map::update(sf::Time _delta)
 	{
 		if (m_SideBar.getCurrentTool() == Sidebar::SELECT && mapBounds.contains(MOUSE_POSITION_WINDOW))
 		{
-			std::cout << getTileFromCoords((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_u), (unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_u)).m_TileName << std::endl;
+			m_Selecting = true;
+			m_DisplaySelectionBox = true;
+			m_InitialSelectedPosition = sf::Vector2f((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_f) * TILESIZE_f,
+													 (unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_f) * TILESIZE_f);
+		}
+	}
+	if (m_Selecting && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		//~ Update selection
+		updateSelectionBox(false);
+	}
+	else if (m_Selecting && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		//~ Finished selecting
+		m_Selecting = false;
+		updateSelectionBox(true);
+	}
+
+	if (m_DisplaySelectionBox)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			m_DisplaySelectionBox = false;
 		}
 	}
 }
@@ -147,9 +192,25 @@ void Map::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 
 	_target.draw(m_BackgroundTiles,		_states);
 
+	if (m_OverlayToDraw != Tile::unitType::NUM_TYPES)
+	{
+		_target.draw(m_OverlayQuads);
+	}
+	if (m_DisplaySelectionBox)
+	{
+		for (unsigned int i = 0; i < m_SelectionBox.size(); i += 1)
+		{
+			_target.draw(m_SelectionBox.at(i));
+		}
+	}
+
 	_target.draw(m_Minimap,				_states);
 	_target.draw(m_SideBar,				_states);
-	_target.draw(m_TopBar,				_states);
+
+	_target.draw(m_TopBar);
+
+	
+
 }
 
 void Map::changeTile(unsigned int _xTile, unsigned int _yTile, Tile _type)
@@ -210,6 +271,11 @@ void Map::loadIndividualTileInfo(std::vector<std::string> *_info)
 	m_TileInformation.back().m_TileMinimapColour.g = std::stoi(_info->at(4));
 	m_TileInformation.back().m_TileMinimapColour.b = std::stoi(_info->at(5));
 	m_TileInformation.back().m_TileMinimapColour.a = 255;
+	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::INFANTRY)		= _info->at(6)  == "true";
+	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::LIGHT_VEHICLE) = _info->at(7)  == "true";
+	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::HEAVY_VEHICLE) = _info->at(8)  == "true";
+	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::NAVAL)			= _info->at(8)  == "true";
+	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::AIR)			= _info->at(10) == "true";
 }
 
 void Map::ensureWithinBounds(void)
@@ -286,6 +352,65 @@ void Map::fill(Tile _replacingTile, Tile _newTile, sf::Vector2u _tileCoords)
 	
 	
 }
+void Map::fillRect(Tile _replacingTile, Tile _newTile, sf::Vector2u _tileCoords, sf::RectangleShape _rect)
+{
+	if (getTileFromCoords(_tileCoords.x, _tileCoords.y).m_TileName == _newTile.m_TileName) return;
+
+	std::vector<sf::Vector2u> coordstoCheck = std::vector<sf::Vector2u>();
+	coordstoCheck.push_back(_tileCoords);
+
+	sf::Rect<unsigned int> rectBounds = sf::Rect<unsigned int>();
+
+	rectBounds.left   = (unsigned int)(_rect.getGlobalBounds().left  / TILESIZE_i);
+	rectBounds.top    = (unsigned int)(_rect.getGlobalBounds().top   / TILESIZE_i);
+
+	rectBounds.width  = (unsigned int)(_rect.getGlobalBounds().width  / TILESIZE_i);
+	rectBounds.height = (unsigned int)(_rect.getGlobalBounds().height / TILESIZE_i);
+
+	while (coordstoCheck.size() > 0)
+	{
+		
+		if (getTileFromCoords(coordstoCheck.at(0).x, coordstoCheck.at(0).y).m_TileName == _replacingTile.m_TileName)
+		{
+			changeTile(coordstoCheck.at(0).x, coordstoCheck.at(0).y, _newTile);
+		}
+		else
+		{
+			coordstoCheck.erase(coordstoCheck.begin());
+			continue;
+		}
+
+		if ((coordstoCheck.at(0).x > 0) && (coordstoCheck.at(0).x > rectBounds.left))
+		{
+			if (getTileFromCoords(coordstoCheck.at(0).x - 1, coordstoCheck.at(0).y).m_TileName == _replacingTile.m_TileName)
+			{
+				coordstoCheck.push_back(sf::Vector2u(coordstoCheck.at(0).x - 1, coordstoCheck.at(0).y));
+			}
+		}
+		if ((coordstoCheck.at(0).y > 0) && (coordstoCheck.at(0).y > rectBounds.top))
+		{
+			if (getTileFromCoords(coordstoCheck.at(0).x, coordstoCheck.at(0).y - 1).m_TileName == _replacingTile.m_TileName)
+			{
+				coordstoCheck.push_back(sf::Vector2u(coordstoCheck.at(0).x, coordstoCheck.at(0).y - 1));
+			}
+		}
+		if ((coordstoCheck.at(0).x + 1 < m_MapDimensions.x) && (coordstoCheck.at(0).y + 1 < rectBounds.left + rectBounds.width))
+		{
+			if (getTileFromCoords(coordstoCheck.at(0).x + 1, coordstoCheck.at(0).y).m_TileName == _replacingTile.m_TileName)
+			{
+				coordstoCheck.push_back(sf::Vector2u(coordstoCheck.at(0).x + 1, coordstoCheck.at(0).y));
+			}
+		}
+		if ((coordstoCheck.at(0).y + 1 < m_MapDimensions.y) && (coordstoCheck.at(0).y + 1 < rectBounds.top + rectBounds.height))
+		{
+			if (getTileFromCoords(coordstoCheck.at(0).x, coordstoCheck.at(0).y + 1).m_TileName == _replacingTile.m_TileName)
+			{
+				coordstoCheck.push_back(sf::Vector2u(coordstoCheck.at(0).x, coordstoCheck.at(0).y + 1));
+			}
+		}
+		coordstoCheck.erase(coordstoCheck.begin());
+	}
+}
 
 Tile Map::getTileFromCoords(unsigned int _x, unsigned int _y)
 {
@@ -299,4 +424,47 @@ Tile Map::getTileFromCoords(unsigned int _x, unsigned int _y)
 		}
 	}	
 	return m_SideBar.getCurrentTile();
+}
+
+void Map::createSavedMapFrame(void)
+{
+}
+void Map::saveMap(std::string _filename)
+{
+}
+
+void Map::updateSelectionBox(bool _finalise)
+{
+	static bool createNew = true;
+
+
+	m_InitialSelectedPosition;
+
+	sf::Vector2f newPosition = sf::Vector2f((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_f) * TILESIZE_f,
+										    (unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_f) * TILESIZE_f);
+
+	sf::Vector2f size(fabsf(m_InitialSelectedPosition.x - newPosition.x) - 2.0f + TILESIZE_f,
+					  fabsf(m_InitialSelectedPosition.y - newPosition.y) - 2.0f + TILESIZE_f);
+
+	sf::Vector2f pos(std::min(m_InitialSelectedPosition.x, newPosition.x) + 1.0f,
+					 std::min(m_InitialSelectedPosition.y, newPosition.y) + 1.0f);
+
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && createNew)
+	{
+		m_SelectionBox.clear();
+	}
+
+	if (createNew)
+	{
+		m_SelectionBox.push_back(sf::RectangleShape());
+	}
+	
+	m_SelectionBox.back().setPosition(pos);
+	m_SelectionBox.back().setSize(size);
+
+	m_SelectionBox.back().setFillColor(sf::Color::Transparent);
+	m_SelectionBox.back().setOutlineThickness(1.0f);
+	m_SelectionBox.back().setOutlineColor(sf::Color::White);
+
+	createNew = _finalise;
 }

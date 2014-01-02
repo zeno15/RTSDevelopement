@@ -19,6 +19,7 @@
 #include "TestWorldObject.h"
 #include "TestRandomWanderer.h"
 
+
 Game::Game(void)
 {
 }
@@ -53,7 +54,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_DebugManager.initialise();
 
 	m_World.setInterfaceSized(200.0f, 20.0f);
-	m_World.load("Resources/Maps/map1.png");
+	m_World.load("../../Resources/Maps/map1.png");
 
 	sInput.registerButton(sf::Mouse::Right);
 
@@ -83,31 +84,6 @@ void Game::run(void)
 
 		if (!sInput.getButtonState(sf::Mouse::Right) && sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
-			/*sf::Vector2f offset(m_View.getCenter() - m_View.getSize() / 2.0f);
-			TestRandomWanderer *newTest = new TestRandomWanderer(WorldObject::ObjectType::TEST, sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y)) + offset, sf::Vector2f(32.0f, 32.0f));
-			mDebugNew(newTest);
-			sWorldObj.addWorldObject(newTest);*/
-			if (state == 0)
-			{
-				//~ First press, add starting point
-				start = sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y));
-				printvector2(start, "Start point");
-				state = 1;
-			}
-			else if (state == 1)
-			{
-				//~ Second press, add end point and calculate
-				end = sf::Vector2f((float)(sf::Mouse::getPosition(m_Window).x), (float)(sf::Mouse::getPosition(m_Window).y));
-				printvector2(end, "End point");
-				state = 2;
-				sWorld.m_PathfindingGrid.requestPath(start, end, &DEBUG_PathNodes);
-			}
-			else
-			{
-				//~ Third press clear.
-				state = 0;
-				DEBUG_PathNodes.clear();
-			}
 
 		}
 
@@ -124,10 +100,7 @@ void Game::run(void)
 		m_Window.draw(sDebug);
 		m_Window.setView(m_View);
 		
-		for (unsigned int i = 0; i < DEBUG_PathNodes.size(); i += 1)
-		{
-			m_Window.draw(*DEBUG_PathNodes.at(i));
-		}
+		
 
 		m_Window.display();
 	}
@@ -139,6 +112,11 @@ void Game::handleEvents(void)
 
 	while (m_Window.pollEvent(event))
 	{
+		if (event.type == sf::Event::Closed)
+		{
+			m_Running = false;
+		}
+
 		sInput.handleEvent(event);
 	}
 }

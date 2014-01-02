@@ -14,7 +14,6 @@
 
 #include "World.h"
 
-#include "PathfindingNode.h"
 
 class Game
 {
@@ -41,9 +40,7 @@ public:
 	TextureManager									m_TextureManager;
 
 	World											m_World;
-
-	std::vector<PathfindingNode *>					DEBUG_PathNodes;
-
+	
 	bool											m_Running;
 
 private:

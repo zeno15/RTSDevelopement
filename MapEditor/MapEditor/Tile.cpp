@@ -1,7 +1,8 @@
 #include "Tile.h"
 
 
-Tile::Tile(void)
+Tile::Tile(void) :
+	m_TileUnitPassValues(unitType::NUM_TYPES, false)
 {
 }
 
