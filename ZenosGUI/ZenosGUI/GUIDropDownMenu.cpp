@@ -128,8 +128,17 @@ void GUIDropDownMenu::update(sf::Time _delta)
 			{
 				if (!sGUIINPUT->getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
-					setMenuDraws(i + 1);
-					m_DoubleExtended = true;
+					if (m_MenuNames.at(i).size() == 1)
+					{
+						m_Extended = false;
+						setMenuDraws(0);
+						std::cout << "Activate non-child menu " << i << std::endl;
+					}
+					else
+					{
+						m_DoubleExtended = true;
+						setMenuDraws(i + 1);
+					}
 				}
 				else 
 				{

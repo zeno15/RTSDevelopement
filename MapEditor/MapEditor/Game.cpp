@@ -43,30 +43,15 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 
 	//sGUIMANAGER.addFrame(newMap);
 
-	m_Map.create(sf::Vector2u(64, 64));
+	//m_Map.create(sf::Vector2u(64, 64));
 
-	/*GUIFrame *frame = new GUIFrame();
+	GUIFrame *pointerFrame = new GUIFrame();
 
-	std::vector<std::vector<std::string>> menuNames = std::vector<std::vector<std::string>>(3);
+	GUIButton *test = new GUIButton("Press me!", functionToBePointered, sf::Vector2f(100.0f, 100.0f));
 
-	menuNames.at(0) = std::vector<std::string>(3);
-	menuNames.at(0).at(0) = "0-0";
-	menuNames.at(0).at(1) = "0-1";
-	menuNames.at(0).at(2) = "0-2";
-	menuNames.at(1) = std::vector<std::string>(3);
-	menuNames.at(1).at(0) = "1-0";
-	menuNames.at(1).at(1) = "1-1";
-	menuNames.at(1).at(2) = "1-2";
-	menuNames.at(2) = std::vector<std::string>(3);
-	menuNames.at(2).at(0) = "2-0";
-	menuNames.at(2).at(1) = "2-1";
-	menuNames.at(2).at(2) = "2-2";
+	pointerFrame->addObject(test);
 
-	GUIDropDownMenu *menu = new GUIDropDownMenu(sf::Vector2f(100.0f, 100.0f), 84.0f, "Test menu", menuNames);
-
-	frame->addObject(menu);
-
-	sGUIMANAGER.addFrame(frame);*/
+	sGUIMANAGER.addFrame(pointerFrame);
 		
 	run();
 }
@@ -81,9 +66,9 @@ void Game::run(void)
 	{
 		sf::sleep(sf::milliseconds(10));
 
-		m_Map.update(clock.getElapsedTime());
+		//m_Map.update(clock.getElapsedTime());
 		sGUIMANAGER.update(clock.getElapsedTime());
-		m_CursorManager.update(clock.getElapsedTime());
+		//m_CursorManager.update(clock.getElapsedTime());
 
 		handleEvents();
 
@@ -92,13 +77,13 @@ void Game::run(void)
 		m_Window.setView(m_View);
 		m_Window.clear(sf::Color(25, 25, 25, 255));
 
-		m_Window.draw(m_Map);
+		//m_Window.draw(m_Map);
 
 		m_Window.setView(m_Window.getDefaultView());
 		m_Window.draw(sGUIMANAGER);
 
-		m_Window.setView(m_View);
-		m_Window.draw(m_CursorManager);
+		//m_Window.setView(m_View);
+		//m_Window.draw(m_CursorManager);
 
 		m_Window.display();
 	}
@@ -119,4 +104,10 @@ void Game::handleEvents(void)
 			m_InputManager.handleEvent(event);
 		}
 	}
+}
+
+
+void functionToBePointered(void)
+{
+	std::cout << "This is a function, told to say: " << "NOTHING, . . yet!" << std::endl;
 }

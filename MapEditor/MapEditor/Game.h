@@ -40,6 +40,8 @@ public:
 
 	Map												m_Map;
 
+	
+
 private:
     Game(void);
     ~Game(void);
@@ -48,6 +50,8 @@ private:
 
 	void handleEvents(void);
 };
+
+void functionToBePointered(void);
 
 #define sGame			Game::instance()
 #define sFont			sGame.m_FontManager

@@ -5,10 +5,10 @@
 #define GUI_THROWAWAY_BORDER_THICKNESS 2.0f
 
 GUIThrowawayNotification::GUIThrowawayNotification(sf::Vector2f _position, sf::Vector2f _size, std::string _message) :
-	m_OkButton("Ok.", 
+	/*m_OkButton("Ok.", 
 			   &m_ToRemove, 
 			   sf::Vector2f(_position.x + _size.x / 2.0f - (_size.x > 30.0f ? 30.0f : 0.0f), _position.y + _size.y / 2.0f - (_size.y > 30.0f ? 30.0f : 0.0f)),
-			   sf::Vector2f(60.0f, 30.0f)),
+			   sf::Vector2f(60.0f, 30.0f)),*/
 	m_Message(_message, *sGUIFONTS->getFont(FontManager::FontID::OPENSANS_REGULAR), 16),
 	m_BackgroundQuads(sf::Quads, 8)
 {
@@ -51,11 +51,11 @@ GUIThrowawayNotification::~GUIThrowawayNotification(void)
 
 void GUIThrowawayNotification::update(sf::Time _delta)
 {
-	m_OkButton.update(_delta);
+	//m_OkButton.update(_delta);
 }
 void GUIThrowawayNotification::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
 	_target.draw(m_BackgroundQuads,	_states);
 	_target.draw(m_Message,			_states);
-	_target.draw(m_OkButton,		_states);
+	//_target.draw(m_OkButton,		_states);
 }

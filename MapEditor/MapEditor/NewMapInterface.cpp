@@ -10,8 +10,8 @@ NewMapInterface::NewMapInterface(sf::Vector2f _screenSize) :
 {
 	sf::FloatRect bounds(_screenSize.x / 4.0f, _screenSize.y / 4.0f, _screenSize.x / 2.0f, _screenSize.y / 2.0f);
 
-	GUIButton *confirmButton = new GUIButton("Create Map", &m_OnConfirm, sf::Vector2f(bounds.left + bounds.width * 7.0f / 8.0f,
-																					  bounds.top + bounds.height * 7.0f / 8.0f));
+	//GUIButton *confirmButton = new GUIButton("Create Map", &m_OnConfirm, sf::Vector2f(bounds.left + bounds.width * 7.0f / 8.0f,
+	//																				  bounds.top + bounds.height * 7.0f / 8.0f));
 
 	GUITextBox *mapWidthText  = new GUITextBox(sf::Vector2f(bounds.left + bounds.width * 1.0f / 5.0f, bounds.top + bounds.height * 1.0f / 5.0f), sf::Vector2f(80.0f, 30.0f), GUITextBox::TextBoxType::NUMERICAL);
 	mapWidthText->setLabel("Width", GUITextBox::LabelPosition::BELOW);
@@ -27,7 +27,7 @@ NewMapInterface::NewMapInterface(sf::Vector2f _screenSize) :
 	defaultTerrain->addOption("Water");
 
 
-	addObject(confirmButton);
+	//addObject(confirmButton);
 	addObject(mapWidthText);
 	addObject(mapHeightText);
 	addObject(defaultTerrain);

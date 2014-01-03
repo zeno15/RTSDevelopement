@@ -79,6 +79,28 @@ void Map::create(sf::Vector2u _mapDimensions)
 																			 sf::Color(255, 0, 0, 105));
 		}
 	}
+
+	GUIFrame *topBarFrame = new GUIFrame();
+
+	std::vector<std::vector<std::string>> fileMenuNames = std::vector<std::vector<std::string>>(4);
+
+	fileMenuNames.at(0) = std::vector<std::string>(1);
+	fileMenuNames.at(0).at(0) = "New Map";
+	fileMenuNames.at(1) = std::vector<std::string>(1);
+	fileMenuNames.at(1).at(0) = "Save Map";
+	fileMenuNames.at(2) = std::vector<std::string>(1);
+	fileMenuNames.at(2).at(0) = "Load Map";
+	fileMenuNames.at(3) = std::vector<std::string>(1);
+	fileMenuNames.at(3).at(0) = "Exit Map";
+
+	GUIDropDownMenu *fileMenu = new GUIDropDownMenu(sf::Vector2f(50.0f, 10.0f),
+													100.0f,
+													"File",
+													fileMenuNames);
+
+	topBarFrame->addObject(fileMenu);
+
+	sGUIMANAGER.addFrame(topBarFrame);
 }
 
 void Map::update(sf::Time _delta)
@@ -367,6 +389,19 @@ void Map::fillRect(Tile _replacingTile, Tile _newTile, sf::Vector2u _tileCoords,
 	rectBounds.width  = (unsigned int)(_rect.getGlobalBounds().width  / TILESIZE_i);
 	rectBounds.height = (unsigned int)(_rect.getGlobalBounds().height / TILESIZE_i);
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+	{
+		for (unsigned int i = rectBounds.top; i < rectBounds.top + rectBounds.height; i += 1)
+		{
+			for (unsigned int j = rectBounds.left; j < rectBounds.left + rectBounds.width; j += 1)
+			{
+				changeTile(j, i, _newTile);
+			}
+		}
+
+		return;
+	}
+
 	while (coordstoCheck.size() > 0)
 	{
 		
@@ -394,7 +429,7 @@ void Map::fillRect(Tile _replacingTile, Tile _newTile, sf::Vector2u _tileCoords,
 				coordstoCheck.push_back(sf::Vector2u(coordstoCheck.at(0).x, coordstoCheck.at(0).y - 1));
 			}
 		}
-		if ((coordstoCheck.at(0).x + 1 < m_MapDimensions.x) && (coordstoCheck.at(0).y + 1 < rectBounds.left + rectBounds.width))
+		if ((coordstoCheck.at(0).x + 1 < m_MapDimensions.x) && (coordstoCheck.at(0).x + 1 < rectBounds.left + rectBounds.width))
 		{
 			if (getTileFromCoords(coordstoCheck.at(0).x + 1, coordstoCheck.at(0).y).m_TileName == _replacingTile.m_TileName)
 			{

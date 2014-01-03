@@ -21,7 +21,7 @@ private:
 
 	sf::Text												m_Message;
 
-	GUIButton												m_OkButton;
+	//GUIButton												m_OkButton;
 };
 
 #endif //~ INCLUDED_GUITHROWAWAYNOTIFICATION_H
