@@ -122,7 +122,7 @@ void GUIDropDownMenu::update(sf::Time _delta)
 			{
 				if (!sGUIINPUT->getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
-					notifyReceivers(MessageData::MessageType::DROPDOWN_MENU_SELECT, 0.0f, m_MenuNames.at(m_MenuExtended - 1).at(0) + "-" + m_MenuNames.at(m_MenuExtended - 1).at(i));
+					notifyReceivers(MessageData::MessageType::DROPDOWN_MENU_SELECT, 0.0f, m_Texts.at(0).getString().toAnsiString() + "-" + m_MenuNames.at(m_MenuExtended - 1).at(0) + "-" + m_MenuNames.at(m_MenuExtended - 1).at(i));
 					notifyReceivers(MessageData::MessageType::DROPDOWN_UNACTIVE);
 					m_Extended = false;
 					m_DoubleExtended = false;
@@ -174,7 +174,7 @@ void GUIDropDownMenu::update(sf::Time _delta)
 					{
 						m_Extended = false;
 						setMenuDraws(0);
-						notifyReceivers(MessageData::MessageType::DROPDOWN_MENU_SELECT, 0.0f, m_MenuNames.at(i).at(0));
+						notifyReceivers(MessageData::MessageType::DROPDOWN_MENU_SELECT, 0.0f, m_Texts.at(0).getString().toAnsiString() + "-" + m_MenuNames.at(i).at(0));
 						notifyReceivers(MessageData::MessageType::DROPDOWN_UNACTIVE);
 					}
 					else

@@ -36,6 +36,7 @@ public:
 	bool											m_Running;
 
 	unsigned int									m_ActivateTextBoxID;
+	unsigned int									m_ProgressBarSliderID;
 
 private:
     Game(void);

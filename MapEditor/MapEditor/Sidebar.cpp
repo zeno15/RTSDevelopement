@@ -42,13 +42,11 @@ void Sidebar::initialise(sf::FloatRect _bounds, std::vector<Tile> *_tileInfo)
 
 	GUIButtonTextured *leftButton =   new GUIButtonTextured(sf::Vector2f(_bounds.left + 32.0f, _bounds.top + 96.0f), 
 															sf::Vector2f(32.0f, 32.0f), 
-															&m_LeftArrowButtonActive, 
 															sGUITEX->getTexture(TextureManager::TextureID::TILESHEET), 
 															sf::FloatRect(32.0f, 320.0f, - TILESIZE_f, - TILESIZE_f));
 
 	GUIButtonTextured *rightButton =  new GUIButtonTextured(sf::Vector2f(_bounds.left + _bounds.width - 32.0f, _bounds.top + 96.0f), 
 															sf::Vector2f(32.0f, 32.0f), 
-															&m_RightArrowButtonActive, 
 															sGUITEX->getTexture(TextureManager::TextureID::TILESHEET), 
 															sf::FloatRect(0.0f, 288.0f, TILESIZE_f, TILESIZE_f));
 

@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "GUIObject.h"
+#include "Receiver.h"
 
 class GUIFrame : public sf::Drawable
 {
@@ -28,6 +29,8 @@ protected:
 	bool											m_ToRemove;
 	bool											m_Display;
 	bool											m_Update;
+
+	unsigned int									m_ActiveObject;
 
 	sf::VertexArray									m_VerticesBackground;
 	sf::VertexArray									m_VerticesBorder;

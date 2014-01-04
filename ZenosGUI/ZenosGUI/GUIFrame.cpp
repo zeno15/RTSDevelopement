@@ -7,7 +7,8 @@
 GUIFrame::GUIFrame(sf::FloatRect _bounds/* = sf::FloatRect()*/) :
 	m_ToRemove(false),
 	m_Display(true),
-	m_Update(true)
+	m_Update(true),
+	m_ActiveObject(0)
 {
 	if (_bounds == sf::FloatRect())
 	{
@@ -54,10 +55,11 @@ void GUIFrame::addObject(GUIObject *_object)
 void GUIFrame::update(sf::Time _delta)
 {
 	if (!m_Update) return;
+	
 	for (unsigned int i = 0; i < m_Objects.size(); i += 1)
 	{
 		m_Objects.at(i)->update(_delta);
-
+		
 		if (m_Objects.at(i)->remove())
 		{
 			delete m_Objects.at(i);
@@ -65,6 +67,7 @@ void GUIFrame::update(sf::Time _delta)
 			if (m_Objects.size() == 0) m_ToRemove = true;
 		}
 	}
+
 }
 void GUIFrame::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
@@ -77,6 +80,8 @@ void GUIFrame::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 	{
 		_target.draw(*m_Objects.at(i),		_states);
 	}
+
+
 }
 
 bool GUIFrame::toRemove(void)

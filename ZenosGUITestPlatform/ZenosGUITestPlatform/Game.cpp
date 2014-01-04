@@ -56,7 +56,10 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	buttonTex->registerReceiver(this);	
 
 	GUISlider *slider = new GUISlider(true, sf::Vector2f(50.0f, 150.0f), 80.0f);
-	slider->registerReceiver(this);
+	m_ProgressBarSliderID = slider->registerReceiver(this);
+
+	GUISlider *slider2 = new GUISlider(true, sf::Vector2f(150.0f, 150.0f), 80.0f, 8);
+	slider2->registerReceiver(this);
 
 	GUIProgressBar *progress = new GUIProgressBar(true, sf::Vector2f(50.0f, 200.0f), sf::Vector2f(100.0f, 40.0f));
 	this->registerReceiver(progress);
@@ -100,6 +103,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	frame->addObject(textbox);
 	frame->addObject(buttonTex);
 	frame->addObject(slider);
+	frame->addObject(slider2);
 	frame->addObject(progress);
 	frame->addObject(group);
 	frame->addObject(dropbox);
@@ -147,7 +151,10 @@ void Game::run(void)
 			else if (m_Messages.front().s_MessageType == MessageData::MessageType::SLIDER_UPDATED)
 			{
 				std::cout << "Slider updated: " << m_Messages.front().s_FloatData << "%" << std::endl;
-				notifyReceivers(MessageData::MessageType::PROGRESSBAR_COMPLETE_PERC, m_Messages.front().s_FloatData);
+				if (m_Messages.front().s_Id == m_ProgressBarSliderID)
+				{
+					notifyReceivers(MessageData::MessageType::PROGRESSBAR_COMPLETE_PERC, m_Messages.front().s_FloatData);
+				}
 			}
 			else if (m_Messages.front().s_MessageType == MessageData::MessageType::TEXTBOX_DELIVER_TEXT)
 			{

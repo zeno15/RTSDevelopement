@@ -12,17 +12,20 @@
 #include "Sidebar.h"
 #include "TopBar.h"
 
+#include "../../ZenosGUI/ZenosGUI/Receiver.h"
+
 #define TILESIZE_f 32.0f
 #define TILESIZE_u 32u
 #define TILESIZE_i 32
 
-class Map : public sf::Drawable
+class Map : public sf::Drawable, public Receiver
 {
 public:
 	Map(void);
 	~Map(void);
 
 	void load(std::string _filename);
+	void save(std::string _filename);
 	void create(sf::Vector2u _mapDimensions);	//~ Add in default tile type etc later
 
 	void update(sf::Time _delta);
@@ -48,6 +51,8 @@ private:
 
 	void activateOverlay(Tile::unitType _type);
 
+	void handleDropMenuChoices(std::string _choice);
+
 private:
 	sf::Vector2u									m_MapDimensions; //~ In 32x32 pixel tiles
 
@@ -58,6 +63,8 @@ private:
 
 	float											m_SideBarWidth;
 	float											m_TopBarHeight;
+
+	bool											m_MenubarIsActive;
 
 	bool											m_Selecting;
 	bool											m_DisplaySelectionBox;

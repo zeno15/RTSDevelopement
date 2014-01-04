@@ -10,7 +10,8 @@ Map::Map(void) :
 	m_BackgroundTiles(sf::Quads, 0),
 	m_OverlayQuads(sf::Quads, 0),
 	m_OverlayToDraw(Tile::unitType::NUM_TYPES),
-	m_Selecting(false)
+	m_Selecting(false),
+	m_MenubarIsActive(false)
 {
 	loadTileInformation();
 	m_SideBarWidth = 200.0f;
@@ -23,6 +24,9 @@ Map::~Map(void)
 
 
 void Map::load(std::string _filename)
+{
+}
+void Map::save(std::string _filename)
 {
 }
 void Map::create(sf::Vector2u _mapDimensions)
@@ -91,27 +95,30 @@ void Map::create(sf::Vector2u _mapDimensions)
 	fileMenuNames.at(2) = std::vector<std::string>(1);
 	fileMenuNames.at(2).at(0) = "Load Map";
 	fileMenuNames.at(3) = std::vector<std::string>(1);
-	fileMenuNames.at(3).at(0) = "Exit Map";
+	fileMenuNames.at(3).at(0) = "Exit Editor";
 
-	GUIDropDownMenu *fileMenu = new GUIDropDownMenu(sf::Vector2f(50.0f, 10.0f),
-													100.0f,
+	GUIDropDownMenu *fileMenu = new GUIDropDownMenu(sf::Vector2f(40.0f, 10.0f),
+													80.0f,
 													"File",
 													fileMenuNames);
+	fileMenu->registerReceiver(this);
 
 	std::vector<std::vector<std::string>> toolMenuNames = std::vector<std::vector<std::string>>(1);
 
-	toolMenuNames.at(0) = std::vector<std::string>(Tile::unitType::NUM_TYPES + 1);
-	toolMenuNames.at(0).at(0) = "OverlayTypes";
+	toolMenuNames.at(0) = std::vector<std::string>(Tile::unitType::NUM_TYPES + 2);
+	toolMenuNames.at(0).at(0) = "Overlay Types";
 	toolMenuNames.at(0).at(1) = "Infantry";
 	toolMenuNames.at(0).at(2) = "Light Vehicle";
 	toolMenuNames.at(0).at(3) = "Heavy Vehicle";
 	toolMenuNames.at(0).at(4) = "Naval";
 	toolMenuNames.at(0).at(5) = "Air";
+	toolMenuNames.at(0).at(6) = "Normal";
 
-	GUIDropDownMenu *toolMenu = new GUIDropDownMenu(sf::Vector2f(151.0f, 10.0f),
-													100.0f,
+	GUIDropDownMenu *toolMenu = new GUIDropDownMenu(sf::Vector2f(136.0f, 10.0f),
+													110.0f,
 													"Tools",
 													toolMenuNames);
+	toolMenu->registerReceiver(this);
 
 	topBarFrame->addObject(fileMenu);
 	topBarFrame->addObject(toolMenu);
@@ -121,6 +128,31 @@ void Map::create(sf::Vector2u _mapDimensions)
 
 void Map::update(sf::Time _delta)
 {
+	while (m_Messages.size() > 0)
+	{
+		if (m_Messages.front().s_MessageType == MessageData::MessageType::DROPDOWN_ACTIVE)
+		{
+			m_MenubarIsActive = true;
+		}
+		else if (m_Messages.front().s_MessageType == MessageData::MessageType::DROPDOWN_UNACTIVE)
+		{
+			m_MenubarIsActive = false;
+		}
+		else if (m_Messages.front().s_MessageType == MessageData::MessageType::DROPDOWN_MENU_SELECT)
+		{
+			handleDropMenuChoices(m_Messages.front().s_StringData);
+		}
+
+		m_Messages.erase(m_Messages.begin());
+	}
+
+
+
+	if (m_MenubarIsActive)
+	{
+		return;
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		sGame.m_View.move(- MAP_SCROLL_SPEED * _delta.asSeconds(), 0.0f);
@@ -146,8 +178,6 @@ void Map::update(sf::Time _delta)
 	ensureWithinBounds();
 
 	sf::FloatRect mapBounds(0.0f, m_TopBarHeight, (float)(sGame.m_ScreenSize.x - m_SideBarWidth), (float)(sGame.m_ScreenSize.y - m_TopBarHeight));
-
-	
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
@@ -312,7 +342,7 @@ void Map::loadIndividualTileInfo(std::vector<std::string> *_info)
 	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::INFANTRY)		= _info->at(6)  == "true";
 	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::LIGHT_VEHICLE) = _info->at(7)  == "true";
 	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::HEAVY_VEHICLE) = _info->at(8)  == "true";
-	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::NAVAL)			= _info->at(8)  == "true";
+	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::NAVAL)			= _info->at(9)  == "true";
 	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::AIR)			= _info->at(10) == "true";
 }
 
@@ -524,7 +554,7 @@ void Map::activateOverlay(Tile::unitType _type)
 {
 	m_OverlayToDraw = _type;
 
-	if (m_OverlayToDraw = Tile::unitType::NUM_TYPES) return;
+	if (m_OverlayToDraw == Tile::unitType::NUM_TYPES) return;
 
 	for (unsigned int i = 0; i < m_MapDimensions.y; i += 1)
 	{
@@ -534,17 +564,94 @@ void Map::activateOverlay(Tile::unitType _type)
 
 			if (getTileFromCoords(j, i).m_TileUnitPassValues.at(m_OverlayToDraw))
 			{
-				overlayColour = sf::Color(0, 255, 0, 155);
+				overlayColour = sf::Color(0, 255, 0, 175);
 			}
 			else
 			{
-				overlayColour = sf::Color(255, 0, 0, 155);
+				overlayColour = sf::Color(255, 0, 0, 175);
 			}
 
 			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 0].color = overlayColour;
 			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 1].color = overlayColour;
 			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 2].color = overlayColour;
 			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 3].color = overlayColour;
+		}
+	}
+}
+
+void Map::handleDropMenuChoices(std::string _choice)
+{
+	std::vector<std::string> choicesSplit = std::vector<std::string>();
+
+	unsigned int found = _choice.find("-");
+
+	while (found != std::string::npos)
+	{
+		choicesSplit.push_back(_choice.substr(0, found));
+
+		_choice = _choice.substr(found + 1, _choice.size());
+		
+		found = _choice.find("-");
+	}
+
+	choicesSplit.push_back(_choice);
+
+
+
+	if (choicesSplit.at(0) == "File")
+	{
+		if (choicesSplit.at(1) == "New Map")
+		{
+			std::cout << "Make a new map!" << std::endl;
+		}
+		else if (choicesSplit.at(1) == "Load Map")
+		{
+			std::cout << "Load an existing map!" << std::endl;
+		}
+		else if (choicesSplit.at(1) == "Save Map")
+		{
+			std::cout << "Save the current map!" << std::endl;
+		}
+		else if (choicesSplit.at(1) == "Exit Editor")
+		{
+			std::cout << "Close out of the editor - prompt to save" << std::endl;
+			sGame.m_Running = false;
+		}
+	}
+	else if (choicesSplit.at(0) == "Tools")
+	{
+		if (choicesSplit.at(1) == "Overlay Types")
+		{
+			if (choicesSplit.at(2) == "Infantry")
+			{
+				std::cout << "Change the overlay to infantry" << std::endl;
+				activateOverlay(Tile::unitType::INFANTRY);
+			}
+			else if (choicesSplit.at(2) == "Light Vehicle")
+			{
+				std::cout << "Change the overlay to light vehicles" << std::endl;
+				activateOverlay(Tile::unitType::LIGHT_VEHICLE);
+			}
+			else if (choicesSplit.at(2) == "Heavy Vehicle")
+			{
+				std::cout << "Change the overlay to heavy vehicles" << std::endl;
+				activateOverlay(Tile::unitType::HEAVY_VEHICLE);
+			}
+			else if (choicesSplit.at(2) == "Naval")
+			{
+				std::cout << "Change the overlay to naval" << std::endl;
+				activateOverlay(Tile::unitType::NAVAL);
+			}
+			else if (choicesSplit.at(2) == "Air")
+			{
+				std::cout << "Change the overlay to air" << std::endl;
+				activateOverlay(Tile::unitType::AIR);
+			}
+			else if (choicesSplit.at(2) == "Normal")
+			{
+				std::cout << "Remove the overlay" << std::endl;
+				activateOverlay(Tile::unitType::NUM_TYPES);
+			}
 		}
 	}
 }
