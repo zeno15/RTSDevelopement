@@ -147,6 +147,16 @@ void GUITextBox::update(sf::Time _delta)
 	}
 
 	updateCursorPosition();
+
+	while (m_Messages.size() > 0)
+	{
+		if (m_Messages.front().s_MessageType == MessageData::MessageType::TEXTBOX_REQUEST_TEXT)
+		{
+			notifyReceivers(MessageData::MessageType::TEXTBOX_DELIVER_TEXT, 0.0f, m_DisplayedString);
+		}
+
+		m_Messages.erase(m_Messages.begin());
+	}
 }
 	
 void GUITextBox::draw(sf::RenderTarget &_target, sf::RenderStates _states) const

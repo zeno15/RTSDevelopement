@@ -22,4 +22,8 @@
 #include "FontManager.h"
 #include "TextureManager.h"
 
+#include "Receiver.h"
+#include "Publisher.h"
+#include "MessageData.h"
+
 #endif //~ INCLUDED_ZENOSGUIGLOBALINCLUDE

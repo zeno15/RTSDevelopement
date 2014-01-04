@@ -8,11 +8,11 @@
 #define GUI_CHECKBOX_INSET			1.0f
 #define GUI_CHECKBOX_CHECK_SIZE		10.0f
 
-GUICheckbox::GUICheckbox(sf::Vector2f _position, bool * _selected, std::string _string/* = std::string()*/) :
+GUICheckbox::GUICheckbox(sf::Vector2f _position, std::string _string/* = std::string()*/) :
 	m_Position(_position),
-	m_Selected(_selected),
 	m_HasDescription(false),
 	m_SelectedCheckbox(false),
+	m_Selected(false),
 	m_Vertices(sf::Quads, 12)
 {
 	if (_string != std::string())
@@ -75,8 +75,10 @@ void GUICheckbox::update(sf::Time _delta)
 		{
 			if (sGUIINPUT->getButtonState(sf::Mouse::Left) && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				*m_Selected = !(*m_Selected);
+				m_Selected = !m_Selected;
 				setCheckbox();
+
+				notifyReceivers((m_Selected ? MessageData::MessageType::CHECKBOX_ACTIVATED : MessageData::MessageType::CHECKBOX_DEACTIVATED));
 			}
 		}
 		else
@@ -101,7 +103,7 @@ void GUICheckbox::draw(sf::RenderTarget &_target, sf::RenderStates _states) cons
 
 void GUICheckbox::setCheckbox(void)
 {
-	if (*m_Selected)
+	if (m_Selected)
 	{
 		//~ Add select mark
 		m_Vertices[8].position  = sf::Vector2f(m_Position.x - GUI_CHECKBOX_CHECK_SIZE / 2.0f,

@@ -19,6 +19,12 @@
     <Filter Include="Source Files\GUIComponents">
       <UniqueIdentifier>{db966c41-7891-4985-ac96-ff205a07f0d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Message System">
+      <UniqueIdentifier>{d9967418-b883-43c2-a387-114c181fef15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Message System">
+      <UniqueIdentifier>{70db7a8c-6184-4bd7-9ac8-db438bf95bf9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -81,6 +87,12 @@
     <ClCompile Include="GUIThrowawayNotification.cpp">
       <Filter>Source Files\GUIComponents</Filter>
     </ClCompile>
+    <ClCompile Include="Receiver.cpp">
+      <Filter>Source Files\Message System</Filter>
+    </ClCompile>
+    <ClCompile Include="Publisher.cpp">
+      <Filter>Source Files\Message System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIManager.h">
@@ -142,6 +154,15 @@
     </ClInclude>
     <ClInclude Include="GUIThrowawayNotification.h">
       <Filter>Header Files\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageData.h">
+      <Filter>Header Files\Message System</Filter>
+    </ClInclude>
+    <ClInclude Include="Receiver.h">
+      <Filter>Header Files\Message System</Filter>
+    </ClInclude>
+    <ClInclude Include="Publisher.h">
+      <Filter>Header Files\Message System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,11 +8,10 @@
 #define GUI_BUTTON_OUTLINE				1.0f
 #define GUI_TEXT_BOX_DISPLACEMENT		3.0f
 
-GUIButton::GUIButton(std::string _text, void (*_activateFunction)(void), sf::Vector2f _position, sf::Vector2f _size/* = sf::Vector2f()*/) :
+GUIButton::GUIButton(std::string _text, sf::Vector2f _position, sf::Vector2f _size/* = sf::Vector2f()*/) :
 	m_Vertices(sf::Quads, 8),
 	m_CurrentState(colourState::NORMAL),
-	m_Unactivate(false),
-	functionToCallOnActivate(_activateFunction)
+	m_Unactivate(false)
 {
 	m_DisplayText = !(_text == "");
 
@@ -77,7 +76,8 @@ void GUIButton::update(sf::Time _delta)
 		{
 			changeColourState(colourState::HOVER);
 			m_Unactivate = true;
-			(*functionToCallOnActivate)();
+
+			notifyReceivers(MessageData::MessageType::BUTTON_ACTIVATED);
 
 		}
 		else if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))

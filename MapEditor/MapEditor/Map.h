@@ -46,6 +46,8 @@ private:
 
 	void updateSelectionBox(bool _finalise);
 
+	void activateOverlay(Tile::unitType _type);
+
 private:
 	sf::Vector2u									m_MapDimensions; //~ In 32x32 pixel tiles
 

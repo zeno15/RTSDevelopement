@@ -85,9 +85,15 @@ void GUIDropDownBox::update(sf::Time _delta)
 	{
 		if (m_ActivatorBounds.contains((float)(sf::Mouse::getPosition(*sGUIWINDOW).x), (float)(sf::Mouse::getPosition(*sGUIWINDOW).y)))
 		{
-			if (m_ExtendedState == extendState::CLOSED || m_ExtendedState == extendState::EXTENDED) 
+			if (m_ExtendedState == extendState::CLOSED)
 			{
 				changeExtension();
+				notifyReceivers(MessageData::MessageType::DROPDOWN_ACTIVE);
+			}
+			else if (m_ExtendedState == extendState::EXTENDED) 
+			{
+				changeExtension();
+				notifyReceivers(MessageData::MessageType::DROPDOWN_UNACTIVE);
 			}
 		}
 	}
@@ -104,6 +110,7 @@ void GUIDropDownBox::update(sf::Time _delta)
 			if (!m_ExtendedBackground.getBounds().contains((float)(sf::Mouse::getPosition(*sGUIWINDOW).x), (float)(sf::Mouse::getPosition(*sGUIWINDOW).y)))
 			{
 				changeExtension();
+				notifyReceivers(MessageData::MessageType::DROPDOWN_UNACTIVE);
 			}
 		}
 
@@ -116,6 +123,8 @@ void GUIDropDownBox::update(sf::Time _delta)
 				{
 					m_SelectedOption.setString(m_ExtendedOptions.at(i)->getString());
 					changeExtension();
+					notifyReceivers(MessageData::MessageType::DROPDOWN_BOX_SELECT, 0.0f, m_ExtendedOptions.at(i)->getString());
+					notifyReceivers(MessageData::MessageType::DROPDOWN_UNACTIVE);
 				}
 			}
 			else

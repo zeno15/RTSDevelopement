@@ -8,7 +8,7 @@
 class GUIButton : public GUIObject
 {
 public:
-	GUIButton(std::string _text, void (*_activateFunction)(void), sf::Vector2f _position, sf::Vector2f _size = sf::Vector2f());
+	GUIButton(std::string _text, sf::Vector2f _position, sf::Vector2f _size = sf::Vector2f());
 	~GUIButton(void);
 
 	virtual void update(sf::Time _delta);
@@ -24,7 +24,6 @@ private:
 	void setHoverColours(void);
 	void setPressedColours(void);
 
-	void (*functionToCallOnActivate)(void);
 
 private:
 	sf::Text										m_Text;

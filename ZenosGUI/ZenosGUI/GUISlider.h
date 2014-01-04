@@ -6,7 +6,7 @@
 class GUISlider : public GUIObject
 {
 public:
-	GUISlider(bool _horizontal, sf::Vector2f _position, float _size, float *_value, unsigned int _gradiated = 0);
+	GUISlider(bool _horizontal, sf::Vector2f _position, float _size, unsigned int _gradiated = 0);
 	~GUISlider(void);
 
 	virtual void update(sf::Time _delta);
@@ -28,8 +28,6 @@ private:
 	void setClickedColour(void);
 
 private:
-	float *											m_Value;
-
 	sf::VertexArray									m_Lines;
 	sf::VertexArray									m_Slide;
 

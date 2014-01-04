@@ -8,7 +8,7 @@
 class GUIButtonTextured : public GUIObject
 {
 public:
-	GUIButtonTextured(sf::Vector2f _position, sf::Vector2f _size, bool *_toActivate, sf::Texture *_texture, sf::FloatRect _textureBounds);
+	GUIButtonTextured(sf::Vector2f _position, sf::Vector2f _size, sf::Texture *_texture, sf::FloatRect _textureBounds);
 	~GUIButtonTextured(void);
 
 	virtual void update(sf::Time _delta);
@@ -30,7 +30,6 @@ private:
 	sf::Texture *									m_Texture;
 
 	bool											m_Unactivate;
-	bool *											m_ToActivate;
 	
 	colourState										m_CurrentState;
 };

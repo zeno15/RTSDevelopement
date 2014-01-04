@@ -14,6 +14,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MapEditor", "..\MapEditor\M
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenosGUI", "..\ZenosGUI\ZenosGUI\ZenosGUI.vcxproj", "{43D6A0B0-9495-41EE-90D4-1593321736D5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenosGUITestPlatform", "..\ZenosGUITestPlatform\ZenosGUITestPlatform\ZenosGUITestPlatform.vcxproj", "{4FE4BB1D-C3C6-4ADC-907B-B3AE8841094B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -32,6 +34,10 @@ Global
 		{43D6A0B0-9495-41EE-90D4-1593321736D5}.Debug|Win32.Build.0 = Debug|Win32
 		{43D6A0B0-9495-41EE-90D4-1593321736D5}.Release|Win32.ActiveCfg = Release|Win32
 		{43D6A0B0-9495-41EE-90D4-1593321736D5}.Release|Win32.Build.0 = Release|Win32
+		{4FE4BB1D-C3C6-4ADC-907B-B3AE8841094B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4FE4BB1D-C3C6-4ADC-907B-B3AE8841094B}.Debug|Win32.Build.0 = Debug|Win32
+		{4FE4BB1D-C3C6-4ADC-907B-B3AE8841094B}.Release|Win32.ActiveCfg = Release|Win32
+		{4FE4BB1D-C3C6-4ADC-907B-B3AE8841094B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,7 @@
 class GUICheckbox : public GUIObject
 {
 public:
-	GUICheckbox(sf::Vector2f _position, bool * _selected, std::string _string = std::string());
+	GUICheckbox(sf::Vector2f _position, std::string _string = std::string());
 	~GUICheckbox(void);
 
 	virtual void update(sf::Time _delta);
@@ -21,7 +21,7 @@ private:
 private:
 	sf::Vector2f						m_Position;
 	
-	bool *								m_Selected;
+	bool 								m_Selected;
 	bool								m_HasDescription;
 	bool								m_SelectedCheckbox;
 

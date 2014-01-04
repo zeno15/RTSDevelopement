@@ -39,19 +39,10 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	sGUIMANAGER.linkInputManager(&m_InputManager);
 	sGUIMANAGER.linkTextureManager(&m_TextureManager);
 
-	//NewMapInterface *newMap = new NewMapInterface(sf::Vector2f((float)(_screenSize.x), (float)(_screenSize.y)));
 
-	//sGUIMANAGER.addFrame(newMap);
 
 	//m_Map.create(sf::Vector2u(64, 64));
 
-	GUIFrame *pointerFrame = new GUIFrame();
-
-	GUIButton *test = new GUIButton("Press me!", functionToBePointered, sf::Vector2f(100.0f, 100.0f));
-
-	pointerFrame->addObject(test);
-
-	sGUIMANAGER.addFrame(pointerFrame);
 		
 	run();
 }
@@ -106,8 +97,3 @@ void Game::handleEvents(void)
 	}
 }
 
-
-void functionToBePointered(void)
-{
-	std::cout << "This is a function, told to say: " << "NOTHING, . . yet!" << std::endl;
-}

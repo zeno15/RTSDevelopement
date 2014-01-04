@@ -6,10 +6,9 @@
 #define GUI_BUTTON_OUTLINE				1.0f
 #define GUI_TEXT_BOX_DISPLACEMENT		3.0f
 
-GUIButtonTextured::GUIButtonTextured(sf::Vector2f _position, sf::Vector2f _size, bool *_toActivate, sf::Texture *_texture, sf::FloatRect _textureBounds) :
+GUIButtonTextured::GUIButtonTextured(sf::Vector2f _position, sf::Vector2f _size, sf::Texture *_texture, sf::FloatRect _textureBounds) :
 	m_Vertices(sf::Quads, 12),
 	m_CurrentState(colourState::HOVER),
-	m_ToActivate(_toActivate),
 	m_Unactivate(false),
 	m_Texture(_texture)
 {
@@ -45,9 +44,8 @@ GUIButtonTextured::~GUIButtonTextured(void)
 void GUIButtonTextured::update(sf::Time _delta)
 {
 	if (!m_Update) return;
-	if (*m_ToActivate && m_Unactivate)
+	if (m_Unactivate)
 	{
-		*m_ToActivate = false;
 		m_Unactivate = false;
 	}
 
@@ -61,8 +59,9 @@ void GUIButtonTextured::update(sf::Time _delta)
 		else if (sGUIINPUT->getButtonState(sf::Mouse::Left) && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			changeColourState(colourState::HOVER);
-			*m_ToActivate = true;
 			m_Unactivate = true;
+
+			notifyReceivers(MessageData::BUTTON_ACTIVATED);
 		}
 		else if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{

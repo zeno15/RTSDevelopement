@@ -94,7 +94,8 @@ void GUIDropDownMenu::update(sf::Time _delta)
 			{
 				if (!sGUIINPUT->getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
-					std::cout << "Activate: " << m_MenuExtended - 1 << "-" << i << std::endl;
+					notifyReceivers(MessageData::MessageType::DROPDOWN_MENU_SELECT, 0.0f, m_MenuNames.at(m_MenuExtended - 1).at(0) + "-" + m_MenuNames.at(m_MenuExtended - 1).at(i));
+					notifyReceivers(MessageData::MessageType::DROPDOWN_UNACTIVE);
 					m_Extended = false;
 					m_DoubleExtended = false;
 					setMenuDraws(0);
@@ -132,7 +133,8 @@ void GUIDropDownMenu::update(sf::Time _delta)
 					{
 						m_Extended = false;
 						setMenuDraws(0);
-						std::cout << "Activate non-child menu " << i << std::endl;
+						notifyReceivers(MessageData::MessageType::DROPDOWN_MENU_SELECT, 0.0f, m_MenuNames.at(i).at(0));
+						notifyReceivers(MessageData::MessageType::DROPDOWN_UNACTIVE);
 					}
 					else
 					{
@@ -162,6 +164,7 @@ void GUIDropDownMenu::update(sf::Time _delta)
 			if (!sGUIINPUT->getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				m_Extended = true;
+				notifyReceivers(MessageData::MessageType::DROPDOWN_ACTIVE);
 				setMenuDraws(0);
 			}
 			else if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))

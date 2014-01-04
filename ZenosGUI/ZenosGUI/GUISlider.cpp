@@ -6,10 +6,9 @@
 #define GUI_SLIDE_INSET 1.0f
 #define GUI_SLIDE_SIZE  sf::Vector2f(12.0f, 20.0f)
 
-GUISlider::GUISlider(bool _horizontal, sf::Vector2f _position, float _size, float *_value, unsigned int _gradiated/* = 0*/) :
+GUISlider::GUISlider(bool _horizontal, sf::Vector2f _position, float _size, unsigned int _gradiated/* = 0*/) :
 	m_Lines(sf::Lines, 6 + _gradiated * 4),
 	m_Slide(sf::Quads, 8),
-	m_Value(_value),
 	m_State(slideColourState::NORMAL),
 	m_Gradiated(_gradiated > 1),		//~ Can have a no middle ground 0 or 100 option
 	m_Position(_position),
@@ -58,7 +57,6 @@ GUISlider::GUISlider(bool _horizontal, sf::Vector2f _position, float _size, floa
 		}
 	}
 
-	*m_Value = 0.0f;
 	
 
 	setSlidePosition(_position - sf::Vector2f(m_Horizontal * (m_Size / 2.0f), !m_Horizontal * (m_Size / 2.0f)));
@@ -134,7 +132,6 @@ void GUISlider::update(sf::Time _delta)
 	}
 
 	
-	
 }
 	
 void GUISlider::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
@@ -153,8 +150,8 @@ void GUISlider::setSlidePosition(sf::Vector2f _position)
 		m_Slide[1].position = sf::Vector2f(+ GUI_SLIDE_SIZE.x / 2.0f, - GUI_SLIDE_SIZE.y / 2.0f) + _position;
 		m_Slide[2].position = sf::Vector2f(+ GUI_SLIDE_SIZE.x / 2.0f, + GUI_SLIDE_SIZE.y / 2.0f) + _position;
 		m_Slide[3].position = sf::Vector2f(- GUI_SLIDE_SIZE.x / 2.0f, + GUI_SLIDE_SIZE.y / 2.0f) + _position;
-
-		*m_Value = (_position.x - (m_Position.x - m_Size / 2.0f)) / m_Size;
+		
+		notifyReceivers(MessageData::MessageType::SLIDER_UPDATED, (_position.x - (m_Position.x - m_Size / 2.0f)) / m_Size);
 	}
 	else
 	{
@@ -162,16 +159,14 @@ void GUISlider::setSlidePosition(sf::Vector2f _position)
 		m_Slide[1].position = sf::Vector2f(+ GUI_SLIDE_SIZE.y / 2.0f, - GUI_SLIDE_SIZE.x / 2.0f) + _position;
 		m_Slide[2].position = sf::Vector2f(+ GUI_SLIDE_SIZE.y / 2.0f, + GUI_SLIDE_SIZE.x / 2.0f) + _position;
 		m_Slide[3].position = sf::Vector2f(- GUI_SLIDE_SIZE.y / 2.0f, + GUI_SLIDE_SIZE.x / 2.0f) + _position;
-
-		*m_Value = (_position.y - (m_Position.y - m_Size / 2.0f)) / m_Size;
+		
+		notifyReceivers(MessageData::MessageType::SLIDER_UPDATED, (_position.y - (m_Position.y - m_Size / 2.0f)) / m_Size);
 	}
 
 	m_Slide[4].position = m_Slide[0].position + sf::Vector2f(+ GUI_SLIDE_INSET, + GUI_SLIDE_INSET);
 	m_Slide[5].position = m_Slide[1].position + sf::Vector2f(- GUI_SLIDE_INSET, + GUI_SLIDE_INSET);
 	m_Slide[6].position = m_Slide[2].position + sf::Vector2f(- GUI_SLIDE_INSET, - GUI_SLIDE_INSET);
 	m_Slide[7].position = m_Slide[3].position + sf::Vector2f(+ GUI_SLIDE_INSET, - GUI_SLIDE_INSET);
-
-	
 }
 
 void GUISlider::setSlideColour(slideColourState _state)

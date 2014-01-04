@@ -3,10 +3,12 @@
 
 #include "GUIObject.h"
 
-class GUIProgressBar : public GUIObject
+#include "Receiver.h"
+
+class GUIProgressBar : public GUIObject, public Receiver
 {
 public:
-	GUIProgressBar(bool _horizontal, sf::Vector2f _position, sf::Vector2f _size, float *_completedPercentage, float *_underwayPercentage = nullptr);
+	GUIProgressBar(bool _horizontal, sf::Vector2f _position, sf::Vector2f _size);
 	~GUIProgressBar(void);
 
 	virtual void update(sf::Time _delta);
@@ -19,8 +21,8 @@ private:
 private:
 	sf::VertexArray								m_Vertices;
 
-	float *										m_CompletedPercentage;
-	float *										m_UnderwayPercentage;
+	float 										m_CompletedPercentage;
+	float 										m_UnderwayPercentage;
 
 	sf::Vector2f								m_Size;
 };

@@ -4,9 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "Publisher.h"
 
-
-class GUIObject : public sf::Drawable
+class GUIObject : public sf::Drawable, public Publisher
 {
 public:
 	GUIObject(void);

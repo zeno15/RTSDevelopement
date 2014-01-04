@@ -2,6 +2,7 @@
 #define INCLUDED_GUITEXTBOX_H
 
 #include "GUIObject.h"
+#include "Receiver.h"
 
 #include <vector>
 #include <string>
@@ -12,7 +13,7 @@
 //
 ///////////////////////////////////////
 
-class GUITextBox : public GUIObject
+class GUITextBox : public GUIObject, public Receiver
 {
 public:
 	enum TextBoxType {REGULAR, NUMERICAL};

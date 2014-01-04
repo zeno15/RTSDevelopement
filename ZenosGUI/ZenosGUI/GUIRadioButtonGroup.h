@@ -19,9 +19,6 @@ public:
 
 	void addRadioButton(std::string _text);
 
-	std::string  getActiveString(void);
-	unsigned int getActiveIndex(void);
-
 private:
 	std::vector<GUIRadioButton *>					m_RadioButtons;
 

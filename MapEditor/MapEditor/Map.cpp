@@ -98,7 +98,23 @@ void Map::create(sf::Vector2u _mapDimensions)
 													"File",
 													fileMenuNames);
 
+	std::vector<std::vector<std::string>> toolMenuNames = std::vector<std::vector<std::string>>(1);
+
+	toolMenuNames.at(0) = std::vector<std::string>(Tile::unitType::NUM_TYPES + 1);
+	toolMenuNames.at(0).at(0) = "OverlayTypes";
+	toolMenuNames.at(0).at(1) = "Infantry";
+	toolMenuNames.at(0).at(2) = "Light Vehicle";
+	toolMenuNames.at(0).at(3) = "Heavy Vehicle";
+	toolMenuNames.at(0).at(4) = "Naval";
+	toolMenuNames.at(0).at(5) = "Air";
+
+	GUIDropDownMenu *toolMenu = new GUIDropDownMenu(sf::Vector2f(151.0f, 10.0f),
+													100.0f,
+													"Tools",
+													toolMenuNames);
+
 	topBarFrame->addObject(fileMenu);
+	topBarFrame->addObject(toolMenu);
 
 	sGUIMANAGER.addFrame(topBarFrame);
 }
@@ -502,4 +518,33 @@ void Map::updateSelectionBox(bool _finalise)
 	m_SelectionBox.back().setOutlineColor(sf::Color::White);
 
 	createNew = _finalise;
+}
+
+void Map::activateOverlay(Tile::unitType _type)
+{
+	m_OverlayToDraw = _type;
+
+	if (m_OverlayToDraw = Tile::unitType::NUM_TYPES) return;
+
+	for (unsigned int i = 0; i < m_MapDimensions.y; i += 1)
+	{
+		for (unsigned int j = 0; j < m_MapDimensions.x; j += 1)
+		{
+			sf::Color overlayColour;
+
+			if (getTileFromCoords(j, i).m_TileUnitPassValues.at(m_OverlayToDraw))
+			{
+				overlayColour = sf::Color(0, 255, 0, 155);
+			}
+			else
+			{
+				overlayColour = sf::Color(255, 0, 0, 155);
+			}
+
+			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 0].color = overlayColour;
+			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 1].color = overlayColour;
+			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 2].color = overlayColour;
+			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 3].color = overlayColour;
+		}
+	}
 }

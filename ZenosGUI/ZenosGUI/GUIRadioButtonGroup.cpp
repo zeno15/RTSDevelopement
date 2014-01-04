@@ -42,6 +42,7 @@ void GUIRadioButtonGroup::update(sf::Time _delta)
 		{
 			m_RadioButtons.at(m_ActiveButton)->reset();
 			m_ActiveButton = i;
+			notifyReceivers(MessageData::MessageType::RADIOBUTTON_CHANGE, 0.0f, m_RadioButtons.at(m_ActiveButton)->getStringRepresentation());
 		}
 	}
 }
@@ -53,13 +54,4 @@ void GUIRadioButtonGroup::draw(sf::RenderTarget &_target, sf::RenderStates _stat
 	{
 		_target.draw(*radio,			_states);
 	}
-}
-
-std::string  GUIRadioButtonGroup::getActiveString(void)
-{
-	return m_RadioButtons.at(m_ActiveButton)->getStringRepresentation();
-}
-unsigned int GUIRadioButtonGroup::getActiveIndex(void)
-{
-	return m_ActiveButton;
 }
