@@ -75,6 +75,8 @@ GUISlider::~GUISlider(void)
 void GUISlider::update(sf::Time _delta)
 {
 	if (!m_Update) return;
+
+	slideColourState prevState = m_State;
 	
 
 	if (m_State == slideColourState::CLICKED)
@@ -131,7 +133,19 @@ void GUISlider::update(sf::Time _delta)
 		}
 	}
 
-	
+	if (prevState != m_State && prevState == slideColourState::CLICKED)
+	{
+		if (m_Horizontal)
+		{
+			float percentage = ((m_Slide.getBounds().left + m_Slide.getBounds().width / 2.0f) - (m_Position.x - m_Size / 2.0f)) / m_Size;
+			notifyReceivers(MessageData::MessageType::SLIDER_UPDATED, percentage);
+		}
+		else
+		{
+			float percentage = ((m_Slide.getBounds().top + m_Slide.getBounds().height / 2.0f) - (m_Position.y - m_Size / 2.0f)) / m_Size;
+			notifyReceivers(MessageData::MessageType::SLIDER_UPDATED, percentage);
+		}
+	}
 }
 	
 void GUISlider::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
@@ -150,8 +164,6 @@ void GUISlider::setSlidePosition(sf::Vector2f _position)
 		m_Slide[1].position = sf::Vector2f(+ GUI_SLIDE_SIZE.x / 2.0f, - GUI_SLIDE_SIZE.y / 2.0f) + _position;
 		m_Slide[2].position = sf::Vector2f(+ GUI_SLIDE_SIZE.x / 2.0f, + GUI_SLIDE_SIZE.y / 2.0f) + _position;
 		m_Slide[3].position = sf::Vector2f(- GUI_SLIDE_SIZE.x / 2.0f, + GUI_SLIDE_SIZE.y / 2.0f) + _position;
-		
-		notifyReceivers(MessageData::MessageType::SLIDER_UPDATED, (_position.x - (m_Position.x - m_Size / 2.0f)) / m_Size);
 	}
 	else
 	{
@@ -159,8 +171,6 @@ void GUISlider::setSlidePosition(sf::Vector2f _position)
 		m_Slide[1].position = sf::Vector2f(+ GUI_SLIDE_SIZE.y / 2.0f, - GUI_SLIDE_SIZE.x / 2.0f) + _position;
 		m_Slide[2].position = sf::Vector2f(+ GUI_SLIDE_SIZE.y / 2.0f, + GUI_SLIDE_SIZE.x / 2.0f) + _position;
 		m_Slide[3].position = sf::Vector2f(- GUI_SLIDE_SIZE.y / 2.0f, + GUI_SLIDE_SIZE.x / 2.0f) + _position;
-		
-		notifyReceivers(MessageData::MessageType::SLIDER_UPDATED, (_position.y - (m_Position.y - m_Size / 2.0f)) / m_Size);
 	}
 
 	m_Slide[4].position = m_Slide[0].position + sf::Vector2f(+ GUI_SLIDE_INSET, + GUI_SLIDE_INSET);

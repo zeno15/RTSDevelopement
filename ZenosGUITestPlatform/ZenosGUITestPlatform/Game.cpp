@@ -127,7 +127,7 @@ void Game::run(void)
 		{
 			if (m_Messages.front().s_MessageType == MessageData::MessageType::BUTTON_ACTIVATED)
 			{
-				if (m_Messages.front().s_Id = m_ActivateTextBoxID)
+				if (m_Messages.front().s_Id == m_ActivateTextBoxID)
 				{
 					notifyReceivers(MessageData::MessageType::TEXTBOX_REQUEST_TEXT);
 				}

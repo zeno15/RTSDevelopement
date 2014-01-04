@@ -73,10 +73,33 @@ void GUIDropDownMenu::update(sf::Time _delta)
 
 	if (m_DoubleExtended)
 	{
+		sf::FloatRect mainMenuBounds(m_BackgroundQuads[0].position.x,
+									 m_BackgroundQuads[0].position.y + GUI_DROPDOWNMENU_HEIGHT,
+									 m_BackgroundQuads[1].position.x - m_BackgroundQuads[0].position.x,
+									 GUI_DROPDOWNMENU_HEIGHT * m_MenuNames.size());
+
+		if (!sGUIINPUT->getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+			mainMenuBounds.contains(sf::Vector2f((float)(sf::Mouse::getPosition(*sGUIWINDOW).x), (float)(sf::Mouse::getPosition(*sGUIWINDOW).y))))
+		{
+			m_DoubleExtended = false;
+			setMenuDraws(0);
+			return;
+		}
+
 		sf::FloatRect subMenuBounds(m_BackgroundQuads[4].position.x,
-									m_BackgroundQuads[4].position.y - GUI_DROPDOWNMENU_HEIGHT,
+									m_BackgroundQuads[4].position.y,
 									m_BackgroundQuads[5].position.x - m_BackgroundQuads[4].position.x,
-									GUI_DROPDOWNMENU_HEIGHT);
+									GUI_DROPDOWNMENU_HEIGHT * m_MenuNames.at(m_MenuExtended - 1).size());
+
+		if (!sGUIINPUT->getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+			!subMenuBounds.contains(sf::Vector2f((float)(sf::Mouse::getPosition(*sGUIWINDOW).x), (float)(sf::Mouse::getPosition(*sGUIWINDOW).y))))
+		{
+			m_DoubleExtended = false;
+			m_Extended = false;
+			setMenuDraws(0);
+			notifyReceivers(MessageData::MessageType::DROPDOWN_UNACTIVE);
+			return;
+		}
 
 		unsigned int count = 1;
 
@@ -84,6 +107,11 @@ void GUIDropDownMenu::update(sf::Time _delta)
 		{
 			count += m_MenuNames.at(i).size();
 		}
+
+		subMenuBounds = sf::FloatRect(m_BackgroundQuads[4].position.x,
+									  m_BackgroundQuads[4].position.y - GUI_DROPDOWNMENU_HEIGHT,
+									  m_BackgroundQuads[5].position.x - m_BackgroundQuads[4].position.x,
+									  GUI_DROPDOWNMENU_HEIGHT);
 
 		for (unsigned int i = 1; i < m_MenuNames.at(m_MenuExtended - 1).size(); i += 1)
 		{
@@ -115,11 +143,24 @@ void GUIDropDownMenu::update(sf::Time _delta)
 	else if (m_Extended)
 	{
 		sf::FloatRect subMenuBounds(m_BackgroundQuads[0].position.x,
-									m_BackgroundQuads[0].position.y,
+									m_BackgroundQuads[0].position.y + GUI_DROPDOWNMENU_HEIGHT,
 									m_BackgroundQuads[1].position.x - m_BackgroundQuads[0].position.x,
-									GUI_DROPDOWNMENU_HEIGHT);
+									GUI_DROPDOWNMENU_HEIGHT * m_MenuNames.size());
+
+		if (!sGUIINPUT->getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+			!subMenuBounds.contains(sf::Vector2f((float)(sf::Mouse::getPosition(*sGUIWINDOW).x), (float)(sf::Mouse::getPosition(*sGUIWINDOW).y))))
+		{
+			m_Extended = false;
+			setMenuDraws(0);
+			notifyReceivers(MessageData::MessageType::DROPDOWN_UNACTIVE);
+		}
 
 		unsigned int count = 0;
+
+		subMenuBounds = sf::FloatRect(m_BackgroundQuads[0].position.x,
+									  m_BackgroundQuads[0].position.y,
+									  m_BackgroundQuads[1].position.x - m_BackgroundQuads[0].position.x,
+									  GUI_DROPDOWNMENU_HEIGHT);
 
 		for (unsigned int i = 0; i < m_MenuNames.size(); i += 1)
 		{
@@ -229,6 +270,7 @@ void GUIDropDownMenu::setMenuDraws(unsigned int _menu)
 
 		m_BackgroundQuads[2].position = m_BackgroundQuads[1].position + sf::Vector2f(0.0f, GUI_DROPDOWNMENU_HEIGHT * (m_MenuNames.size() + 1));
 		m_BackgroundQuads[3].position = m_BackgroundQuads[0].position + sf::Vector2f(0.0f, GUI_DROPDOWNMENU_HEIGHT * (m_MenuNames.size() + 1));
+		m_BackgroundQuads.resize(4);
 
 		if (_menu != 0)
 		{
