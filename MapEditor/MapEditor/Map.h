@@ -26,7 +26,7 @@ public:
 
 	void load(std::string _filename);
 	void save(std::string _filename);
-	void create(sf::Vector2u _mapDimensions);	//~ Add in default tile type etc later
+	void create(sf::Vector2u _mapDimensions, std::vector<unsigned int> _tileIndecies = std::vector<unsigned int>());	
 
 	void update(sf::Time _delta);
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const;
@@ -45,7 +45,6 @@ private:
 	Tile getTileFromCoords(unsigned int _x, unsigned int _y);
 
 	void createSavedMapFrame(void);
-	void saveMap(std::string _filename);
 
 	void updateSelectionBox(bool _finalise);
 

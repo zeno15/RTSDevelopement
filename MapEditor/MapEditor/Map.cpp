@@ -25,11 +25,69 @@ Map::~Map(void)
 
 void Map::load(std::string _filename)
 {
+	std::ifstream input("../../Resources/Maps/" + _filename + ".RTSD");
+
+	std::string line;
+	unsigned int found;
+
+	if (!input.good())
+	{
+		std::cout << "Failed to load map. Do something else" << std::endl;
+	}
+
+	std::getline(input, line);
+	found = line.find_first_of("0123456789");
+	m_MapDimensions.y = (unsigned int)(std::stoi(line.substr(found, line.size())));
+
+	std::getline(input, line);
+	found = line.find_first_of("0123456789");
+	m_MapDimensions.x = (unsigned int)(std::stoi(line.substr(found, line.size())));
+
+	std::vector<unsigned int> mapTileIndecies = std::vector<unsigned int>();
+
+	for (unsigned int i = 0; i < m_MapDimensions.y; i += 1)
+	{
+		for (unsigned int j = 0; j < m_MapDimensions.x; j += 1)
+		{
+			unsigned int index = 0;
+
+			std::getline(input, line);
+
+			for (unsigned int k = 0; k < m_TileInformation.size(); k += 1)
+			{
+				if (line == m_TileInformation.at(k).m_TileName)
+				{
+					index = k;
+					break;
+				}
+			}
+
+			mapTileIndecies.push_back(index);
+		}
+	}
+
+	create(m_MapDimensions, mapTileIndecies);
 }
 void Map::save(std::string _filename)
 {
+	std::ofstream output("../../Resources/Maps/" + _filename + ".RTSD");
+
+
+
+	output << "Map Height: " << m_MapDimensions.y << std::endl;
+	output << "Map Width: "  << m_MapDimensions.x << std::endl;
+
+	for (unsigned int i = 0; i < m_MapDimensions.y; i += 1)
+	{
+		for (unsigned int j = 0; j < m_MapDimensions.x; j += 1)
+		{
+			output << getTileFromCoords(j, i).m_TileName << std::endl;
+		}
+	}
+
+	output.close();
 }
-void Map::create(sf::Vector2u _mapDimensions)
+void Map::create(sf::Vector2u _mapDimensions, std::vector<unsigned int> _tileIndecies/* = std::vector<unsigned int>()*/)
 {
 	if (_mapDimensions.x > 192) 
 	{
@@ -40,6 +98,11 @@ void Map::create(sf::Vector2u _mapDimensions)
 	{
 		_mapDimensions.x = 192; 
 		std::cout << "Map height limited to 192 Tiles." << std::endl;
+	}
+
+	if (_tileIndecies == std::vector<unsigned int>())
+	{
+		_tileIndecies.resize(_mapDimensions.x * _mapDimensions.y, 0);
 	}
 
 	m_MapDimensions = _mapDimensions;
@@ -67,20 +130,16 @@ void Map::create(sf::Vector2u _mapDimensions)
 	{
 		for (unsigned int j = 0; j < m_MapDimensions.x; j += 1)
 		{
-			changeTile(j, i, m_TileInformation.at(0));
+			changeTile(j, i, m_TileInformation.at(_tileIndecies.at(i * m_MapDimensions.x + j)));
 
 			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 0] = sf::Vertex(sf::Vector2f((j + 0) * TILESIZE_f,
-																						  (i + 0) * TILESIZE_f),
-																			 sf::Color(255, 0, 0, 105));
+																						  (i + 0) * TILESIZE_f));
 			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 1] = sf::Vertex(sf::Vector2f((j + 1) * TILESIZE_f,
-																						  (i + 0) * TILESIZE_f),
-																			 sf::Color(255, 0, 0, 105));
+																						  (i + 0) * TILESIZE_f));
 			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 2] = sf::Vertex(sf::Vector2f((j + 1) * TILESIZE_f,
-																						  (i + 1) * TILESIZE_f),
-																			 sf::Color(255, 0, 0, 105));
+																						  (i + 1) * TILESIZE_f));
 			m_OverlayQuads[4 * (i * m_MapDimensions.x + j) + 3] = sf::Vertex(sf::Vector2f((j + 0) * TILESIZE_f,
-																						  (i + 1) * TILESIZE_f),
-																			 sf::Color(255, 0, 0, 105));
+																						  (i + 1) * TILESIZE_f));
 		}
 	}
 
@@ -510,9 +569,6 @@ Tile Map::getTileFromCoords(unsigned int _x, unsigned int _y)
 void Map::createSavedMapFrame(void)
 {
 }
-void Map::saveMap(std::string _filename)
-{
-}
 
 void Map::updateSelectionBox(bool _finalise)
 {
@@ -606,15 +662,14 @@ void Map::handleDropMenuChoices(std::string _choice)
 		}
 		else if (choicesSplit.at(1) == "Load Map")
 		{
-			std::cout << "Load an existing map!" << std::endl;
+			load("Map");
 		}
 		else if (choicesSplit.at(1) == "Save Map")
 		{
-			std::cout << "Save the current map!" << std::endl;
+			save("Map");
 		}
 		else if (choicesSplit.at(1) == "Exit Editor")
 		{
-			std::cout << "Close out of the editor - prompt to save" << std::endl;
 			sGame.m_Running = false;
 		}
 	}
@@ -624,32 +679,26 @@ void Map::handleDropMenuChoices(std::string _choice)
 		{
 			if (choicesSplit.at(2) == "Infantry")
 			{
-				std::cout << "Change the overlay to infantry" << std::endl;
 				activateOverlay(Tile::unitType::INFANTRY);
 			}
 			else if (choicesSplit.at(2) == "Light Vehicle")
 			{
-				std::cout << "Change the overlay to light vehicles" << std::endl;
 				activateOverlay(Tile::unitType::LIGHT_VEHICLE);
 			}
 			else if (choicesSplit.at(2) == "Heavy Vehicle")
 			{
-				std::cout << "Change the overlay to heavy vehicles" << std::endl;
 				activateOverlay(Tile::unitType::HEAVY_VEHICLE);
 			}
 			else if (choicesSplit.at(2) == "Naval")
 			{
-				std::cout << "Change the overlay to naval" << std::endl;
 				activateOverlay(Tile::unitType::NAVAL);
 			}
 			else if (choicesSplit.at(2) == "Air")
 			{
-				std::cout << "Change the overlay to air" << std::endl;
 				activateOverlay(Tile::unitType::AIR);
 			}
 			else if (choicesSplit.at(2) == "Normal")
 			{
-				std::cout << "Remove the overlay" << std::endl;
 				activateOverlay(Tile::unitType::NUM_TYPES);
 			}
 		}
