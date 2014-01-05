@@ -110,13 +110,14 @@ void Map::create(sf::Vector2u _mapDimensions, std::vector<unsigned int> _tileInd
 	m_MapDimensions = _mapDimensions;
 	m_BackgroundTiles.resize(m_MapDimensions.x * m_MapDimensions.y * 4);
 	m_OverlayQuads.resize(m_MapDimensions.x * m_MapDimensions.y * 4);
+	
+	m_Minimap.initialise(sf::FloatRect((float)(sGame.m_ScreenSize.x - m_SideBarWidth), 
+										0.0f, 
+										m_SideBarWidth, 
+										m_SideBarWidth),
+										m_MapDimensions);
 	if (DEBUG_initial)
 	{
-		m_Minimap.initialise(sf::FloatRect((float)(sGame.m_ScreenSize.x - m_SideBarWidth), 
-										   0.0f, 
-										   m_SideBarWidth, 
-										   m_SideBarWidth),
-										   m_MapDimensions);
 
 		m_SideBar.initialise(sf::FloatRect((float)(sGame.m_ScreenSize.x - m_SideBarWidth),
 										   m_SideBarWidth,

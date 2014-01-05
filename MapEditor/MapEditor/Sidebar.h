@@ -5,9 +5,9 @@
 
 #include "Tile.h"
 
-#include "../../ZenosGUI/ZenosGUI/GUIDropDownBox.h"
+#include "../../ZenosGUI/ZenosGUI/Receiver.h"
 
-class Sidebar : public sf::Drawable
+class Sidebar : public sf::Drawable, public Receiver
 {
 public:
 	Sidebar(void);
@@ -41,8 +41,6 @@ private:
 
 	std::string														m_ActiveToolName;
 
-	GUIDropDownBox *												m_ToolSelect;
-
 	sf::Text														m_PageNumber;
 
 	unsigned int													m_CurrentTile;
@@ -51,12 +49,13 @@ private:
 	unsigned int													m_TilesPerColumn;
 	unsigned int													m_TilesPerRow;
 
-	bool															m_LeftArrowButtonActive;
-	bool															m_RightArrowButtonActive;
+	unsigned int													m_LeftButtonId;
+	unsigned int													m_RightButtonId;
 
 	Tool															m_ActiveTool;
 
 	bool															m_PressedOverTile;
+	bool															m_GUIActive;
 
 	std::vector<Tile>  *											m_TileInfo;
 };

@@ -6,9 +6,8 @@ Sidebar::Sidebar(void) :
 	m_BackgroundQuads(sf::Quads, 4),
 	m_SelectableTileQuads(sf::Quads, 0),
 	m_ActiveToolDisplay(sf::Quads, 4),
-	m_RightArrowButtonActive(false),
-	m_LeftArrowButtonActive(false),
 	m_PressedOverTile(false),
+	m_GUIActive(false),
 	m_CurrentPage(1),
 	m_CurrentTile(0),
 	m_ActiveTool(Tool::SELECT),
@@ -44,11 +43,13 @@ void Sidebar::initialise(sf::FloatRect _bounds, std::vector<Tile> *_tileInfo)
 															sf::Vector2f(32.0f, 32.0f), 
 															sGUITEX->getTexture(TextureManager::TextureID::TILESHEET), 
 															sf::FloatRect(32.0f, 320.0f, - TILESIZE_f, - TILESIZE_f));
+	m_LeftButtonId = leftButton->registerReceiver(this);
 
 	GUIButtonTextured *rightButton =  new GUIButtonTextured(sf::Vector2f(_bounds.left + _bounds.width - 32.0f, _bounds.top + 96.0f), 
 															sf::Vector2f(32.0f, 32.0f), 
 															sGUITEX->getTexture(TextureManager::TextureID::TILESHEET), 
 															sf::FloatRect(0.0f, 288.0f, TILESIZE_f, TILESIZE_f));
+	m_RightButtonId = rightButton->registerReceiver(this);
 
 	GUIDropDownBox *toolSelection = new GUIDropDownBox(sf::Vector2f(_bounds.left + _bounds.width / 2.0f - 32.0f,
 																	_bounds.top + 32.0f),
@@ -58,8 +59,8 @@ void Sidebar::initialise(sf::FloatRect _bounds, std::vector<Tile> *_tileInfo)
 	toolSelection->addOption("Paint");
 	toolSelection->addOption("Fill");
 	toolSelection->addOption("Erase");
+	toolSelection->registerReceiver(this);
 
-	m_ToolSelect = toolSelection;
 
 	interaceGUI->addObject(leftButton);
 	interaceGUI->addObject(rightButton);
@@ -83,23 +84,44 @@ void Sidebar::initialise(sf::FloatRect _bounds, std::vector<Tile> *_tileInfo)
 
 void Sidebar::update(sf::Time _delta)
 {
-	changeTool(m_ToolSelect->getActiveOption());
-	if (m_LeftArrowButtonActive)
+	while (m_Messages.size() > 0)
 	{
-		if (m_CurrentPage > 1)
+		if (m_Messages.front().s_MessageType == MessageData::MessageType::BUTTON_ACTIVATED)
 		{
-			m_CurrentPage -= 1;
-			modifyTileSelection(m_CurrentPage);
+			if (m_Messages.front().s_Id == m_LeftButtonId)
+			{
+				if (m_CurrentPage > 1)
+				{
+					m_CurrentPage -= 1;
+					modifyTileSelection(m_CurrentPage);
+				}
+			}
+			else if (m_Messages.front().s_Id == m_RightButtonId)
+			{
+				if (m_CurrentPage < m_MaxPages)
+				{
+					m_CurrentPage += 1;
+					modifyTileSelection(m_CurrentPage);
+				}
+			}
 		}
-	}
-	else if (m_RightArrowButtonActive)
-	{
-		if (m_CurrentPage < m_MaxPages)
+		else if (m_Messages.front().s_MessageType == MessageData::MessageType::DROPDOWN_BOX_SELECT)
 		{
-			m_CurrentPage += 1;
-			modifyTileSelection(m_CurrentPage);
+			changeTool(m_Messages.front().s_StringData);
 		}
+		else if (m_Messages.front().s_MessageType == MessageData::MessageType::DROPDOWN_ACTIVE)
+		{
+			m_GUIActive = true;
+		}
+		else if (m_Messages.front().s_MessageType == MessageData::MessageType::DROPDOWN_UNACTIVE)
+		{
+			m_GUIActive = false;
+		}
+
+		m_Messages.erase(m_Messages.begin());
 	}
+
+	if (m_GUIActive) return;
 
 	unsigned int tilesPresent = m_SelectableTileQuads.getVertexCount() / 4 - 1;
 

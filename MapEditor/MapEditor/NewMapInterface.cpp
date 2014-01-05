@@ -23,16 +23,18 @@ NewMapInterface::NewMapInterface(sf::Vector2f _screenSize) :
 	GUITextBox *widthBox =  new GUITextBox(sf::Vector2f(_screenSize.x * 3.0f / 8.0f, _screenSize.y * 3.0f / 8.0f),
 										   sf::Vector2f(80.0f,  40.0f),
 										   GUITextBox::TextBoxType::NUMERICAL);
+	widthBox->setLabel("Width", GUITextBox::LabelPosition::BELOW);
 	m_WidthTextId = widthBox->registerReceiver(this);
 	this->registerReceiver(widthBox);
 
 	GUITextBox *heightBox = new GUITextBox(sf::Vector2f(_screenSize.x * 5.0f / 8.0f, _screenSize.y * 3.0f / 8.0f),
 										   sf::Vector2f(80.0f,  40.0f),
 										   GUITextBox::TextBoxType::NUMERICAL);
+	heightBox->setLabel("Height", GUITextBox::LabelPosition::BELOW);
 	m_HeightTextId = heightBox->registerReceiver(this);
 	this->registerReceiver(heightBox);
 
-	GUIRadioButtonGroup *group = new GUIRadioButtonGroup(sf::Vector2f(_screenSize.x * 5.0f / 16.0f, _screenSize.y / 2.0f),
+	GUIRadioButtonGroup *group = new GUIRadioButtonGroup(sf::Vector2f(_screenSize.x * 5.0f / 16.0f, _screenSize.y * 2.0f / 3.0f),
 														 100.0f, 
 														 true);
 
@@ -86,13 +88,19 @@ void NewMapInterface::update(sf::Time _delta)
 		{
 			if (m_Messages.front().s_Id == m_WidthTextId)
 			{
-				m_WidthReceived = true;
-				m_Width = (unsigned int)(std::stoi(m_Messages.front().s_StringData));
+				if (m_Messages.front().s_StringData.size() > 0)
+				{
+					m_WidthReceived = true;
+					m_Width = (unsigned int)(std::stoi(m_Messages.front().s_StringData));
+				}
 			}
 			else if (m_Messages.front().s_Id == m_HeightTextId)
 			{
-				m_HeightReceived = true;
-				m_Height = (unsigned int)(std::stoi(m_Messages.front().s_StringData));
+				if (m_Messages.front().s_StringData.size() > 0)
+				{
+					m_HeightReceived = true;
+					m_Height = (unsigned int)(std::stoi(m_Messages.front().s_StringData));
+				}
 			}
 		}
 		else if (m_Messages.front().s_MessageType == MessageData::MessageType::RADIOBUTTON_CHANGE)
@@ -121,12 +129,12 @@ void NewMapInterface::onReceiverRegistered(Receiver *_receiver)
 
 bool NewMapInterface::checkInputs(void)
 {
-	if (!(m_Width < 192u))
+	if (m_Width > 192u || m_Width < 32)
 	{
 		//~ Pop up message
 		return false;
 	}
-	if (!(m_Height < 192u))
+	if (m_Height > 192u || m_Height < 32)
 	{
 		//~ Pop up message
 		return false;
