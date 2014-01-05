@@ -48,16 +48,12 @@ NewMapInterface::NewMapInterface(sf::Vector2f _screenSize) :
 	m_Objects.push_back(widthBox);
 	m_Objects.push_back(heightBox);
 	m_Objects.push_back(group);
-
-	std::cout << "New map created, objects size: " << m_Objects.size() << std::endl;
 }
 
 
 NewMapInterface::~NewMapInterface(void)
 {
 	notifyReceivers(MessageData::MessageType::DROPDOWN_UNACTIVE);
-
-	std::cout << "New map deleted, objects size: " << m_Objects.size() << std::endl;
 }
 
 

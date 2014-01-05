@@ -2,6 +2,8 @@
 
 #include "Game.h"
 #include "NewMapInterface.h"
+#include "SaveMapInterface.h"
+#include "LoadMapInterface.h"
 
 #include <algorithm>
 
@@ -27,14 +29,15 @@ Map::~Map(void)
 
 void Map::load(std::string _filename)
 {
-	std::ifstream input("../../Resources/Maps/" + _filename + ".RTSD");
+	std::ifstream input(_filename);
 
 	std::string line;
 	unsigned int found;
 
 	if (!input.good())
 	{
-		std::cout << "Failed to load map. Do something else" << std::endl;
+		std::cout << "Failed to load map: " << _filename << ". Do something else" << std::endl;
+		return;
 	}
 
 	std::getline(input, line);
@@ -72,9 +75,7 @@ void Map::load(std::string _filename)
 }
 void Map::save(std::string _filename)
 {
-	std::ofstream output("../../Resources/Maps/" + _filename + ".RTSD");
-
-
+	std::ofstream output( _filename);
 
 	output << "Map Height: " << m_MapDimensions.y << std::endl;
 	output << "Map Width: "  << m_MapDimensions.x << std::endl;
@@ -208,7 +209,6 @@ void Map::update(sf::Time _delta)
 		}
 		else if (m_Messages.front().s_MessageType == MessageData::MessageType::DROPDOWN_MENU_SELECT)
 		{
-			std::cout << "Drop down menu selection: " << m_Messages.front().s_StringData << std::endl;
 			handleDropMenuChoices(m_Messages.front().s_StringData);
 		}
 		else if (m_Messages.front().s_MessageType == MessageData::MessageType::NEW_MAP_BOUNDS)
@@ -221,6 +221,14 @@ void Map::update(sf::Time _delta)
 			std::vector<unsigned int> terrain = std::vector<unsigned int>(width * height, (unsigned int)(m_Messages.front().s_FloatData));
 
 			create(sf::Vector2u(width, height), terrain);
+		}
+		else if (m_Messages.front().s_MessageType == MessageData::MessageType::SAVE_MAP_DATA)
+		{
+			save(m_Messages.front().s_StringData);
+		}
+		else if (m_Messages.front().s_MessageType == MessageData::MessageType::LOAD_MAP_DATA)
+		{
+			load(m_Messages.front().s_StringData);
 		}
 
 		m_Messages.erase(m_Messages.begin());
@@ -686,11 +694,17 @@ void Map::handleDropMenuChoices(std::string _choice)
 		}
 		else if (choicesSplit.at(1) == "Load Map")
 		{
-			load("Map");
+			LoadMapInterface *loadMap = new LoadMapInterface(sf::Vector2f((float)(sGame.m_ScreenSize.x), (float)(sGame.m_ScreenSize.y)));
+			loadMap->registerReceiver(this);
+
+			sGUIMANAGER.addFrame(loadMap);
 		}
 		else if (choicesSplit.at(1) == "Save Map")
 		{
-			save("Map");
+			SaveMapInterface *saveMap = new SaveMapInterface(sf::Vector2f((float)(sGame.m_ScreenSize.x), (float)(sGame.m_ScreenSize.y)));
+			saveMap->registerReceiver(this);
+
+			sGUIMANAGER.addFrame(saveMap);
 		}
 		else if (choicesSplit.at(1) == "Exit Editor")
 		{
