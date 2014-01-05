@@ -1,6 +1,7 @@
 #include "Map.h"
 
 #include "Game.h"
+#include "NewMapInterface.h"
 
 #include <algorithm>
 
@@ -11,7 +12,8 @@ Map::Map(void) :
 	m_OverlayQuads(sf::Quads, 0),
 	m_OverlayToDraw(Tile::unitType::NUM_TYPES),
 	m_Selecting(false),
-	m_MenubarIsActive(false)
+	m_MenubarIsActive(false),
+	DEBUG_initial(true)
 {
 	loadTileInformation();
 	m_SideBarWidth = 200.0f;
@@ -108,23 +110,25 @@ void Map::create(sf::Vector2u _mapDimensions, std::vector<unsigned int> _tileInd
 	m_MapDimensions = _mapDimensions;
 	m_BackgroundTiles.resize(m_MapDimensions.x * m_MapDimensions.y * 4);
 	m_OverlayQuads.resize(m_MapDimensions.x * m_MapDimensions.y * 4);
+	if (DEBUG_initial)
+	{
+		m_Minimap.initialise(sf::FloatRect((float)(sGame.m_ScreenSize.x - m_SideBarWidth), 
+										   0.0f, 
+										   m_SideBarWidth, 
+										   m_SideBarWidth),
+										   m_MapDimensions);
 
-	m_Minimap.initialise(sf::FloatRect((float)(sGame.m_ScreenSize.x - m_SideBarWidth), 
-									   0.0f, 
-									   m_SideBarWidth, 
-									   m_SideBarWidth),
-									   m_MapDimensions);
+		m_SideBar.initialise(sf::FloatRect((float)(sGame.m_ScreenSize.x - m_SideBarWidth),
+										   m_SideBarWidth,
+										   m_SideBarWidth,
+										   (float)(sGame.m_ScreenSize.y - m_SideBarWidth)),
+										   &m_TileInformation);
 
-	m_SideBar.initialise(sf::FloatRect((float)(sGame.m_ScreenSize.x - m_SideBarWidth),
-									   m_SideBarWidth,
-									   m_SideBarWidth,
-									   (float)(sGame.m_ScreenSize.y - m_SideBarWidth)),
-									   &m_TileInformation);
-
-	m_TopBar.initialise(sf::FloatRect(0.0f,
-									  0.0f,
-									  (float)(sGame.m_ScreenSize.x - m_SideBarWidth),
-									  m_TopBarHeight));
+		m_TopBar.initialise(sf::FloatRect(0.0f,
+										  0.0f,
+										  (float)(sGame.m_ScreenSize.x - m_SideBarWidth),
+										  m_TopBarHeight));
+	}
 
 	for (unsigned int i = 0; i < m_MapDimensions.y; i += 1)
 	{
@@ -143,46 +147,50 @@ void Map::create(sf::Vector2u _mapDimensions, std::vector<unsigned int> _tileInd
 		}
 	}
 
-	GUIFrame *topBarFrame = new GUIFrame();
+	if (DEBUG_initial)
+	{
+		GUIFrame *topBarFrame = new GUIFrame();
 
-	std::vector<std::vector<std::string>> fileMenuNames = std::vector<std::vector<std::string>>(4);
+		std::vector<std::vector<std::string>> fileMenuNames = std::vector<std::vector<std::string>>(4);
 
-	fileMenuNames.at(0) = std::vector<std::string>(1);
-	fileMenuNames.at(0).at(0) = "New Map";
-	fileMenuNames.at(1) = std::vector<std::string>(1);
-	fileMenuNames.at(1).at(0) = "Save Map";
-	fileMenuNames.at(2) = std::vector<std::string>(1);
-	fileMenuNames.at(2).at(0) = "Load Map";
-	fileMenuNames.at(3) = std::vector<std::string>(1);
-	fileMenuNames.at(3).at(0) = "Exit Editor";
+		fileMenuNames.at(0) = std::vector<std::string>(1);
+		fileMenuNames.at(0).at(0) = "New Map";
+		fileMenuNames.at(1) = std::vector<std::string>(1);
+		fileMenuNames.at(1).at(0) = "Save Map";
+		fileMenuNames.at(2) = std::vector<std::string>(1);
+		fileMenuNames.at(2).at(0) = "Load Map";
+		fileMenuNames.at(3) = std::vector<std::string>(1);
+		fileMenuNames.at(3).at(0) = "Exit Editor";
 
-	GUIDropDownMenu *fileMenu = new GUIDropDownMenu(sf::Vector2f(40.0f, 10.0f),
-													80.0f,
-													"File",
-													fileMenuNames);
-	fileMenu->registerReceiver(this);
+		GUIDropDownMenu *fileMenu = new GUIDropDownMenu(sf::Vector2f(40.0f, 10.0f),
+														80.0f,
+														"File",
+														fileMenuNames);
+		fileMenu->registerReceiver(this);
 
-	std::vector<std::vector<std::string>> toolMenuNames = std::vector<std::vector<std::string>>(1);
+		std::vector<std::vector<std::string>> toolMenuNames = std::vector<std::vector<std::string>>(1);
 
-	toolMenuNames.at(0) = std::vector<std::string>(Tile::unitType::NUM_TYPES + 2);
-	toolMenuNames.at(0).at(0) = "Overlay Types";
-	toolMenuNames.at(0).at(1) = "Infantry";
-	toolMenuNames.at(0).at(2) = "Light Vehicle";
-	toolMenuNames.at(0).at(3) = "Heavy Vehicle";
-	toolMenuNames.at(0).at(4) = "Naval";
-	toolMenuNames.at(0).at(5) = "Air";
-	toolMenuNames.at(0).at(6) = "Normal";
+		toolMenuNames.at(0) = std::vector<std::string>(Tile::unitType::NUM_TYPES + 2);
+		toolMenuNames.at(0).at(0) = "Overlay Types";
+		toolMenuNames.at(0).at(1) = "Infantry";
+		toolMenuNames.at(0).at(2) = "Light Vehicle";
+		toolMenuNames.at(0).at(3) = "Heavy Vehicle";
+		toolMenuNames.at(0).at(4) = "Naval";
+		toolMenuNames.at(0).at(5) = "Air";
+		toolMenuNames.at(0).at(6) = "Normal";
 
-	GUIDropDownMenu *toolMenu = new GUIDropDownMenu(sf::Vector2f(136.0f, 10.0f),
-													110.0f,
-													"Tools",
-													toolMenuNames);
-	toolMenu->registerReceiver(this);
+		GUIDropDownMenu *toolMenu = new GUIDropDownMenu(sf::Vector2f(136.0f, 10.0f),
+														110.0f,
+														"Tools",
+														toolMenuNames);
+		toolMenu->registerReceiver(this);
 
-	topBarFrame->addObject(fileMenu);
-	topBarFrame->addObject(toolMenu);
+		topBarFrame->addObject(fileMenu);
+		topBarFrame->addObject(toolMenu);
 
-	sGUIMANAGER.addFrame(topBarFrame);
+		sGUIMANAGER.addFrame(topBarFrame);
+		DEBUG_initial = false;
+	}
 }
 
 void Map::update(sf::Time _delta)
@@ -199,7 +207,19 @@ void Map::update(sf::Time _delta)
 		}
 		else if (m_Messages.front().s_MessageType == MessageData::MessageType::DROPDOWN_MENU_SELECT)
 		{
+			std::cout << "Drop down menu selection: " << m_Messages.front().s_StringData << std::endl;
 			handleDropMenuChoices(m_Messages.front().s_StringData);
+		}
+		else if (m_Messages.front().s_MessageType == MessageData::MessageType::NEW_MAP_BOUNDS)
+		{
+			unsigned int found = m_Messages.front().s_StringData.find("x");
+			
+			unsigned int width  = std::stoi(m_Messages.front().s_StringData.substr(0, found));
+			unsigned int height = std::stoi(m_Messages.front().s_StringData.substr(found + 1, m_Messages.front().s_StringData.size()));
+
+			std::vector<unsigned int> terrain = std::vector<unsigned int>(width * height, (unsigned int)(m_Messages.front().s_FloatData));
+
+			create(sf::Vector2u(width, height), terrain);
 		}
 
 		m_Messages.erase(m_Messages.begin());
@@ -658,7 +678,10 @@ void Map::handleDropMenuChoices(std::string _choice)
 	{
 		if (choicesSplit.at(1) == "New Map")
 		{
-			std::cout << "Make a new map!" << std::endl;
+			NewMapInterface *newMap = new NewMapInterface(sf::Vector2f((float)(sGame.m_ScreenSize.x), (float)(sGame.m_ScreenSize.y)));
+			newMap->registerReceiver(this);
+
+			sGUIMANAGER.addFrame(newMap);
 		}
 		else if (choicesSplit.at(1) == "Load Map")
 		{

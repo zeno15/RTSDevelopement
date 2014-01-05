@@ -16,6 +16,8 @@ unsigned int Publisher::registerReceiver(Receiver *_receiver)
 {
 	m_Receivers.push_back(_receiver);
 
+	onReceiverRegistered(_receiver);
+
 	return (unsigned int)(this);
 }
 unsigned int Publisher::unregisterReceiver(Receiver *_receiver)
@@ -31,6 +33,10 @@ unsigned int Publisher::unregisterReceiver(Receiver *_receiver)
 	}
 
 	return (unsigned int)(this);
+}
+
+void Publisher::onReceiverRegistered(Receiver *_receiver)
+{
 }
 
 void Publisher::notifyReceivers(MessageData::MessageType _messageType, float _floatData/* = 0.0f*/, std::string _stringData/* = std::string()*/)

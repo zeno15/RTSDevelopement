@@ -3,19 +3,30 @@
 
 #include "GUIFrame.h"
 
-class NewMapInterface : public GUIFrame
+class NewMapInterface : public GUIFrame, public Receiver, public Publisher
 {
 public:
 	NewMapInterface(sf::Vector2f _screenSize);
 	~NewMapInterface(void);
 
-	void checkValidInputs(void);
+	virtual void update(sf::Time _delta);
+
+	virtual void onReceiverRegistered(Receiver *_receiver);
+
+	bool checkInputs(void);
 
 private:
-	bool									m_OnConfirm;
+	bool										m_Checking;
+	bool										m_WidthReceived;
+	bool										m_HeightReceived;
 
-	unsigned int							m_WidthIndex;
-	unsigned int							m_HeightIndex;
+	unsigned int								m_WidthTextId;
+	unsigned int								m_HeightTextId;
+
+	unsigned int								m_Width;
+	unsigned int								m_Height;
+	unsigned int								m_DefaultTerrain;
+
 };
 
 #endif //~ INCLUDED_NEWMAPINTERFACE_H

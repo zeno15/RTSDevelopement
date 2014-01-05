@@ -53,6 +53,8 @@ private:
 	void handleDropMenuChoices(std::string _choice);
 
 private:
+	bool											DEBUG_initial;
+
 	sf::Vector2u									m_MapDimensions; //~ In 32x32 pixel tiles
 
 	sf::VertexArray									m_BackgroundTiles;

@@ -15,7 +15,7 @@ public:
 
 	void addObject(GUIObject *_object);
 
-	void update(sf::Time _delta);
+	virtual void update(sf::Time _delta);
 	
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const;
 

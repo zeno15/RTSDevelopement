@@ -42,7 +42,7 @@ void GUIRadioButtonGroup::update(sf::Time _delta)
 		{
 			m_RadioButtons.at(m_ActiveButton)->reset();
 			m_ActiveButton = i;
-			notifyReceivers(MessageData::MessageType::RADIOBUTTON_CHANGE, 0.0f, m_RadioButtons.at(m_ActiveButton)->getStringRepresentation());
+			notifyReceivers(MessageData::MessageType::RADIOBUTTON_CHANGE, (float)(m_ActiveButton), m_RadioButtons.at(m_ActiveButton)->getStringRepresentation());
 		}
 	}
 }

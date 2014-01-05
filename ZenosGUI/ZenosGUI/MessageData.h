@@ -18,6 +18,7 @@ struct MessageData
 					  DROPDOWN_UNACTIVE,
 					  DROPDOWN_BOX_SELECT,
 					  DROPDOWN_MENU_SELECT,
+					  NEW_MAP_BOUNDS,
 					  NUM_TYPES};
 
 	unsigned int	s_Id;
