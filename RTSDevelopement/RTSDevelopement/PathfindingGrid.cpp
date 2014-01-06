@@ -46,25 +46,6 @@ void PathfindingGrid::initialise(sf::Vector2u _size)
 		}
 	}
 
-	addObstacle(5, 5);
-	addObstacle(6, 5);
-	addObstacle(7, 5);
-	addObstacle(5, 6);
-	addObstacle(6, 6);
-	addObstacle(7, 6);
-	addObstacle(5, 7);
-	addObstacle(6, 7);
-	addObstacle(7, 7);
-
-	for (unsigned int i = 8; i < m_GridSize.x; i += 1)
-	{
-		addObstacle(i, 7);
-	}
-
-	for (unsigned int i = 0; i < m_GridSize.x - 8; i += 1)
-	{
-		addObstacle(i, 10);
-	}
 }
 
 void PathfindingGrid::addObstacle(unsigned int _x, unsigned int _y)

@@ -11,6 +11,7 @@
 #include "WorldDataTables.h"
 #include "CollisionGrid.h"
 #include "PathfindingGrid.h"
+#include "Tile.h"
 
 class World : public sf::Drawable
 {
@@ -26,7 +27,7 @@ public:
 	void load(std::string _filename);
 
 private:
-	void loadToVertex(sf::Vector2f _position, sf::Color _colour);
+	void loadToVertex(sf::Vector2u _position, Tile _tile);
 
 	void ensureMapWithinBounds(void);
 
@@ -43,6 +44,10 @@ private:
 
 	float										m_SideBarWidth;
 	float										m_TopBarHeight;
+
+	std::vector<Tile>							m_TileInformation;
+
+	
 };
 
 #endif //~ INCLUDED_WORLD_H

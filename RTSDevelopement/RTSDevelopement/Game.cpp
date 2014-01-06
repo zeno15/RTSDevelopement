@@ -54,7 +54,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_DebugManager.initialise();
 
 	m_World.setInterfaceSized(200.0f, 20.0f);
-	m_World.load("../../Resources/Maps/map1.png");
+	m_World.load("../../Resources/Maps/Quadrant.RTSDMAP");
 
 	sInput.registerButton(sf::Mouse::Right);
 

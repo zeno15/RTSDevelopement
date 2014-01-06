@@ -35,7 +35,6 @@ public:
 
 private:
 	void loadTileInformation(void);
-	void loadIndividualTileInfo(std::vector<std::string> *_info);
 
 	void ensureWithinBounds(void);
 

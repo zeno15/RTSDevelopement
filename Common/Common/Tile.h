@@ -18,6 +18,10 @@ public:
 	Tile(void);
 	~Tile(void);
 
+	static void loadTilesToTileInfoVector(std::vector<Tile> *_tileInfo);
+
+	static unsigned int getTileIndexFromName(std::string _tileName, const std::vector<Tile> &_tileInfo);
+
 public:
 	std::string							m_TileName;
 	sf::Vector2f						m_TileTextureCoordinates;

@@ -385,53 +385,7 @@ void Map::changeTile(unsigned int _xTile, unsigned int _yTile, Tile _type)
 
 void Map::loadTileInformation(void)
 {
-	std::fstream file("../../Resources/Maps/Map Data/Tile Information.RTSD");
-
-	std::string line;
-
-	std::vector<std::string>		tileInfoStrings;
-
-	while (file.good())
-	{
-		std::getline(file, line);
-
-		if (line.size() == 0) continue;
-		if (line.at(0) == '~') continue;
-
-		int location = line.find('-');
-
-		if (location != std::string::npos)
-		{
-			if (line.substr(location, line.size()) == "-TILE_INFO_BEGIN")
-			{
-				continue;
-			}
-			else if (line.substr(location, line.size()) == "-TILE_INFO_END")
-			{
-				loadIndividualTileInfo(&tileInfoStrings);
-				tileInfoStrings.clear();
-				continue;
-			}
-		}
-
-		tileInfoStrings.push_back(line);
-	}
-}
-void Map::loadIndividualTileInfo(std::vector<std::string> *_info)
-{
-	m_TileInformation.push_back(Tile());
-	m_TileInformation.back().m_TileName = _info->at(0);
-	m_TileInformation.back().m_TileTextureCoordinates.x = (float)(std::stoi(_info->at(1)));
-	m_TileInformation.back().m_TileTextureCoordinates.y = (float)(std::stoi(_info->at(2)));
-	m_TileInformation.back().m_TileMinimapColour.r = std::stoi(_info->at(3));
-	m_TileInformation.back().m_TileMinimapColour.g = std::stoi(_info->at(4));
-	m_TileInformation.back().m_TileMinimapColour.b = std::stoi(_info->at(5));
-	m_TileInformation.back().m_TileMinimapColour.a = 255;
-	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::INFANTRY)		= _info->at(6)  == "true";
-	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::LIGHT_VEHICLE) = _info->at(7)  == "true";
-	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::HEAVY_VEHICLE) = _info->at(8)  == "true";
-	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::NAVAL)			= _info->at(9)  == "true";
-	m_TileInformation.back().m_TileUnitPassValues.at(Tile::unitType::AIR)			= _info->at(10) == "true";
+	Tile::loadTilesToTileInfoVector(&m_TileInformation);
 }
 
 void Map::ensureWithinBounds(void)
