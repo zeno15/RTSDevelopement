@@ -96,6 +96,10 @@
     <ClCompile Include="TestRandomWanderer.cpp" />
     <ClCompile Include="TestWorldObject.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="WorldBuilding.cpp" />
+    <ClCompile Include="WorldBuildingFootprint.cpp" />
+    <ClCompile Include="WorldBuildingMilitary.cpp" />
+    <ClCompile Include="WorldBuildingMilitaryTest.cpp" />
     <ClCompile Include="WorldDataTables.cpp" />
     <ClCompile Include="WorldObject.cpp" />
     <ClCompile Include="WorldObjectManager.cpp" />
@@ -111,6 +115,10 @@
     <ClInclude Include="TestRandomWanderer.h" />
     <ClInclude Include="TestWorldObject.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="WorldBuilding.h" />
+    <ClInclude Include="WorldBuildingFootprint.h" />
+    <ClInclude Include="WorldBuildingMilitary.h" />
+    <ClInclude Include="WorldBuildingMilitaryTest.h" />
     <ClInclude Include="WorldDataTables.h" />
     <ClInclude Include="WorldObject.h" />
     <ClInclude Include="WorldObjectManager.h" />

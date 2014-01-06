@@ -52,6 +52,12 @@
     <Filter Include="Resource Files\Maps">
       <UniqueIdentifier>{a693c8a4-f396-4214-addb-470b97d1912a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\World Objects\Buildings">
+      <UniqueIdentifier>{b05b5356-b57c-4df3-8e2a-bf007aed35b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World Objects\Buildings">
+      <UniqueIdentifier>{cba20f33-4625-419f-9fc9-c9c1ca1104b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -96,6 +102,18 @@
     <ClCompile Include="PathfindingGrid.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
+    <ClCompile Include="WorldBuildingMilitaryTest.cpp">
+      <Filter>Source Files\World Objects\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldBuildingMilitary.cpp">
+      <Filter>Source Files\World Objects\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldBuilding.cpp">
+      <Filter>Source Files\World Objects\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldBuildingFootprint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -136,6 +154,18 @@
     </ClInclude>
     <ClInclude Include="PathfindingGrid.h">
       <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldBuildingMilitary.h">
+      <Filter>Header Files\World Objects\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldBuildingMilitaryTest.h">
+      <Filter>Header Files\World Objects\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldBuilding.h">
+      <Filter>Header Files\World Objects\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldBuildingFootprint.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

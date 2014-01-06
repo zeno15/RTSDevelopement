@@ -12,7 +12,7 @@ TestRandomWanderer::TestRandomWanderer(ObjectType _type, sf::Vector2f _position,
 	m_MovementDirection(WorldObject::MovementDirection::NONE),
 	m_Rectangle(_size)
 {
-	m_WorldObjectSpeed = 100.0f;
+
 
 	m_Rectangle.setFillColor(sf::Color(rand() % 255, rand() % 255, rand() % 255, 255));
 	m_Rectangle.setOrigin(_size.x / 2.0f, _size.y / 2.0f);
@@ -70,7 +70,7 @@ void TestRandomWanderer::draw(sf::RenderTarget &_target, sf::RenderStates _state
 
 void TestRandomWanderer::move(WorldObject::MovementDirection _dir, sf::Time _delta)
 {
-	m_WorldObjectPosition += getUnitVector(_dir) * _delta.asSeconds() * m_WorldObjectSpeed;
+	m_WorldObjectPosition += getUnitVector(_dir) * _delta.asSeconds() * 100.0f;
 	m_Rectangle.setPosition(m_WorldObjectPosition);
 	updateCollisions();
 
