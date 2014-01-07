@@ -84,17 +84,11 @@
     <ClCompile Include="World.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
-    <ClCompile Include="TestWorldObject.cpp">
-      <Filter>Source Files\World Objects</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionCell.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
     <ClCompile Include="CollisionGrid.cpp">
       <Filter>Source Files\World</Filter>
-    </ClCompile>
-    <ClCompile Include="TestRandomWanderer.cpp">
-      <Filter>Source Files\World Objects</Filter>
     </ClCompile>
     <ClCompile Include="PathfindingNode.cpp">
       <Filter>Source Files\World</Filter>
@@ -137,17 +131,11 @@
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
-    <ClInclude Include="TestWorldObject.h">
-      <Filter>Header Files\World Objects</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionCell.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
     <ClInclude Include="CollisionGrid.h">
       <Filter>Header Files\World</Filter>
-    </ClInclude>
-    <ClInclude Include="TestRandomWanderer.h">
-      <Filter>Header Files\World Objects</Filter>
     </ClInclude>
     <ClInclude Include="PathfindingNode.h">
       <Filter>Header Files\World</Filter>

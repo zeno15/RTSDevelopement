@@ -8,12 +8,12 @@
 class Tile
 {
 public:
-	enum Type {INFANTRY,
-				   LIGHT_VEHICLE,
-				   HEAVY_VEHICLE,
-				   NAVAL,
-				   AIR,
-				   NUM_TYPES};
+	enum Type  {INFANTRY,
+				LIGHT_VEHICLE,
+				HEAVY_VEHICLE,
+				NAVAL,
+				AIR,
+				NUM_TYPES};
 
 	Tile(void);
 	~Tile(void);

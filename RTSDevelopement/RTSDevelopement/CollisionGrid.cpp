@@ -34,7 +34,6 @@ CollisionGrid::~CollisionGrid(void)
 
 void CollisionGrid::setCollisionArea(sf::Vector2u _collisionArea)
 {
-	std::cout << "Collision grid initialised" << std::endl;
 	m_CollisionArea = sf::Vector2u((unsigned int)(_collisionArea.x * TILESIZE_f), (unsigned int)(_collisionArea.y * TILESIZE_f));
 
 	for (unsigned int i = 0; i < m_CollisionArea.x; i += (unsigned int)(m_CellSize.x))

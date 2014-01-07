@@ -36,7 +36,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_View.setCenter((float)(m_ScreenSize.x / 2.0f),	(float)(m_ScreenSize.y / 2.0f));
 
 	m_Window.create(sf::VideoMode(_screenSize.x, _screenSize.y), _windowName);
-	m_Window.setPosition(sf::Vector2i(500, 200));
+	//m_Window.setPosition(sf::Vector2i(500, 200));
 
 	m_FontManager.loadAllFonts();
 	m_TextureManager.loadAllTextures();
@@ -48,7 +48,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 
 	sInput.registerButton(sf::Mouse::Right);
 
-	sWorldObj.addWorldObject(new WorldBuildingFootprint(sf::Vector2f(128.0f, 128.0f), Tile::Type::INFANTRY));
+	//sWorldObj.addWorldObject(new WorldBuildingFootprint(sf::Vector2f(128.0f, 128.0f), Tile::Type::INFANTRY));
 		
 	run();
 }
@@ -77,6 +77,31 @@ void Game::run(void)
 			WorldBuildingMilitaryTest *test = new WorldBuildingMilitaryTest(MOUSE_TILE_POSITION_VIEW);
 
 			sWorldObj.addWorldObject(test);
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::INFANTRY);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::LIGHT_VEHICLE);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::HEAVY_VEHICLE);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NAVAL);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::AIR);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NUM_TYPES);
 		}
 
 		handleEvents();

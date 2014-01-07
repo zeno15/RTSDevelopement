@@ -2,7 +2,8 @@
 
 #include "Game.h"
 
-PathfindingGrid::PathfindingGrid(void)
+PathfindingGrid::PathfindingGrid(void) :
+	m_OverlayType(Tile::Type::NUM_TYPES)
 {
 }
 
@@ -14,19 +15,25 @@ PathfindingGrid::~PathfindingGrid(void)
 void PathfindingGrid::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
 	sf::RectangleShape temp = sf::RectangleShape(sf::Vector2f(TILESIZE_f, TILESIZE_f));
-	temp.setFillColor(sf::Color(255, 0, 0, 125));
+	temp.setFillColor(sf::Color(255, 0, 0, 255));
 
 	for (unsigned int i = 0; i < m_GridSize.y; i += 1)
 	{
 		for (unsigned int j = 0; j < m_GridSize.x; j += 1)
 		{
-			if (m_ObstacleGrid.at(i * m_GridSize.x + j).s_CanPass == cellStates::INVALID)
+			if (m_OverlayType != Tile::Type::NUM_TYPES &&
+				!m_ObstacleGrid.at(i * m_GridSize.x + j).s_CanPass.at(m_OverlayType))
 			{
 				temp.setPosition((float)(j * TILESIZE_f), (float)(i * TILESIZE_f));
 				_target.draw(temp,		_states);
 			}
 		}
 	}
+}
+
+void PathfindingGrid::changeOverlay(Tile::Type _type)
+{
+	m_OverlayType = _type;
 }
 
 void PathfindingGrid::initialise(sf::Vector2u _size)
@@ -39,8 +46,8 @@ void PathfindingGrid::initialise(sf::Vector2u _size)
 	{
 		for (unsigned int j = 0; j < m_GridSize.x; j += 1)
 		{
-			m_ObstacleGrid.at(i * m_GridSize.x + j).s_CanPass = PathfindingGrid::VALID;
-			m_ObstacleGrid.at(i * m_GridSize.x + j).s_Count   = 0;
+			m_ObstacleGrid.at(i * m_GridSize.x + j).s_CanPass.resize(Tile::Type::NUM_TYPES, true);
+			m_ObstacleGrid.at(i * m_GridSize.x + j).s_Count.resize(Tile::Type::NUM_TYPES, 0);
 
 			m_AllNodes.push_back(PathfindingNode(sf::Vector2u(j * TILESIZE_u, i * TILESIZE_u), sf::Vector2u()));
 		}
@@ -48,21 +55,30 @@ void PathfindingGrid::initialise(sf::Vector2u _size)
 
 }
 
-void PathfindingGrid::addObstacle(unsigned int _x, unsigned int _y)
+void PathfindingGrid::setupAddTile(unsigned int _x, unsigned int _y, Tile _tile)
 {
-	m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_CanPass = PathfindingGrid::INVALID;
-	m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_Count += 1;
-}
-void PathfindingGrid::removeObstacle(unsigned int _x, unsigned int _y)
-{
-	if (m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_Count == 0)
+	for (unsigned int i = 0; i < Tile::Type::NUM_TYPES; i += 1)
 	{
-		m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_Count = 0;
-		m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_CanPass = PathfindingGrid::VALID;
+		if (!_tile.m_TileUnitPassValues.at(i))
+		{
+			addObstacle(_x, _y, (Tile::Type)(i));
+		}
+	}
+}
+void PathfindingGrid::addObstacle(unsigned int _x, unsigned int _y, Tile::Type _type)
+{
+	m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_CanPass.at(_type) = false;
+	m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_Count.at(_type) += 1;
+}
+void PathfindingGrid::removeObstacle(unsigned int _x, unsigned int _y, Tile::Type _type)
+{
+	if (m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_Count.at(_type) == 0)
+	{
+		m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_CanPass.at(_type) = true;
 	}
 	else
 	{
-		m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_Count -= 1;
+		m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_Count.at(_type) -= 1;
 	}
 }
 
@@ -102,12 +118,19 @@ void PathfindingGrid::requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, 
 
 			if (coords.x < 0 || coords.y < 0 || coords.x >= (int)m_GridSize.x || coords.y >= (int)m_GridSize.y) continue;
 
-			if ((m_ObstacleGrid.at(coords.y * m_GridSize.x + coords.x).s_CanPass == cellStates::INVALID) ||
-				(isNodeOnList(&m_AllNodes.at(coords.y * m_GridSize.x + coords.x), PathfindingNode::ListOption::CLOSED)))
-			{
-				//~ If on the closed list or you cannot traverse it.
-				continue;
-			}
+			//if ((m_ObstacleGrid.at(coords.y * m_GridSize.x + coords.x).s_CanPass == cellStates::INVALID) ||
+			//	(isNodeOnList(&m_AllNodes.at(coords.y * m_GridSize.x + coords.x), PathfindingNode::ListOption::CLOSED)))
+			//{
+			//	//~ If on the closed list or you cannot traverse it.
+			//	continue;
+			//}
+
+			///////////////////////////////////////////////
+			//
+			//	Need to reconfigure to use the type of terrain 
+			//	the requested unit can traverse
+			//
+			///////////////////////////////////////////////
 
 			if (isNodeOnList(&m_AllNodes.at(coords.y * m_GridSize.x + coords.x), PathfindingNode::ListOption::OPEN))
 			{

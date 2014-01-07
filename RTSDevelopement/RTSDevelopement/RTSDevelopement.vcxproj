@@ -93,8 +93,6 @@
     <ClCompile Include="HelperFunctions.cpp" />
     <ClCompile Include="PathfindingGrid.cpp" />
     <ClCompile Include="PathfindingNode.cpp" />
-    <ClCompile Include="TestRandomWanderer.cpp" />
-    <ClCompile Include="TestWorldObject.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="WorldBuilding.cpp" />
     <ClCompile Include="WorldBuildingFootprint.cpp" />
@@ -112,8 +110,6 @@
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="PathfindingGrid.h" />
     <ClInclude Include="PathfindingNode.h" />
-    <ClInclude Include="TestRandomWanderer.h" />
-    <ClInclude Include="TestWorldObject.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WorldBuilding.h" />
     <ClInclude Include="WorldBuildingFootprint.h" />

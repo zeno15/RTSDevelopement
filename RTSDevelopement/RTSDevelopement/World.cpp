@@ -52,8 +52,8 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 
 	_target.draw(m_MapBackgroundVertices,		_states);
 
-	_target.draw(m_CollisionGrid,				_states);
-	//_target.draw(m_PathfindingGrid,				_states);
+	//_target.draw(m_CollisionGrid,				_states);
+	_target.draw(m_PathfindingGrid,				_states);
 }
 
 void World::load(std::string _filename)
@@ -75,6 +75,9 @@ void World::load(std::string _filename)
 	found = line.find_first_of("0123456789");
 	m_MapTileDimensions.x = (unsigned int)(std::stoi(line.substr(found, line.size())));
 
+	m_CollisionGrid.setCollisionArea(m_MapTileDimensions);
+	m_PathfindingGrid.initialise(m_MapTileDimensions);
+
 	m_MapBackgroundVertices.resize(4 * m_MapTileDimensions.x * m_MapTileDimensions.y);
 
 	for (unsigned int i = 0; i < m_MapTileDimensions.y; i += 1)
@@ -83,11 +86,15 @@ void World::load(std::string _filename)
 		{
 			std::getline(input, line);
 
-			loadToVertex(sf::Vector2u(j, i), m_TileInformation.at(Tile::getTileIndexFromName(line, m_TileInformation)));
+			Tile tile = m_TileInformation.at(Tile::getTileIndexFromName(line, m_TileInformation));
+
+			loadToVertex(sf::Vector2u(j, i), tile);
+
+			m_PathfindingGrid.setupAddTile(j, i, tile);
 		}
 	}
 
-	m_CollisionGrid.setCollisionArea(m_MapTileDimensions);
+	
 }
 
 void World::loadToVertex(sf::Vector2u _position, Tile _tile)
