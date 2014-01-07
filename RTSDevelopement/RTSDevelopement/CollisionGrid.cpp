@@ -34,6 +34,7 @@ CollisionGrid::~CollisionGrid(void)
 
 void CollisionGrid::setCollisionArea(sf::Vector2u _collisionArea)
 {
+	std::cout << "Collision grid initialised" << std::endl;
 	m_CollisionArea = sf::Vector2u((unsigned int)(_collisionArea.x * TILESIZE_f), (unsigned int)(_collisionArea.y * TILESIZE_f));
 
 	for (unsigned int i = 0; i < m_CollisionArea.x; i += (unsigned int)(m_CellSize.x))
@@ -68,9 +69,12 @@ void CollisionGrid::updateTouchingCells(WorldObject *_wObj)
 
 	wObjCurrentCells->clear();
 
-	for (float i = wObjBounds.top; i <= wObjBounds.top + wObjBounds.height; i += wObjBounds.height)
+	//~ Need to have this work better.  For a 1x1 object, it can interfere with 4 tiles,
+	//~ a 4x4 object can interfere with 25 tiles, but when axis aligned only 16
+
+	for (float i = wObjBounds.top; i < wObjBounds.top + wObjBounds.height; i += TILESIZE_f)
 	{
-		for (float j = wObjBounds.left; j <= wObjBounds.left + wObjBounds.width; j += wObjBounds.width)
+		for (float j = wObjBounds.left; j < wObjBounds.left + wObjBounds.width; j += TILESIZE_f)
 		{
 			wObjCurrentCells->push_back(m_Cells.at((unsigned int)(i / m_CellSize.y) * (unsigned int)(m_CollisionArea.x / m_CellSize.x) + (unsigned int)(j / m_CellSize.x)));
 			wObjCurrentCells->back()->addWorldObject(_wObj);

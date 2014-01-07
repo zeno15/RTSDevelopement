@@ -6,6 +6,7 @@ WorldBuildingMilitaryTest::WorldBuildingMilitaryTest(sf::Vector2f _position) :
 	m_Vertices(sf::Quads, 4)
 {
 	modifyPathfinding(true);
+	updateCollisions();
 
 	m_Vertices[0].position = sf::Vector2f(m_WorldObjectPosition.x - m_WorldObjectSize.x / 2.0f, 
 										  m_WorldObjectPosition.y - m_WorldObjectSize.y / 2.0f);
@@ -27,6 +28,7 @@ WorldBuildingMilitaryTest::WorldBuildingMilitaryTest(sf::Vector2f _position) :
 WorldBuildingMilitaryTest::~WorldBuildingMilitaryTest(void)
 {
 	modifyPathfinding(false);
+	//~ Remove from collision grid
 }
 
 

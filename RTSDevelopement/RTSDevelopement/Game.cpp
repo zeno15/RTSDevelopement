@@ -7,9 +7,7 @@
 #include "HelperFunctions.h"
 
 #include "WorldBuildingMilitaryTest.h"
-
-#define MOUSE_POSITION_WINDOW		sf::Vector2f((float)(sf::Mouse::getPosition(sGame.m_Window).x), (float)(sf::Mouse::getPosition(sGame.m_Window).y))
-#define MOUSE_POSITION_VIEW			(MOUSE_POSITION_WINDOW + sGame.m_View.getCenter() - sGame.m_View.getSize() / 2.0f)
+#include "WorldBuildingFootprint.h"
 
 Game::Game(void)
 {
@@ -38,6 +36,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_View.setCenter((float)(m_ScreenSize.x / 2.0f),	(float)(m_ScreenSize.y / 2.0f));
 
 	m_Window.create(sf::VideoMode(_screenSize.x, _screenSize.y), _windowName);
+	m_Window.setPosition(sf::Vector2i(500, 200));
 
 	m_FontManager.loadAllFonts();
 	m_TextureManager.loadAllTextures();
@@ -49,7 +48,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 
 	sInput.registerButton(sf::Mouse::Right);
 
-
+	sWorldObj.addWorldObject(new WorldBuildingFootprint(sf::Vector2f(128.0f, 128.0f)));
 		
 	run();
 }
@@ -75,10 +74,7 @@ void Game::run(void)
 
 		if (!sInput.getButtonState(sf::Mouse::Right) && sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
-			sf::Vector2f position = sf::Vector2f((float)((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_f) * TILESIZE_f),
-												 (float)((unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_f) * TILESIZE_f));
-			std::cout << "X: " << position.x << ", Y: " << position.y << std::endl;
-			WorldBuildingMilitaryTest *test = new WorldBuildingMilitaryTest(position);
+			WorldBuildingMilitaryTest *test = new WorldBuildingMilitaryTest(MOUSE_TILE_POSITION_VIEW);
 
 			sWorldObj.addWorldObject(test);
 		}

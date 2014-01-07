@@ -15,6 +15,12 @@
 #include "World.h"
 
 
+#define MOUSE_POSITION_WINDOW		sf::Vector2f((float)(sf::Mouse::getPosition(sGame.m_Window).x), (float)(sf::Mouse::getPosition(sGame.m_Window).y))
+#define MOUSE_POSITION_VIEW			(MOUSE_POSITION_WINDOW + sGame.m_View.getCenter() - sGame.m_View.getSize() / 2.0f)
+#define MOUSE_TILE_POSITION_VIEW	sf::Vector2f((float)((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_f) * TILESIZE_f),(float)((unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_f) * TILESIZE_f))
+
+
+
 class Game
 {
 public:

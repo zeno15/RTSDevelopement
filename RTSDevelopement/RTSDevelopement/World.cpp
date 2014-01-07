@@ -86,6 +86,8 @@ void World::load(std::string _filename)
 			loadToVertex(sf::Vector2u(j, i), m_TileInformation.at(Tile::getTileIndexFromName(line, m_TileInformation)));
 		}
 	}
+
+	m_CollisionGrid.setCollisionArea(m_MapTileDimensions);
 }
 
 void World::loadToVertex(sf::Vector2u _position, Tile _tile)
