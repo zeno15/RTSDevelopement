@@ -48,7 +48,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 
 	sInput.registerButton(sf::Mouse::Right);
 
-	sWorldObj.addWorldObject(new WorldBuildingFootprint(sf::Vector2f(128.0f, 128.0f)));
+	sWorldObj.addWorldObject(new WorldBuildingFootprint(sf::Vector2f(128.0f, 128.0f), Tile::Type::INFANTRY));
 		
 	run();
 }

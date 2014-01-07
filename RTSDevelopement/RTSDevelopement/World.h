@@ -26,6 +26,9 @@ public:
 
 	void load(std::string _filename);
 
+	Tile getTileFromCoords(sf::Vector2f _pixelCoords);
+	Tile getTileFromCoords(sf::Vector2u _tileCoords);
+
 private:
 	void loadToVertex(sf::Vector2u _position, Tile _tile);
 

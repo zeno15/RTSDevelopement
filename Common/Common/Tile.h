@@ -8,7 +8,7 @@
 class Tile
 {
 public:
-	enum unitType {INFANTRY,
+	enum Type {INFANTRY,
 				   LIGHT_VEHICLE,
 				   HEAVY_VEHICLE,
 				   NAVAL,

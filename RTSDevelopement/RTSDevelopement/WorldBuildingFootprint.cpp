@@ -2,9 +2,10 @@
 
 #include "Game.h"
 
-WorldBuildingFootprint::WorldBuildingFootprint(sf::Vector2f _size) :
+WorldBuildingFootprint::WorldBuildingFootprint(sf::Vector2f _size, Tile::Type _desiredTerrain) :
 	WorldObject(WorldObject::ObjectType::FOOTPRINT, MOUSE_POSITION_VIEW, _size),
-	m_Footprint(sf::Quads, 0)
+	m_Footprint(sf::Quads, 0),
+	m_Type(_desiredTerrain)
 {
 	m_FootprintSizeTiles = sf::Vector2u((unsigned int)(_size.x / TILESIZE_f), (unsigned int)(_size.y / TILESIZE_f));
 
@@ -20,7 +21,6 @@ WorldBuildingFootprint::~WorldBuildingFootprint(void)
 
 void WorldBuildingFootprint::update(sf::Time _delta)
 {
-	sf::Clock clock;
 	if (MOUSE_POSITION_VIEW.x < 0.0f || MOUSE_POSITION_VIEW.y < 0.0f)
 	{
 
@@ -29,20 +29,44 @@ void WorldBuildingFootprint::update(sf::Time _delta)
 	{
 		m_WorldObjectPosition = MOUSE_TILE_POSITION_VIEW;
 	}
-
+	
 	relocateOnPosition();
 
 	updateCollisions();
 
 	std::vector<WorldObject *> collideables = std::vector<WorldObject *>();
+	bool valid = true;
 
 	for (unsigned int i = 0; i < m_TouchingCells.size(); i += 1)
 	{
 		m_TouchingCells.at(i)->checkCollisionsWithin(&collideables, this);
-		if (collideables.size() > 0) break;
+		if (collideables.size() > 0) 
+		{
+			valid = false;
+			break;
+		}
 	}
 
-	changeColour(collideables.size() > 0 ? sf::Color::Red : sf::Color::White);
+	//~ Check terrain stuff here
+	for (unsigned int i = 0; i < m_FootprintSizeTiles.y; i += 1)
+	{
+		for (unsigned int j = 0; j < m_FootprintSizeTiles.x; j += 1)
+		{
+			sf::Vector2f f = sf::Vector2f(m_WorldObjectPosition.x - m_WorldObjectSize.x / 2.0f + j * TILESIZE_f,
+										  m_WorldObjectPosition.y - m_WorldObjectSize.y / 2.0f + i * TILESIZE_f);
+
+			Tile tile = sWorld.getTileFromCoords(f);
+
+			if (!tile.m_TileUnitPassValues.at(m_Type))
+			{
+				valid = false;
+				break;
+			}
+		}
+	}
+
+
+	changeColour(valid ? sf::Color::White : sf::Color::Red);
 
 }
 void WorldBuildingFootprint::draw(sf::RenderTarget &_target, sf::RenderStates _states) const

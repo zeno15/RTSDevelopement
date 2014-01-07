@@ -47,7 +47,7 @@ private:
 
 	void updateSelectionBox(bool _finalise);
 
-	void activateOverlay(Tile::unitType _type);
+	void activateOverlay(Tile::Type _type);
 
 	void handleDropMenuChoices(std::string _choice);
 
@@ -71,7 +71,7 @@ private:
 	sf::Vector2f									m_InitialSelectedPosition;
 	std::vector<sf::RectangleShape>					m_SelectionBox;
 
-	Tile::unitType									m_OverlayToDraw;
+	Tile::Type									m_OverlayToDraw;
 
 	Minimap											m_Minimap;
 	Sidebar											m_SideBar;

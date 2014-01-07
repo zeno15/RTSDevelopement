@@ -68,10 +68,7 @@ void CollisionGrid::updateTouchingCells(WorldObject *_wObj)
 	}
 
 	wObjCurrentCells->clear();
-
-	//~ Need to have this work better.  For a 1x1 object, it can interfere with 4 tiles,
-	//~ a 4x4 object can interfere with 25 tiles, but when axis aligned only 16
-
+	
 	for (float i = wObjBounds.top; i < wObjBounds.top + wObjBounds.height; i += TILESIZE_f)
 	{
 		for (float j = wObjBounds.left; j < wObjBounds.left + wObjBounds.width; j += TILESIZE_f)

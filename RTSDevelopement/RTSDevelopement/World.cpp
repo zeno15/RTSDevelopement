@@ -52,7 +52,7 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 
 	_target.draw(m_MapBackgroundVertices,		_states);
 
-	//_target.draw(m_CollisionGrid,				_states);
+	_target.draw(m_CollisionGrid,				_states);
 	//_target.draw(m_PathfindingGrid,				_states);
 }
 
@@ -140,4 +140,23 @@ void World::ensureMapWithinBounds(void)
 	{
 		sGame.m_View.setCenter(sGame.m_View.getCenter().x, m_MapTileDimensions.y * TILESIZE_f - sGame.m_View.getSize().y / 2.0f);
 	}
+}
+
+Tile World::getTileFromCoords(sf::Vector2f _pixelCoords)
+{
+	return getTileFromCoords(sf::Vector2u((unsigned int)(_pixelCoords.x / TILESIZE_f), (unsigned int)(_pixelCoords.y / TILESIZE_f)));
+}
+Tile World::getTileFromCoords(sf::Vector2u _tileCoords)
+{
+	sf::Vector2f texCoords = m_MapBackgroundVertices[4 * (_tileCoords.y * m_MapTileDimensions.x + _tileCoords.x)].texCoords;
+
+	for (unsigned int i = 0; i < m_TileInformation.size(); i += 1)
+	{
+		if (texCoords == m_TileInformation.at(i).m_TileTextureCoordinates)
+		{
+			return m_TileInformation.at(i);
+		}
+	}
+
+	return m_TileInformation.front();
 }

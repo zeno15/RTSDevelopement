@@ -3,7 +3,7 @@
 #include <fstream>
 
 Tile::Tile(void) :
-	m_TileUnitPassValues(unitType::NUM_TYPES, false)
+	m_TileUnitPassValues(Type::NUM_TYPES, false)
 {
 }
 
@@ -45,11 +45,11 @@ void Tile::loadTilesToTileInfoVector(std::vector<Tile> *_tileInfo)
 				_tileInfo->back().m_TileMinimapColour.g				= std::stoi(tileInfoStrings.at(4));
 				_tileInfo->back().m_TileMinimapColour.b				= std::stoi(tileInfoStrings.at(5));
 				_tileInfo->back().m_TileMinimapColour.a				= 255;
-				_tileInfo->back().m_TileUnitPassValues.at(Tile::unitType::INFANTRY)			= tileInfoStrings.at(6)  == "true";
-				_tileInfo->back().m_TileUnitPassValues.at(Tile::unitType::LIGHT_VEHICLE)	= tileInfoStrings.at(7)  == "true";
-				_tileInfo->back().m_TileUnitPassValues.at(Tile::unitType::HEAVY_VEHICLE)	= tileInfoStrings.at(8)  == "true";
-				_tileInfo->back().m_TileUnitPassValues.at(Tile::unitType::NAVAL)			= tileInfoStrings.at(9)  == "true";
-				_tileInfo->back().m_TileUnitPassValues.at(Tile::unitType::AIR)				= tileInfoStrings.at(10) == "true";
+				_tileInfo->back().m_TileUnitPassValues.at(Tile::Type::INFANTRY)			= tileInfoStrings.at(6)  == "true";
+				_tileInfo->back().m_TileUnitPassValues.at(Tile::Type::LIGHT_VEHICLE)	= tileInfoStrings.at(7)  == "true";
+				_tileInfo->back().m_TileUnitPassValues.at(Tile::Type::HEAVY_VEHICLE)	= tileInfoStrings.at(8)  == "true";
+				_tileInfo->back().m_TileUnitPassValues.at(Tile::Type::NAVAL)			= tileInfoStrings.at(9)  == "true";
+				_tileInfo->back().m_TileUnitPassValues.at(Tile::Type::AIR)				= tileInfoStrings.at(10) == "true";
 
 				tileInfoStrings.clear();
 

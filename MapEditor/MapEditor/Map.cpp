@@ -12,7 +12,7 @@
 Map::Map(void) :
 	m_BackgroundTiles(sf::Quads, 0),
 	m_OverlayQuads(sf::Quads, 0),
-	m_OverlayToDraw(Tile::unitType::NUM_TYPES),
+	m_OverlayToDraw(Tile::Type::NUM_TYPES),
 	m_Selecting(false),
 	m_MenubarIsActive(false),
 	DEBUG_initial(true)
@@ -172,7 +172,7 @@ void Map::create(sf::Vector2u _mapDimensions, std::vector<unsigned int> _tileInd
 
 		std::vector<std::vector<std::string>> toolMenuNames = std::vector<std::vector<std::string>>(1);
 
-		toolMenuNames.at(0) = std::vector<std::string>(Tile::unitType::NUM_TYPES + 2);
+		toolMenuNames.at(0) = std::vector<std::string>(Tile::Type::NUM_TYPES + 2);
 		toolMenuNames.at(0).at(0) = "Overlay Types";
 		toolMenuNames.at(0).at(1) = "Infantry";
 		toolMenuNames.at(0).at(2) = "Light Vehicle";
@@ -348,7 +348,7 @@ void Map::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 
 	_target.draw(m_BackgroundTiles,		_states);
 
-	if (m_OverlayToDraw != Tile::unitType::NUM_TYPES)
+	if (m_OverlayToDraw != Tile::Type::NUM_TYPES)
 	{
 		_target.draw(m_OverlayQuads);
 	}
@@ -589,11 +589,11 @@ void Map::updateSelectionBox(bool _finalise)
 	createNew = _finalise;
 }
 
-void Map::activateOverlay(Tile::unitType _type)
+void Map::activateOverlay(Tile::Type _type)
 {
 	m_OverlayToDraw = _type;
 
-	if (m_OverlayToDraw == Tile::unitType::NUM_TYPES) return;
+	if (m_OverlayToDraw == Tile::Type::NUM_TYPES) return;
 
 	for (unsigned int i = 0; i < m_MapDimensions.y; i += 1)
 	{
@@ -671,27 +671,27 @@ void Map::handleDropMenuChoices(std::string _choice)
 		{
 			if (choicesSplit.at(2) == "Infantry")
 			{
-				activateOverlay(Tile::unitType::INFANTRY);
+				activateOverlay(Tile::Type::INFANTRY);
 			}
 			else if (choicesSplit.at(2) == "Light Vehicle")
 			{
-				activateOverlay(Tile::unitType::LIGHT_VEHICLE);
+				activateOverlay(Tile::Type::LIGHT_VEHICLE);
 			}
 			else if (choicesSplit.at(2) == "Heavy Vehicle")
 			{
-				activateOverlay(Tile::unitType::HEAVY_VEHICLE);
+				activateOverlay(Tile::Type::HEAVY_VEHICLE);
 			}
 			else if (choicesSplit.at(2) == "Naval")
 			{
-				activateOverlay(Tile::unitType::NAVAL);
+				activateOverlay(Tile::Type::NAVAL);
 			}
 			else if (choicesSplit.at(2) == "Air")
 			{
-				activateOverlay(Tile::unitType::AIR);
+				activateOverlay(Tile::Type::AIR);
 			}
 			else if (choicesSplit.at(2) == "Normal")
 			{
-				activateOverlay(Tile::unitType::NUM_TYPES);
+				activateOverlay(Tile::Type::NUM_TYPES);
 			}
 		}
 	}
