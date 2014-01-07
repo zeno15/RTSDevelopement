@@ -67,12 +67,19 @@ void CollisionGrid::updateTouchingCells(WorldObject *_wObj)
 	}
 
 	wObjCurrentCells->clear();
-	
-	for (float i = wObjBounds.top; i < wObjBounds.top + wObjBounds.height; i += TILESIZE_f)
+
+	sf::Vector2u topLeft =		pixelsToCells(sf::Vector2f(wObjBounds.left, 
+														   wObjBounds.top));
+	sf::Vector2u bottomRight =	pixelsToCells(sf::Vector2f(wObjBounds.left + wObjBounds.width, 
+														   wObjBounds.top  + wObjBounds.height));
+
+
+
+	for (unsigned int i = topLeft.y; i <= bottomRight.y; i += 1)
 	{
-		for (float j = wObjBounds.left; j < wObjBounds.left + wObjBounds.width; j += TILESIZE_f)
+		for (unsigned int j = topLeft.x; j <= bottomRight.x; j += 1)
 		{
-			wObjCurrentCells->push_back(m_Cells.at((unsigned int)(i / m_CellSize.y) * (unsigned int)(m_CollisionArea.x / m_CellSize.x) + (unsigned int)(j / m_CellSize.x)));
+			wObjCurrentCells->push_back(m_Cells.at(i * (m_CollisionArea.x / (unsigned int)(m_CellSize.x)) + j));
 			wObjCurrentCells->back()->addWorldObject(_wObj);
 		}
 	}

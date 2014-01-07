@@ -2,8 +2,9 @@
 #define INCLUDED_WORLDBUILDING_H
 
 #include "WorldObject.h"
+#include "WorldObjectHealth.h"
 
-class WorldBuilding : public WorldObject
+class WorldBuilding : public WorldObject//~ , public WorldObjectHealth
 {
 public:
 	enum BuildingType {MILITARY,

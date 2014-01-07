@@ -2,9 +2,10 @@
 #define INCLUDED_WORLDUNIT_H
 
 #include "WorldObject.h"
+#include "WorldObjectHealth.h"
 #include "Tile.h"
 
-class WorldUnit : public WorldObject
+class WorldUnit : public WorldObject, public WorldObjectHealth
 {
 public:
 	enum MovementDirection {NORTH,
@@ -18,7 +19,7 @@ public:
 							NONE,
 							NUM_DIRECTIONS};
 
-	WorldUnit(Tile::Type _type, sf::Vector2f _position, sf::Vector2f _size);
+	WorldUnit(Tile::Type _type, sf::Vector2f _position, sf::Vector2f _size, int _maxHP, float _currentHP = 1.0f);
 	~WorldUnit(void);
 
 	virtual void update(sf::Time _delta) = 0;	

@@ -6,7 +6,7 @@
 class WorldUnitTriangleTest : public WorldUnit
 {
 public:
-	WorldUnitTriangleTest(sf::Vector2f _position); //~ Position relates to center of the tile
+	WorldUnitTriangleTest(sf::Vector2f _position, float _currentHP = 1.0f); //~ Position relates to center of the tile
 	~WorldUnitTriangleTest(void);
 
 	virtual void update(sf::Time _delta);	

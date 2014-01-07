@@ -12,6 +12,9 @@ World::World(void) :
 {
 	Tile::loadTilesToTileInfoVector(&m_TileInformation);
 
+	m_SelectionBox.setFillColor(sf::Color(255, 255, 255, 25));
+	m_SelectionBox.setOutlineThickness(1.0f);
+
 	sInput.registerButton(sf::Mouse::Left);
 }
 
@@ -52,13 +55,46 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 
 	if (!sInput.getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
+		m_MouseDownCoordinates = MOUSE_POSITION_VIEW;
+	}
+	else if (sInput.getButtonState(sf::Mouse::Left) && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
 		std::vector<WorldObject *> selectionObjects = std::vector<WorldObject *>();
 
-		if (m_CollisionGrid.checkCollisions(&selectionObjects, MOUSE_POSITION_VIEW))
+		if (m_MouseDownCoordinates == MOUSE_POSITION_VIEW)
 		{
-			std::cout << "Selected " << selectionObjects.size() << " objects" << std::endl;
+			//~ Click over
+			if (m_CollisionGrid.checkCollisions(&selectionObjects, MOUSE_POSITION_VIEW))
+			{
+				std::cout << "Click Selected " << selectionObjects.size() << " objects" << std::endl;
+			}
+		}
+		else
+		{
+			//~ Pan/drag over
+			m_RenderSelectionBox = false;
+
+			if (m_CollisionGrid.checkCollisions(&selectionObjects, m_SelectionBox.getGlobalBounds()))
+			{
+				std::cout << "Drag Selected " << selectionObjects.size() << " objects" << std::endl;
+				for (unsigned int i = 0; i < selectionObjects.size(); i += 1)
+				{
+					std::cout << i << " type: " << selectionObjects.at(i)->getType() << ", pointer: " << selectionObjects.at(i) << std::endl;
+				}
+			}
 		}
 	}
+	else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (m_MouseDownCoordinates != MOUSE_POSITION_VIEW)
+		{
+			//~ Update pan/drag
+			updateSelectionBox(MOUSE_POSITION_VIEW);
+			m_RenderSelectionBox = true;
+		}
+	}
+
+	
 }
 void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
@@ -66,8 +102,13 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 
 	_target.draw(m_MapBackgroundVertices,		_states);
 
-	_target.draw(m_CollisionGrid,				_states);
-	_target.draw(m_PathfindingGrid,				_states);
+	//_target.draw(m_CollisionGrid,				_states);
+	//_target.draw(m_PathfindingGrid,				_states);
+
+	if (m_RenderSelectionBox)
+	{
+		_target.draw(m_SelectionBox,			_states);
+	}
 }
 
 void World::load(std::string _filename)
@@ -180,4 +221,16 @@ Tile World::getTileFromCoords(sf::Vector2u _tileCoords)
 	}
 
 	return m_TileInformation.front();
+}
+
+void World::updateSelectionBox(sf::Vector2f _currentCoords)
+{
+	sf::Vector2f size(fabsf(m_MouseDownCoordinates.x - _currentCoords.x) - 2.0f,
+					  fabsf(m_MouseDownCoordinates.y - _currentCoords.y) - 2.0f);
+
+	sf::Vector2f pos(std::min(m_MouseDownCoordinates.x, _currentCoords.x) + 1.0f,
+					 std::min(m_MouseDownCoordinates.y, _currentCoords.y) + 1.0f);
+
+	m_SelectionBox.setSize(size);
+	m_SelectionBox.setPosition(pos);
 }

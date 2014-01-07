@@ -11,6 +11,10 @@ WorldObject::WorldObject(ObjectType _type, sf::Vector2f _position, sf::Vector2f 
 
 WorldObject::~WorldObject(void)
 {
+	for (unsigned int i = 0; i < m_TouchingCells.size(); i += 1)
+	{
+		m_TouchingCells.at(i)->removeWorldObject(this);
+	}
 }
 
 

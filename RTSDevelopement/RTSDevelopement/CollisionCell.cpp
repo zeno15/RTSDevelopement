@@ -89,12 +89,24 @@ bool CollisionCell::checkCollisionsWithin(std::vector<WorldObject *> *_outputCol
 
 	for (unsigned int i = 0; i < m_TouchingWorldObjects.size(); i += 1)
 	{
-		//~ Also check of the output collisions contains the current object
-
 		if (_bounds.intersects(m_TouchingWorldObjects.at(i)->getBounds()))
 		{
-			collision = true;
-			_outputCollisions->push_back(m_TouchingWorldObjects.at(i));
+			bool present = false;
+
+			for (unsigned int j = 0; j < _outputCollisions->size(); j += 1)
+			{
+				if (_outputCollisions->at(j) == m_TouchingWorldObjects.at(i))
+				{
+					present = true;
+					break;
+				}
+			}
+
+			if (!present)
+			{
+				collision = true;
+				_outputCollisions->push_back(m_TouchingWorldObjects.at(i));
+			}
 		}
 	}
 

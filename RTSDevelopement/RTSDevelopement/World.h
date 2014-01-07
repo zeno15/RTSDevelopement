@@ -34,6 +34,8 @@ private:
 
 	void ensureMapWithinBounds(void);
 
+	void updateSelectionBox(sf::Vector2f _currentCoords);
+
 public:
 	WorldDataTables								m_WorldDataTables;
 
@@ -50,7 +52,10 @@ private:
 
 	std::vector<Tile>							m_TileInformation;
 
-	
+	sf::Vector2f								m_MouseDownCoordinates;
+	sf::RectangleShape							m_SelectionBox;
+
+	bool										m_RenderSelectionBox;
 };
 
 #endif //~ INCLUDED_WORLD_H

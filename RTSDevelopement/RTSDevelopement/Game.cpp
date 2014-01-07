@@ -50,7 +50,11 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	sInput.registerButton(sf::Mouse::Right);
 
 	//sWorldObj.addWorldObject(new WorldBuildingFootprint(sf::Vector2f(128.0f, 128.0f), Tile::Type::INFANTRY));
-	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(100.0f, 100.0f)));
+	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(128.0f, 128.0f)));
+	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(256.0f, 128.0f)));
+	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(128.0f, 256.0f)));
+	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(256.0f, 256.0f)));
+	//sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(200.0f, 100.0f)));
 		
 	run();
 }

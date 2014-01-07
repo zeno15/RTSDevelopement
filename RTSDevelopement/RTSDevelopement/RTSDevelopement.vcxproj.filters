@@ -114,11 +114,14 @@
     <ClCompile Include="WorldBuildingFootprint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WorldUnit.cpp">
+    <ClCompile Include="WorldObjectHealth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WorldUnit.cpp">
+      <Filter>Source Files\World Objects\Units</Filter>
+    </ClCompile>
     <ClCompile Include="WorldUnitTriangleTest.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\World Objects\Units</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,11 +170,14 @@
     <ClInclude Include="WorldBuildingFootprint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WorldUnit.h">
+    <ClInclude Include="WorldObjectHealth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WorldUnit.h">
+      <Filter>Header Files\World Objects\Units</Filter>
+    </ClInclude>
     <ClInclude Include="WorldUnitTriangleTest.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\World Objects\Units</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
