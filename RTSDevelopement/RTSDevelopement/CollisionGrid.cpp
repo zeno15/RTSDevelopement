@@ -98,3 +98,28 @@ bool CollisionGrid::checkCollisions(std::vector<WorldObject *> *_outputCollision
 	}
 	return collisions;
 }
+bool CollisionGrid::checkCollisions(std::vector<WorldObject *> *_outputCollisions, sf::Vector2f _position)
+{
+	CollisionCell *cell = m_Cells.at((unsigned int)(_position.y / m_CellSize.y) * (unsigned int)(m_CollisionArea.x / m_CellSize.x) + (unsigned int)(_position.x / m_CellSize.x));
+
+	return cell->checkCollisionsWithin(_outputCollisions, _position);
+}
+bool CollisionGrid::checkCollisions(std::vector<WorldObject *> *_outputCollisions, sf::FloatRect _bounds)
+{
+	bool collisions = false;
+
+	for (float i = _bounds.top; i < _bounds.top + _bounds.height; i += TILESIZE_f)
+	{
+		for (float j = _bounds.left; j < _bounds.left + _bounds.width; j += TILESIZE_f)
+		{
+			CollisionCell *cell = m_Cells.at((unsigned int)(i / m_CellSize.y) * (unsigned int)(m_CollisionArea.x / m_CellSize.x) + (unsigned int)(j / m_CellSize.x));
+
+			if (cell->checkCollisionsWithin(_outputCollisions, _bounds))
+			{
+				collisions = true;
+			}
+		}
+	}
+
+	return collisions;
+}

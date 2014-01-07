@@ -8,6 +8,7 @@
 
 #include "WorldBuildingMilitaryTest.h"
 #include "WorldBuildingFootprint.h"
+#include "WorldUnitTriangleTest.h"
 
 Game::Game(void)
 {
@@ -49,6 +50,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	sInput.registerButton(sf::Mouse::Right);
 
 	//sWorldObj.addWorldObject(new WorldBuildingFootprint(sf::Vector2f(128.0f, 128.0f), Tile::Type::INFANTRY));
+	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(100.0f, 100.0f)));
 		
 	run();
 }
@@ -79,27 +81,27 @@ void Game::run(void)
 			sWorldObj.addWorldObject(test);
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
 			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::INFANTRY);
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
 			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::LIGHT_VEHICLE);
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 		{
 			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::HEAVY_VEHICLE);
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 		{
 			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NAVAL);
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
 		{
 			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::AIR);
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
 		{
 			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NUM_TYPES);
 		}

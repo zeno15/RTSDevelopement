@@ -1,6 +1,5 @@
 #include "CollisionCell.h"
 
-
 CollisionCell::CollisionCell(sf::FloatRect _bounds) :
 	m_Bounds(_bounds),
 	m_Rectangle(sf::Vector2f(_bounds.width, _bounds.height))
@@ -56,8 +55,43 @@ bool CollisionCell::checkCollisionsWithin(std::vector<WorldObject *> *_outputCol
 	for (unsigned int i = 0; i < m_TouchingWorldObjects.size(); i += 1)
 	{
 		if (m_TouchingWorldObjects.at(i) == _wObj) continue;
+		//~ Also check of the output collisions contains the current object
 
 		if (objectBounds.intersects(m_TouchingWorldObjects.at(i)->getBounds()))
+		{
+			collision = true;
+			_outputCollisions->push_back(m_TouchingWorldObjects.at(i));
+		}
+	}
+
+	return collision;
+}
+bool CollisionCell::checkCollisionsWithin(std::vector<WorldObject *> *_outputCollisions, sf::Vector2f _position)
+{
+	bool collision = false;
+
+	for (unsigned int i = 0; i < m_TouchingWorldObjects.size(); i += 1)
+	{
+		//~ Also check of the output collisions contains the current object
+
+		if (m_TouchingWorldObjects.at(i)->getBounds().contains(_position))
+		{
+			collision = true;
+			_outputCollisions->push_back(m_TouchingWorldObjects.at(i));
+		}
+	}
+
+	return collision;
+}
+bool CollisionCell::checkCollisionsWithin(std::vector<WorldObject *> *_outputCollisions, sf::FloatRect _bounds)
+{
+	bool collision = false;
+
+	for (unsigned int i = 0; i < m_TouchingWorldObjects.size(); i += 1)
+	{
+		//~ Also check of the output collisions contains the current object
+
+		if (_bounds.intersects(m_TouchingWorldObjects.at(i)->getBounds()))
 		{
 			collision = true;
 			_outputCollisions->push_back(m_TouchingWorldObjects.at(i));

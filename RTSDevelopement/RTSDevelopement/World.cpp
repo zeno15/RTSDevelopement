@@ -11,11 +11,15 @@ World::World(void) :
 	m_MapBackgroundVertices(sf::Quads, 0)
 {
 	Tile::loadTilesToTileInfoVector(&m_TileInformation);
+
+	sInput.registerButton(sf::Mouse::Left);
 }
 
 World::~World(void)
 {
 	m_CollisionGrid.~CollisionGrid();
+
+	sInput.unregisterButton(sf::Mouse::Left);
 }
 
 
@@ -45,6 +49,16 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 	}
 
 	ensureMapWithinBounds();
+
+	if (!sInput.getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		std::vector<WorldObject *> selectionObjects = std::vector<WorldObject *>();
+
+		if (m_CollisionGrid.checkCollisions(&selectionObjects, MOUSE_POSITION_VIEW))
+		{
+			std::cout << "Selected " << selectionObjects.size() << " objects" << std::endl;
+		}
+	}
 }
 void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
@@ -52,7 +66,7 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 
 	_target.draw(m_MapBackgroundVertices,		_states);
 
-	//_target.draw(m_CollisionGrid,				_states);
+	_target.draw(m_CollisionGrid,				_states);
 	_target.draw(m_PathfindingGrid,				_states);
 }
 

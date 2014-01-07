@@ -20,6 +20,8 @@ public:
 	void removeWorldObject(WorldObject *_wObj);
 
 	bool checkCollisionsWithin(std::vector<WorldObject *> *_outputCollisions, WorldObject *_wObj);
+	bool checkCollisionsWithin(std::vector<WorldObject *> *_outputCollisions, sf::Vector2f _position);
+	bool checkCollisionsWithin(std::vector<WorldObject *> *_outputCollisions, sf::FloatRect _bounds);
 
 private:
 	sf::FloatRect					m_Bounds;

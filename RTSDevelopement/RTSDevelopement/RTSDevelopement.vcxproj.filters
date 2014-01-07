@@ -58,6 +58,12 @@
     <Filter Include="Source Files\World Objects\Buildings">
       <UniqueIdentifier>{cba20f33-4625-419f-9fc9-c9c1ca1104b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\World Objects\Units">
+      <UniqueIdentifier>{5991e87e-bf83-4855-b8dd-c5891a0b6b57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World Objects\Units">
+      <UniqueIdentifier>{ef1de63f-419c-461e-86c2-e67d87f2b1bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -108,6 +114,12 @@
     <ClCompile Include="WorldBuildingFootprint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WorldUnit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldUnitTriangleTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -153,6 +165,12 @@
       <Filter>Header Files\World Objects\Buildings</Filter>
     </ClInclude>
     <ClInclude Include="WorldBuildingFootprint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldUnitTriangleTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

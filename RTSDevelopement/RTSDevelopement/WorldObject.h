@@ -12,19 +12,11 @@ class WorldObject : public sf::Drawable
 {
 public:
 	enum ObjectType {BUILDING,
+					 UNIT,
 					 FOOTPRINT,
 					 TEST, 
 					 NUMTYPES};
-	enum MovementDirection {NORTH,
-							NORTH_EAST,
-							EAST,
-							SOUTH_EAST,
-							SOUTH,
-							SOUTH_WEST,
-							WEST,
-							NORTH_WEST,
-							NONE,
-							NUM_DIRECTIONS};
+
 
 	WorldObject(ObjectType _type, sf::Vector2f _position, sf::Vector2f _size);
 	~WorldObject(void);
