@@ -5,11 +5,13 @@
 #include <vector>
 #include <iostream>
 
+#include "WorldObjectHealth.h"
+
 class CollisionCell;
 
 
 
-class WorldObject : public sf::Drawable
+class WorldObject : public sf::Drawable, public WorldObjectHealth
 {
 public:
 	enum ObjectType {BUILDING,
@@ -19,7 +21,7 @@ public:
 					 NUMTYPES};
 
 
-	WorldObject(ObjectType _type, sf::Vector2f _position, sf::Vector2f _size);
+	WorldObject(ObjectType _type, sf::Vector2f _position, sf::Vector2f _size, int _maxHP, float _currentHP = 1.0f);
 	~WorldObject(void);
 
 	virtual void update(sf::Time _delta) = 0;	

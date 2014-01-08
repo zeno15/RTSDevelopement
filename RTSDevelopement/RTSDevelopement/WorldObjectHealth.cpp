@@ -87,6 +87,10 @@ bool WorldObjectHealth::deselect(void)
 	m_Selected = false;
 	return temp;
 }
+void WorldObjectHealth::toggleSelect(void)
+{
+	m_Selected = !m_Selected;
+}
 
 void WorldObjectHealth::updateHealthBar(void)
 {

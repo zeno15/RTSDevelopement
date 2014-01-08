@@ -2,10 +2,9 @@
 #define INCLUDED_WORLDUNIT_H
 
 #include "WorldObject.h"
-#include "WorldObjectHealth.h"
 #include "Tile.h"
 
-class WorldUnit : public WorldObject, public WorldObjectHealth
+class WorldUnit : public WorldObject
 {
 public:
 	enum MovementDirection {NORTH,

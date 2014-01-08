@@ -16,6 +16,7 @@ public:
 
 	bool select(void);
 	bool deselect(void);
+	void toggleSelect(void);
 
 private:
 	void updateHealthBar(void);

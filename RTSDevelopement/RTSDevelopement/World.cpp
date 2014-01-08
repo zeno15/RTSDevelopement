@@ -59,14 +59,29 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 	}
 	else if (sInput.getButtonState(sf::Mouse::Left) && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		std::vector<WorldObject *> selectionObjects = std::vector<WorldObject *>();
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+		{
+			for (unsigned int i = 0; i < m_SelectedWorldObjects.size(); i += 1)
+			{
+				m_SelectedWorldObjects.at(i)->deselect();
+			}
+			m_SelectedWorldObjects.clear();
+		}
 
 		if (m_MouseDownCoordinates == MOUSE_POSITION_VIEW)
 		{
 			//~ Click over
-			if (m_CollisionGrid.checkCollisions(&selectionObjects, MOUSE_POSITION_VIEW))
+			if (m_CollisionGrid.checkCollisions(&m_SelectedWorldObjects, MOUSE_POSITION_VIEW))
 			{
-				std::cout << "Click Selected " << selectionObjects.size() << " objects" << std::endl;
+				std::cout << "Click Selected " << m_SelectedWorldObjects.size() << " objects" << std::endl;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+				{
+					m_SelectedWorldObjects.back()->toggleSelect();
+				}
+				else
+				{
+					m_SelectedWorldObjects.back()->select();
+				}
 			}
 		}
 		else
@@ -74,12 +89,12 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 			//~ Pan/drag over
 			m_RenderSelectionBox = false;
 
-			if (m_CollisionGrid.checkCollisions(&selectionObjects, m_SelectionBox.getGlobalBounds()))
+			if (m_CollisionGrid.checkCollisions(&m_SelectedWorldObjects, m_SelectionBox.getGlobalBounds()))
 			{
-				std::cout << "Drag Selected " << selectionObjects.size() << " objects" << std::endl;
-				for (unsigned int i = 0; i < selectionObjects.size(); i += 1)
+				std::cout << "Drag Selected " << m_SelectedWorldObjects.size() << " objects" << std::endl;
+				for (unsigned int i = 0; i < m_SelectedWorldObjects.size(); i += 1)
 				{
-					std::cout << i << " type: " << selectionObjects.at(i)->getType() << ", pointer: " << selectionObjects.at(i) << std::endl;
+					m_SelectedWorldObjects.at(i)->select();
 				}
 			}
 		}

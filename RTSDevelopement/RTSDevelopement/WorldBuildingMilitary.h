@@ -9,7 +9,7 @@ public:
 	enum MilitaryBuildingType {TEST,
 							   NUM_TYPES};
 
-	WorldBuildingMilitary(WorldBuildingMilitary::MilitaryBuildingType _type, sf::Vector2f _position, sf::Vector2f _size);
+	WorldBuildingMilitary(WorldBuildingMilitary::MilitaryBuildingType _type, sf::Vector2f _position, sf::Vector2f _size, int _maxHP, float _currentHP = 1.0f);
 	~WorldBuildingMilitary(void);	
 	
 	virtual void update(sf::Time _delta) = 0;	

@@ -3,7 +3,7 @@
 #include "Game.h"
 
 WorldBuildingFootprint::WorldBuildingFootprint(sf::Vector2f _size, Tile::Type _desiredTerrain) :
-	WorldObject(WorldObject::ObjectType::FOOTPRINT, MOUSE_POSITION_VIEW, _size),
+	WorldObject(WorldObject::ObjectType::FOOTPRINT, MOUSE_POSITION_VIEW, _size, 100),
 	m_Footprint(sf::Quads, 0),
 	m_Type(_desiredTerrain)
 {

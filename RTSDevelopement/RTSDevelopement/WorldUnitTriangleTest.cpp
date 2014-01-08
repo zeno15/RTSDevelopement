@@ -25,12 +25,11 @@ void WorldUnitTriangleTest::update(sf::Time _delta)
 }	
 void WorldUnitTriangleTest::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
-	_target.draw(m_Body,				_states);
-
-	_target.draw(m_HealthBar,				_states);
+	_target.draw(m_Body,					_states);
 
 	if (m_Selected)
 	{
+		_target.draw(m_HealthBar,			_states);
 		_target.draw(m_SelectedCorners,		_states);
 	}
 }

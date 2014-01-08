@@ -2,7 +2,8 @@
 
 #include "Game.h"
 
-WorldObject::WorldObject(ObjectType _type, sf::Vector2f _position, sf::Vector2f _size) :
+WorldObject::WorldObject(ObjectType _type, sf::Vector2f _position, sf::Vector2f _size, int _maxHP, float _currentHP/* = 1.0f*/) :
+	WorldObjectHealth(_position, _size, _maxHP, _currentHP),
 	m_WorldObjectType(_type),
 	m_WorldObjectPosition(_position),
 	m_WorldObjectSize(_size)

@@ -56,6 +56,8 @@ private:
 	sf::RectangleShape							m_SelectionBox;
 
 	bool										m_RenderSelectionBox;
+
+	std::vector<WorldObject *>					m_SelectedWorldObjects;
 };
 
 #endif //~ INCLUDED_WORLD_H

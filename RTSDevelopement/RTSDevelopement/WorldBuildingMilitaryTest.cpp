@@ -2,7 +2,7 @@
 
 
 WorldBuildingMilitaryTest::WorldBuildingMilitaryTest(sf::Vector2f _position) :
-	WorldBuildingMilitary(MilitaryBuildingType::TEST, _position, sf::Vector2f(128.0f, 128.0f)),
+	WorldBuildingMilitary(MilitaryBuildingType::TEST, _position, sf::Vector2f(128.0f, 128.0f), 1200),
 	m_Vertices(sf::Quads, 4)
 {
 	modifyPathfinding(true);
