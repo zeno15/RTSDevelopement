@@ -48,6 +48,7 @@ void WorldBuildingFootprint::update(sf::Time _delta)
 	}
 
 	//~ Check terrain stuff here
+	
 	for (unsigned int i = 0; i < m_FootprintSizeTiles.y; i += 1)
 	{
 		for (unsigned int j = 0; j < m_FootprintSizeTiles.x; j += 1)
@@ -74,6 +75,8 @@ void WorldBuildingFootprint::draw(sf::RenderTarget &_target, sf::RenderStates _s
 	_states.texture = sTexture.getTexture(0);
 
 	_target.draw(m_Footprint,			_states);
+
+
 }
 
 

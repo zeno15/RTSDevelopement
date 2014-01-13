@@ -9,7 +9,7 @@
 #include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 
 #include "World.h"
-
+#include "Interface.h"
 
 
 #define MOUSE_POSITION_WINDOW		sf::Vector2f((float)(sf::Mouse::getPosition(sGame.m_Window).x), (float)(sf::Mouse::getPosition(sGame.m_Window).y))
@@ -43,7 +43,8 @@ public:
 	TextureManager									m_TextureManager;
 
 	World											m_World;
-	
+	Interface *										m_Interface;
+		
 	bool											m_Running;
 
 private:

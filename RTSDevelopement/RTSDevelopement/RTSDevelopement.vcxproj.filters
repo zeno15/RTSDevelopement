@@ -64,6 +64,12 @@
     <Filter Include="Source Files\World Objects\Units">
       <UniqueIdentifier>{ef1de63f-419c-461e-86c2-e67d87f2b1bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Interface">
+      <UniqueIdentifier>{47230ec2-0304-4762-ba87-448c615fb10e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface">
+      <UniqueIdentifier>{ad2b10e3-00cd-4816-ba20-66c56674bfae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -123,6 +129,12 @@
     <ClCompile Include="WorldUnitTriangleTest.cpp">
       <Filter>Source Files\World Objects\Units</Filter>
     </ClCompile>
+    <ClCompile Include="TempBuildBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -178,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="WorldUnitTriangleTest.h">
       <Filter>Header Files\World Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="TempBuildBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

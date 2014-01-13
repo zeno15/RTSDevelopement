@@ -89,10 +89,12 @@
     <ClCompile Include="CollisionGrid.cpp" />
     <ClCompile Include="DebugManager.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
     <ClCompile Include="PathfindingGrid.cpp" />
     <ClCompile Include="PathfindingNode.cpp" />
+    <ClCompile Include="TempBuildBar.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="WorldBuilding.cpp" />
     <ClCompile Include="WorldBuildingFootprint.cpp" />
@@ -111,8 +113,10 @@
     <ClInclude Include="DebugManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HelperFunctions.h" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="PathfindingGrid.h" />
     <ClInclude Include="PathfindingNode.h" />
+    <ClInclude Include="TempBuildBar.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WorldBuilding.h" />
     <ClInclude Include="WorldBuildingFootprint.h" />

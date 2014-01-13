@@ -54,19 +54,29 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_TextureManager.addFilepath("../../Resources/Textures/Tilesheet.png");
 	m_TextureManager.loadAllTextures();
 
-	m_DebugManager.initialise();
+	sGUIMANAGER.linkWindow(&m_Window);
+	sGUIMANAGER.linkFontManager(&m_FontManager);
+	sGUIMANAGER.linkInputManager(&m_InputManager);
+	sGUIMANAGER.linkTextureManager(&m_TextureManager);
 
-	m_World.setInterfaceSized(200.0f, 20.0f);
+	m_DebugManager.initialise();
+	
+
+	sf::FloatRect sideBarBounds = sf::FloatRect((float)m_ScreenSize.x - 200.0f,
+												0.0f,
+												200.0f,
+												(float)m_ScreenSize.y);
+	sf::FloatRect  topBarBounds = sf::FloatRect(0.0f,
+												0.0f,
+												(float)m_ScreenSize.x - sideBarBounds.width,
+												20.0f);
+
+	m_Interface = new Interface(topBarBounds, sideBarBounds);
+
+	m_World.setInterfaceSized(sideBarBounds.width, topBarBounds.height);
 	m_World.load("../../Resources/Maps/Quadrant.RTSDMAP");
 
 	sInput.registerButton(sf::Mouse::Right);
-
-	//sWorldObj.addWorldObject(new WorldBuildingFootprint(sf::Vector2f(128.0f, 128.0f), Tile::Type::INFANTRY));
-	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(128.0f, 128.0f)));
-	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(256.0f, 128.0f)));
-	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(128.0f, 256.0f)));
-	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(256.0f, 256.0f)));
-	//sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(200.0f, 100.0f)));
 		
 	run();
 }
@@ -83,54 +93,53 @@ void Game::run(void)
 	sf::Clock clock;
 	while (m_Running)
 	{
+		sf::sleep(sf::milliseconds(1));
+
 		sWorld.update(clock.getElapsedTime());
+		m_Interface->update(clock.getElapsedTime());
 		sGUI.update(clock.getElapsedTime());
 		sWorldObj.update(clock.getElapsedTime());
 		sDebug.update(clock.getElapsedTime());
 
-		
-
-		if (!sInput.getButtonState(sf::Mouse::Right) && sf::Mouse::isButtonPressed(sf::Mouse::Right))
-		{
-			WorldBuildingMilitaryTest *test = new WorldBuildingMilitaryTest(MOUSE_TILE_POSITION_VIEW);
-
-			sWorldObj.addWorldObject(test);
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-		{
-			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::INFANTRY);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-		{
-			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::LIGHT_VEHICLE);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-		{
-			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::HEAVY_VEHICLE);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-		{
-			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NAVAL);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
-		{
-			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::AIR);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
-		{
-			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NUM_TYPES);
-		}
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+		//{
+		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::INFANTRY);
+		//}
+		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+		//{
+		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::LIGHT_VEHICLE);
+		//}
+		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+		//{
+		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::HEAVY_VEHICLE);
+		//}
+		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+		//{
+		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NAVAL);
+		//}
+		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+		//{
+		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::AIR);
+		//}
+		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
+		//{
+		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NUM_TYPES);
+		//}
 
 		handleEvents();
 
 		clock.restart();
+		
+		m_Window.clear(sf::Color(25, 25, 25, 255));
 
 		m_Window.setView(m_View);
-		m_Window.clear(sf::Color(25, 25, 25, 255));
 
 		m_Window.draw(sWorld);
 		m_Window.draw(sWorldObj);
+
+		m_Window.setView(m_Window.getDefaultView());
+
+		m_Window.draw(*m_Interface);
 		m_Window.draw(sGUI);
 		m_Window.draw(sDebug);
 

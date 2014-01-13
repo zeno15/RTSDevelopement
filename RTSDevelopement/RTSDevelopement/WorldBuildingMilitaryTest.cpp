@@ -23,6 +23,9 @@ WorldBuildingMilitaryTest::WorldBuildingMilitaryTest(sf::Vector2f _position) :
 	m_Vertices[3].position = sf::Vector2f(m_WorldObjectPosition.x - m_WorldObjectSize.x / 2.0f, 
 										  m_WorldObjectPosition.y + m_WorldObjectSize.y / 2.0f);
 	m_Vertices[3].color    = sf::Color(255, 255, 255, 155);
+
+	
+	updateHealthPosition(m_WorldObjectPosition);
 }
 
 WorldBuildingMilitaryTest::~WorldBuildingMilitaryTest(void)
@@ -38,6 +41,12 @@ void WorldBuildingMilitaryTest::update(sf::Time _delta)
 void WorldBuildingMilitaryTest::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
 	_target.draw(m_Vertices,				_states);
+
+	if (m_Selected)
+	{
+		_target.draw(m_HealthBar,			_states);
+		_target.draw(m_SelectedCorners,		_states);
+	}
 }
 
 void WorldBuildingMilitaryTest::modifyPathfinding(bool _onConstruction)

@@ -73,7 +73,6 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 			//~ Click over
 			if (m_CollisionGrid.checkCollisions(&m_SelectedWorldObjects, MOUSE_POSITION_VIEW))
 			{
-				std::cout << "Click Selected " << m_SelectedWorldObjects.size() << " objects" << std::endl;
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 				{
 					m_SelectedWorldObjects.back()->toggleSelect();
@@ -91,7 +90,6 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 
 			if (m_CollisionGrid.checkCollisions(&m_SelectedWorldObjects, m_SelectionBox.getGlobalBounds()))
 			{
-				std::cout << "Drag Selected " << m_SelectedWorldObjects.size() << " objects" << std::endl;
 				for (unsigned int i = 0; i < m_SelectedWorldObjects.size(); i += 1)
 				{
 					m_SelectedWorldObjects.at(i)->select();
@@ -118,7 +116,7 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 	_target.draw(m_MapBackgroundVertices,		_states);
 
 	//_target.draw(m_CollisionGrid,				_states);
-	//_target.draw(m_PathfindingGrid,				_states);
+	//_target.draw(m_PathfindingGrid,			_states);
 
 	if (m_RenderSelectionBox)
 	{

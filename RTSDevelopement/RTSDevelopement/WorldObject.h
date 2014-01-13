@@ -6,12 +6,12 @@
 #include <iostream>
 
 #include "WorldObjectHealth.h"
+#include "../../../ZenosGUI/ZenosGUI/Publisher.h"
+#include "../../../ZenosGUI/ZenosGUI/Receiver.h"
 
 class CollisionCell;
 
-
-
-class WorldObject : public sf::Drawable, public WorldObjectHealth
+class WorldObject : public sf::Drawable, public WorldObjectHealth, public Receiver, public Publisher
 {
 public:
 	enum ObjectType {BUILDING,
