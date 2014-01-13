@@ -41,13 +41,13 @@ void Sidebar::initialise(sf::FloatRect _bounds, std::vector<Tile> *_tileInfo)
 
 	GUIButtonTextured *leftButton =   new GUIButtonTextured(sf::Vector2f(_bounds.left + 32.0f, _bounds.top + 96.0f), 
 															sf::Vector2f(32.0f, 32.0f), 
-															sGUITEX->getTexture(TextureManager::TextureID::TILESHEET), 
+															sGUITEX->getTexture(0), 
 															sf::FloatRect(32.0f, 320.0f, - TILESIZE_f, - TILESIZE_f));
 	m_LeftButtonId = leftButton->registerReceiver(this);
 
 	GUIButtonTextured *rightButton =  new GUIButtonTextured(sf::Vector2f(_bounds.left + _bounds.width - 32.0f, _bounds.top + 96.0f), 
 															sf::Vector2f(32.0f, 32.0f), 
-															sGUITEX->getTexture(TextureManager::TextureID::TILESHEET), 
+															sGUITEX->getTexture(0), 
 															sf::FloatRect(0.0f, 288.0f, TILESIZE_f, TILESIZE_f));
 	m_RightButtonId = rightButton->registerReceiver(this);
 
@@ -170,7 +170,7 @@ void Sidebar::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 
 	_target.draw(m_BackgroundQuads,			_states);
 
-	_states.texture = sTexture.getTexture(TextureManager::TextureID::TILESHEET);
+	_states.texture = sTexture.getTexture(0);
 
 	_target.draw(m_ActiveToolDisplay,		_states);
 	_target.draw(m_SelectableTileQuads,		_states);
@@ -216,7 +216,7 @@ void Sidebar::initialiseTileSelection(void)
 	{
 		m_MaxPages += 1;
 	}
-	m_PageNumber = sf::Text("1 / 1", *sFont.getFont(FontManager::FontID::OPENSANS_REGULAR), 20);
+	m_PageNumber = sf::Text("1 / 1", *sFont.getFont(7), 20);
 	m_PageNumber.setOrigin(m_PageNumber.getGlobalBounds().left + m_PageNumber.getGlobalBounds().width / 2.0f, 
 						   m_PageNumber.getGlobalBounds().top  + m_PageNumber.getGlobalBounds().height / 2.0f);
 	m_PageNumber.setPosition(m_BackgroundQuads.getBounds().left + m_BackgroundQuads.getBounds().width / 2.0f,

@@ -34,7 +34,7 @@ CursorManager::~CursorManager(void)
 
 void CursorManager::initialise(void)
 {
-	m_Cursor = sf::Sprite(*sTexture.getTexture(TextureManager::TextureID::TILESHEET), sf::IntRect(0, 0, 32, 32));
+	m_Cursor = sf::Sprite(*sTexture.getTexture(0), sf::IntRect(0, 0, 32, 32));
 	m_Cursor.setOrigin(m_Cursor.getGlobalBounds().width / 2.0f, m_Cursor.getGlobalBounds().height / 2.0f);
 }
 

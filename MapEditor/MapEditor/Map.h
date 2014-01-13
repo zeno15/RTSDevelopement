@@ -12,7 +12,7 @@
 #include "Sidebar.h"
 #include "TopBar.h"
 
-#include "../../ZenosGUI/ZenosGUI/Receiver.h"
+#include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 
 #define TILESIZE_f 32.0f
 #define TILESIZE_u 32u

@@ -113,7 +113,7 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 }
 void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
-	_states.texture = sTexture.getTexture(TextureManager::TextureID::TILESHEET);
+	_states.texture = sTexture.getTexture(0);
 
 	_target.draw(m_MapBackgroundVertices,		_states);
 

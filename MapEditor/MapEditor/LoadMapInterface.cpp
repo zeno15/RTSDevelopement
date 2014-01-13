@@ -2,8 +2,7 @@
 
 #include <fstream>
 
-#include "GUIButton.h"
-#include "GUITextBox.h"
+#include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 
 
 LoadMapInterface::LoadMapInterface(sf::Vector2f _screenSize) :

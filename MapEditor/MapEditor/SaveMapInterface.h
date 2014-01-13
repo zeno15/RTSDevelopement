@@ -1,7 +1,7 @@
 #ifndef INCLUDED_SAVEMAPINTERFACE_H
 #define INCLUDED_SAVEMAPINTERFACE_H
 
-#include "GUIFrame.h"
+#include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 
 class SaveMapInterface : public GUIFrame, public Publisher, public Receiver
 {

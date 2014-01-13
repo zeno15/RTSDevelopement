@@ -2,8 +2,7 @@
 
 #include <fstream>
 
-#include "GUIButton.h"
-#include "GUITextBox.h"
+
 
 SaveMapInterface::SaveMapInterface(sf::Vector2f _screenSize) :
 	GUIFrame(sf::FloatRect(_screenSize.x / 4.0f,

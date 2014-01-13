@@ -1,8 +1,6 @@
 #include "NewMapInterface.h"
 
-#include "GUIButton.h"
-#include "GUITextBox.h"
-#include "GUIRadioButtonGroup.h"
+#include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 
 NewMapInterface::NewMapInterface(sf::Vector2f _screenSize) :
 	GUIFrame(sf::FloatRect(_screenSize.x / 4.0f,

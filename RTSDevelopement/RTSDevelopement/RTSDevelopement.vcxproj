@@ -149,9 +149,6 @@
     <ProjectReference Include="..\..\Common\Common\Common.vcxproj">
       <Project>{f44b9396-b61c-4d13-a039-623c81f4723d}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\ZenosGUI\ZenosGUI\ZenosGUI.vcxproj">
-      <Project>{43d6a0b0-9495-41ee-90d4-1593321736d5}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

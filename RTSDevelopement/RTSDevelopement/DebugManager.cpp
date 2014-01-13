@@ -17,8 +17,8 @@ DebugManager::~DebugManager(void)
 
 void DebugManager::initialise(void)
 {
-	m_FPSText = sf::Text("00 FPS", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 20);
-	m_WorldObjectCountText = sf::Text("00 World Objects", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 20);
+	m_FPSText = sf::Text("00 FPS", *sGame.m_FontManager.getFont(7), 20);
+	m_WorldObjectCountText = sf::Text("00 World Objects", *sGame.m_FontManager.getFont(7), 20);
 	m_WorldObjectCountText.setPosition(0.0f, 20.0f);
 }
 

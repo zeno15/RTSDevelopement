@@ -344,7 +344,7 @@ void Map::update(sf::Time _delta)
 }
 void Map::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
-	_states.texture = sTexture.getTexture(TextureManager::TextureID::TILESHEET);
+	_states.texture = sTexture.getTexture(0);
 
 	_target.draw(m_BackgroundTiles,		_states);
 

@@ -1,7 +1,7 @@
 #ifndef INCLUDED_NEWMAPINTERFACE_H
 #define INCLUDED_NEWMAPINTERFACE_H
 
-#include "GUIFrame.h"
+#include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 
 class NewMapInterface : public GUIFrame, public Receiver, public Publisher
 {

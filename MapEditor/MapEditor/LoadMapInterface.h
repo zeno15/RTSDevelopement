@@ -1,7 +1,7 @@
 #ifndef INCLUDED_LOADMAPINTERFACE_H
 #define INCLUDED_LOADMAPINTERFACE_H
 
-#include "GUIFrame.h"
+#include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 
 class LoadMapInterface : public GUIFrame, public Publisher, public Receiver
 {

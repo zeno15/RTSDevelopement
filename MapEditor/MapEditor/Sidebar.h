@@ -5,7 +5,7 @@
 
 #include "Tile.h"
 
-#include "../../ZenosGUI/ZenosGUI/Receiver.h"
+#include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 
 class Sidebar : public sf::Drawable, public Receiver
 {

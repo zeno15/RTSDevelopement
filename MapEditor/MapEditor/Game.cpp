@@ -25,7 +25,19 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 
 	m_Window.create(sf::VideoMode(_screenSize.x, _screenSize.y), _windowName);
 
+	m_FontManager.addFilepath("../../Resources/Fonts/OpenSans-Bold.ttf");
+	m_FontManager.addFilepath("../../Resources/Fonts/OpenSans-BoldItalic.ttf");
+	m_FontManager.addFilepath("../../Resources/Fonts/OpenSans-ExtraBold.ttf");
+	m_FontManager.addFilepath("../../Resources/Fonts/OpenSans-ExtraBoldItalic.ttf");
+	m_FontManager.addFilepath("../../Resources/Fonts/OpenSans-Italic.ttf");
+	m_FontManager.addFilepath("../../Resources/Fonts/OpenSans-Light.ttf");
+	m_FontManager.addFilepath("../../Resources/Fonts/OpenSans-LightItalic.ttf");
+	m_FontManager.addFilepath("../../Resources/Fonts/OpenSans-Regular.ttf");
+	m_FontManager.addFilepath("../../Resources/Fonts/OpenSans-Semibold.ttf");
+	m_FontManager.addFilepath("../../Resources/Fonts/OpenSans-SemiboldItalic.ttf");
 	m_FontManager.loadAllFonts();
+
+	m_TextureManager.addFilepath("../../Resources/Textures/Tilesheet.png");
 	m_TextureManager.loadAllTextures();
 
 	m_CursorManager.initialise();

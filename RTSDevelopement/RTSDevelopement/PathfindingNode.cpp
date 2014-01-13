@@ -14,9 +14,9 @@ PathfindingNode::PathfindingNode(sf::Vector2u _gridPosition, sf::Vector2u _final
 	m_EndpointGridCoordinates(_finalGridPosition),
 	m_ParentNode(_parentNode),
 	m_Outline(sf::Vector2f(TILESIZE_f - 2.0f, TILESIZE_f - 2.0f)),
-	m_F_Text("0", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 8),
-	m_G_Text("0", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 8),
-	m_H_Text("0", *sGame.m_FontManager.getFont(FontManager::FontID::OPENSANS_REGULAR), 8),
+	m_F_Text("0", *sGame.m_FontManager.getFont(7), 8),
+	m_G_Text("0", *sGame.m_FontManager.getFont(7), 8),
+	m_H_Text("0", *sGame.m_FontManager.getFont(7), 8),
 	m_ParentPointer(sf::Lines, 2),
 	m_ListOption(ListOption::NONE)
 {

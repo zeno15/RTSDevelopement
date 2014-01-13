@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 
-#include "../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
+#include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 #include "Map.h"
 #include "CursorManager.h"
 

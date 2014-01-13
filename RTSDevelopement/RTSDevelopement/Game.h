@@ -4,15 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "../../ZenosGUI/ZenosGUI/FontManager.h"
-#include "../../ZenosGUI/ZenosGUI/GUIManager.h"
-#include "../../ZenosGUI/ZenosGUI/InputManager.h"
-#include "../../ZenosGUI/ZenosGUI/TextureManager.h"
 #include "DebugManager.h"
 #include "WorldObjectManager.h"
-
+#include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
 
 #include "World.h"
+
 
 
 #define MOUSE_POSITION_WINDOW		sf::Vector2f((float)(sf::Mouse::getPosition(sGame.m_Window).x), (float)(sf::Mouse::getPosition(sGame.m_Window).y))
