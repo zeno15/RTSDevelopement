@@ -25,6 +25,7 @@ private:
 	sf::VertexArray								m_Footprint;
 
 	sf::Vector2u								m_FootprintSizeTiles;
+	sf::Vector2f								m_SizingOffset;
 
 	Tile::Type									m_Type;
 

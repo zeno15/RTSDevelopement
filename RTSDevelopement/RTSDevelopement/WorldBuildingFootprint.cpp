@@ -48,20 +48,20 @@ void WorldBuildingFootprint::update(sf::Time _delta)
 	}
 
 	//~ Check terrain stuff here
-	
-	for (unsigned int i = 0; i < m_FootprintSizeTiles.y; i += 1)
+	if (valid)
 	{
-		for (unsigned int j = 0; j < m_FootprintSizeTiles.x; j += 1)
+		for (unsigned int i = 0; i < m_FootprintSizeTiles.y; i += 1)
 		{
-			sf::Vector2f f = sf::Vector2f(m_WorldObjectPosition.x - m_WorldObjectSize.x / 2.0f + j * TILESIZE_f,
-										  m_WorldObjectPosition.y - m_WorldObjectSize.y / 2.0f + i * TILESIZE_f);
-
-			Tile tile = sWorld.getTileFromCoords(f);
-
-			if (!tile.m_TileUnitPassValues.at(m_Type))
+			for (unsigned int j = 0; j < m_FootprintSizeTiles.x; j += 1)
 			{
-				valid = false;
-				break;
+				Tile tile = sWorld.getTileFromCoords(sf::Vector2f(m_WorldObjectPosition.x - m_SizingOffset.x + j * TILESIZE_f,
+																  m_WorldObjectPosition.y - m_SizingOffset.y + i * TILESIZE_f));
+
+				if (!tile.m_TileUnitPassValues.at(m_Type))
+				{
+					valid = false;
+					break;
+				}
 			}
 		}
 	}
@@ -69,6 +69,16 @@ void WorldBuildingFootprint::update(sf::Time _delta)
 
 	changeColour(valid ? sf::Color::White : sf::Color::Red);
 
+	if (valid && !sInput.getButtonState(sf::Mouse::Left) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		unsigned int x = (unsigned int)(m_Footprint.getBounds().left + m_Footprint.getBounds().width / 2.0f);
+		unsigned int y = (unsigned int)(m_Footprint.getBounds().top + m_Footprint.getBounds().height / 2.0f);
+
+		std::cout << std::to_string(x) + "x" + std::to_string(y) << std::endl;
+
+		notifyReceivers(MessageData::BUILDING_PLACE_DATA, 0.0f, std::to_string(x) + "x" + std::to_string(y));
+		kill();
+	}
 }
 void WorldBuildingFootprint::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
@@ -82,34 +92,45 @@ void WorldBuildingFootprint::draw(sf::RenderTarget &_target, sf::RenderStates _s
 
 void WorldBuildingFootprint::relocateOnPosition(void)
 {
+	m_SizingOffset = sf::Vector2f(m_WorldObjectSize.x / 2.0f, m_WorldObjectSize.y / 2.0f);
+
+	if ((m_WorldObjectSize.x / TILESIZE_f) / 2.0f - (int((m_WorldObjectSize.x / TILESIZE_f) / 2.0f) > 0.0f))
+	{
+		m_SizingOffset.x -= TILESIZE_f / 2.0f;
+	}
+	if ((m_WorldObjectSize.y / TILESIZE_f) / 2.0f - (int((m_WorldObjectSize.y / TILESIZE_f) / 2.0f) > 0.0f))
+	{
+		m_SizingOffset.y -= TILESIZE_f / 2.0f;
+	}
+
 	for (unsigned int i = 0; i < m_FootprintSizeTiles.y; i += 1)
 	{
 		for (unsigned int j = 0; j < m_FootprintSizeTiles.x; j += 1)
 		{
 			m_Footprint[4 * (i * m_FootprintSizeTiles.x + j) + 0].position = 
-							sf::Vector2f(m_WorldObjectPosition.x - m_WorldObjectSize.x / 2.0f + (j + 0) * TILESIZE_f,
-										 m_WorldObjectPosition.y - m_WorldObjectSize.y / 2.0f + (i + 0) * TILESIZE_f);
+							sf::Vector2f(m_WorldObjectPosition.x - m_SizingOffset.x + (j + 0) * TILESIZE_f,
+										 m_WorldObjectPosition.y - m_SizingOffset.y + (i + 0) * TILESIZE_f);
 			m_Footprint[4 * (i * m_FootprintSizeTiles.x + j) + 0].texCoords = 
 							sf::Vector2f(0.0f,
 										 384.0f);
 
 			m_Footprint[4 * (i * m_FootprintSizeTiles.x + j) + 1].position = 
-							sf::Vector2f(m_WorldObjectPosition.x - m_WorldObjectSize.x / 2.0f + (j + 1) * TILESIZE_f,
-										 m_WorldObjectPosition.y - m_WorldObjectSize.y / 2.0f + (i + 0) * TILESIZE_f);
+							sf::Vector2f(m_WorldObjectPosition.x - m_SizingOffset.x + (j + 1) * TILESIZE_f,
+										 m_WorldObjectPosition.y - m_SizingOffset.y + (i + 0) * TILESIZE_f);
 			m_Footprint[4 * (i * m_FootprintSizeTiles.x + j) + 1].texCoords = 
 							sf::Vector2f(0.0f + TILESIZE_f,
 										 384.0f);
 
 			m_Footprint[4 * (i * m_FootprintSizeTiles.x + j) + 2].position = 
-							sf::Vector2f(m_WorldObjectPosition.x - m_WorldObjectSize.x / 2.0f + (j + 1) * TILESIZE_f,
-										 m_WorldObjectPosition.y - m_WorldObjectSize.y / 2.0f + (i + 1) * TILESIZE_f);
+							sf::Vector2f(m_WorldObjectPosition.x - m_SizingOffset.x + (j + 1) * TILESIZE_f,
+										 m_WorldObjectPosition.y - m_SizingOffset.y + (i + 1) * TILESIZE_f);
 			m_Footprint[4 * (i * m_FootprintSizeTiles.x + j) + 2].texCoords = 
 							sf::Vector2f(0.0f + TILESIZE_f,
 										 384.0f + TILESIZE_f);
 
 			m_Footprint[4 * (i * m_FootprintSizeTiles.x + j) + 3].position = 
-							sf::Vector2f(m_WorldObjectPosition.x - m_WorldObjectSize.x / 2.0f + (j + 0) * TILESIZE_f,
-										 m_WorldObjectPosition.y - m_WorldObjectSize.y / 2.0f + (i + 1) * TILESIZE_f);
+							sf::Vector2f(m_WorldObjectPosition.x - m_SizingOffset.x + (j + 0) * TILESIZE_f,
+										 m_WorldObjectPosition.y - m_SizingOffset.y + (i + 1) * TILESIZE_f);
 			m_Footprint[4 * (i * m_FootprintSizeTiles.x + j) + 3].texCoords = 
 							sf::Vector2f(0.0f,
 										 384.0f + TILESIZE_f);

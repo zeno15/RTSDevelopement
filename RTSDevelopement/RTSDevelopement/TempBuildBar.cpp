@@ -3,6 +3,7 @@
 #include "Game.h"
 
 #include "WorldBuildingFootprint.h"
+#include "WorldBuildingMilitaryTest.h"
 
 #include <iostream>
 
@@ -32,12 +33,23 @@ void TempBuildBar::update(sf::Time _delta)
 		{
 			std::cout << "Build bar activated" << std::endl;
 			
-			WorldBuildingFootprint *footprint = new WorldBuildingFootprint(sf::Vector2f(96.0f, 96.0f), Tile::Type::INFANTRY);
+			WorldBuildingFootprint *footprint = new WorldBuildingFootprint(sf::Vector2f(64.0f, 96.0f), Tile::Type::INFANTRY);
 
 			footprint->registerReceiver(this);
 			this->registerReceiver(footprint);
 
 			sWorldObj.addWorldObject(footprint);
+		}
+		if (m_Messages.front().s_MessageType == MessageData::MessageType::BUILDING_PLACE_DATA)
+		{
+			std::cout << "Building to be placed at: " << m_Messages.front().s_StringData << std::endl;
+
+			unsigned int found = m_Messages.front().s_StringData.find("x");
+			
+			unsigned int x  = std::stoi(m_Messages.front().s_StringData.substr(0, found));
+			unsigned int y = std::stoi(m_Messages.front().s_StringData.substr(found + 1, m_Messages.front().s_StringData.size()));
+
+			sWorldObj.addWorldObject(new WorldBuildingMilitaryTest(sf::Vector2f((float)(x), (float)(y))));
 		}
 
 		m_Messages.erase(m_Messages.begin());

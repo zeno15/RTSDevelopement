@@ -116,7 +116,7 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 	_target.draw(m_MapBackgroundVertices,		_states);
 
 	//_target.draw(m_CollisionGrid,				_states);
-	//_target.draw(m_PathfindingGrid,			_states);
+	_target.draw(m_PathfindingGrid,			_states);
 
 	if (m_RenderSelectionBox)
 	{

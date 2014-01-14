@@ -15,8 +15,6 @@ public:
 	virtual void update(sf::Time _delta) = 0;	
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const = 0;
 
-	virtual void modifyPathfinding(bool _onConstruction) = 0;
-
 	MilitaryBuildingType getMilitaryBuildingType(void);
 
 protected:

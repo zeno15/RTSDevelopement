@@ -101,30 +101,30 @@ void Game::run(void)
 		sWorldObj.update(clock.getElapsedTime());
 		sDebug.update(clock.getElapsedTime());
 
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-		//{
-		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::INFANTRY);
-		//}
-		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-		//{
-		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::LIGHT_VEHICLE);
-		//}
-		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-		//{
-		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::HEAVY_VEHICLE);
-		//}
-		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-		//{
-		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NAVAL);
-		//}
-		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
-		//{
-		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::AIR);
-		//}
-		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
-		//{
-		//	sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NUM_TYPES);
-		//}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::INFANTRY);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::LIGHT_VEHICLE);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::HEAVY_VEHICLE);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NAVAL);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::AIR);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
+		{
+			sWorld.m_PathfindingGrid.changeOverlay(Tile::Type::NUM_TYPES);
+		}
 
 		handleEvents();
 

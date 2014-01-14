@@ -4,7 +4,7 @@
 #include "WorldObject.h"
 #include "WorldObjectHealth.h"
 
-class WorldBuilding : public WorldObject//~ , public WorldObjectHealth
+class WorldBuilding : public WorldObject
 {
 public:
 	enum BuildingType {MILITARY,
@@ -16,8 +16,6 @@ public:
 
 	virtual void update(sf::Time _delta) = 0;	
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const = 0;
-
-	virtual void modifyPathfinding(bool _onConstruction) = 0;
 
 	BuildingType getBuildingType(void);
 
