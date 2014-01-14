@@ -12,6 +12,8 @@ public:
 	virtual void update(sf::Time _delta);	
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const;
 
+	virtual void updatePosition(void);
+
 private:
 	sf::VertexArray									m_Body;
 };

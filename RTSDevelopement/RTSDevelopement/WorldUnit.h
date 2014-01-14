@@ -3,6 +3,8 @@
 
 #include "WorldObject.h"
 #include "Tile.h"
+#include "Game.h"
+
 
 class WorldUnit : public WorldObject
 {
@@ -25,6 +27,8 @@ public:
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const = 0;
 
 	void move(MovementDirection _dir);
+	void updateMovement(sf::Time _delta);
+	virtual void updatePosition(void) = 0;
 
 	void setSpeed(float _speed);
 	float getSpeed(void);
@@ -32,7 +36,16 @@ public:
 	Tile::Type getType(void);
 
 protected:
+	float getAngleFromDirection(MovementDirection _dir);
+
+	sf::Vector2f getUnitVectorFromDirection(MovementDirection _dir);
+
+protected:
 	float								m_WorldUnitSpeed;
+	float								m_WorldUnitRotationSpeed;
+	float								m_WorldUnitRotation;
+
+	sf::Vector2f						m_WorldUnitDestination;
 
 	Tile::Type							m_WorldUnitType;
 

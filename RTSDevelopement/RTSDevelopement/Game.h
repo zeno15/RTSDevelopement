@@ -17,7 +17,6 @@
 #define MOUSE_TILE_POSITION_VIEW	sf::Vector2f((float)((unsigned int)(MOUSE_POSITION_VIEW.x / TILESIZE_f) * TILESIZE_f),(float)((unsigned int)(MOUSE_POSITION_VIEW.y / TILESIZE_f) * TILESIZE_f))
 
 
-
 class Game
 {
 public:

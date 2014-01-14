@@ -36,19 +36,19 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		sGame.m_View.move(- WORLD_SCROLL_SPEED * _delta.asSeconds(), 0.0f);
+		//sGame.m_View.move(- WORLD_SCROLL_SPEED * _delta.asSeconds(), 0.0f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		sGame.m_View.move(+ WORLD_SCROLL_SPEED * _delta.asSeconds(), 0.0f);
+		//sGame.m_View.move(+ WORLD_SCROLL_SPEED * _delta.asSeconds(), 0.0f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		sGame.m_View.move(0.0f, - WORLD_SCROLL_SPEED * _delta.asSeconds());
+		//sGame.m_View.move(0.0f, - WORLD_SCROLL_SPEED * _delta.asSeconds());
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		sGame.m_View.move(0.0f, + WORLD_SCROLL_SPEED * _delta.asSeconds());
+		//sGame.m_View.move(0.0f, + WORLD_SCROLL_SPEED * _delta.asSeconds());
 	}
 
 	ensureMapWithinBounds();
@@ -115,7 +115,7 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 
 	_target.draw(m_MapBackgroundVertices,		_states);
 
-	//_target.draw(m_CollisionGrid,				_states);
+	_target.draw(m_CollisionGrid,				_states);
 	_target.draw(m_PathfindingGrid,			_states);
 
 	if (m_RenderSelectionBox)

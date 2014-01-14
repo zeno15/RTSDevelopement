@@ -77,6 +77,8 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_World.load("../../Resources/Maps/Quadrant.RTSDMAP");
 
 	sInput.registerButton(sf::Mouse::Right);
+
+	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(48.0f, 48.0f)));
 		
 	run();
 }
