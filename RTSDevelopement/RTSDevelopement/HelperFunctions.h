@@ -30,4 +30,13 @@ void printvector2(sf::Vector2<T> _vector, std::string _description = "")
 	std::cout << _description << " x: " << _vector.x << ", y: " << _vector.y << std::endl;
 }
 
+template <class T>
+std::ostream & operator<<(std::ostream & stream, sf::Vector2<T> vec) {
+
+	stream << "x : " << (int) vec.x;
+	stream << " y : " << (int) vec.y;
+
+	return stream;
+}
+
 #endif //~ INCLUDED_HELPERFUNCTIONS_H

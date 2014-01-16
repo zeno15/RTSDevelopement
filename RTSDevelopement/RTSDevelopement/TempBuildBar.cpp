@@ -46,7 +46,7 @@ void TempBuildBar::update(sf::Time _delta)
 
 			unsigned int found = m_Messages.front().s_StringData.find("x");
 			
-			unsigned int x  = std::stoi(m_Messages.front().s_StringData.substr(0, found));
+			unsigned int x = std::stoi(m_Messages.front().s_StringData.substr(0, found));
 			unsigned int y = std::stoi(m_Messages.front().s_StringData.substr(found + 1, m_Messages.front().s_StringData.size()));
 
 			sWorldObj.addWorldObject(new WorldBuildingMilitaryTest(sf::Vector2f((float)(x), (float)(y))));

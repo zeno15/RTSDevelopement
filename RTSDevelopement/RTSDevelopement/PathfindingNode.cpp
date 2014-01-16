@@ -18,7 +18,8 @@ PathfindingNode::PathfindingNode(sf::Vector2u _gridPosition, sf::Vector2u _final
 	m_G_Text("0", *sGame.m_FontManager.getFont(7), 8),
 	m_H_Text("0", *sGame.m_FontManager.getFont(7), 8),
 	m_ParentPointer(sf::Lines, 2),
-	m_ListOption(ListOption::NONE)
+	m_ListOption(ListOption::NONE),
+	m_InitialisationTime(0)
 {
 	m_Outline.setPosition((float)(m_PathfindingGridCoordinates.x) + 1.0f, (float)(m_PathfindingGridCoordinates.y) + 1.0f);
 	m_Outline.setFillColor(sf::Color::Transparent);
@@ -137,4 +138,13 @@ unsigned int PathfindingNode::generateGValue(PathfindingNode *_parent)
 	{
 		return 14 + _parent->m_GValue;
 	}
+}
+
+void PathfindingNode::setInitialisationTime(unsigned int _time)
+{
+	m_InitialisationTime = _time;
+}
+unsigned int PathfindingNode::getInitalisationTime(void)
+{
+	return m_InitialisationTime;
 }

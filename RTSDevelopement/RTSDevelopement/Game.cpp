@@ -74,7 +74,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_Interface = new Interface(topBarBounds, sideBarBounds);
 
 	m_World.setInterfaceSized(sideBarBounds.width, topBarBounds.height);
-	m_World.load("../../Resources/Maps/Quadrant.RTSDMAP");
+	m_World.load("../../Resources/Maps/Path.RTSDMAP");
 
 	sInput.registerButton(sf::Mouse::Right);
 

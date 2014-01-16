@@ -40,7 +40,11 @@ void WorldBuildingFootprint::update(sf::Time _delta)
 	for (unsigned int i = 0; i < m_TouchingCells.size(); i += 1)
 	{
 		m_TouchingCells.at(i)->checkCollisionsWithin(&collideables, this);
-		if (collideables.size() > 0) 
+	}
+
+	for (unsigned int i = 0; i < collideables.size(); i += 1)
+	{
+		if (collideables.at(i)->getBounds().intersects(m_Footprint.getBounds()))
 		{
 			valid = false;
 			break;

@@ -21,6 +21,9 @@ public:
 	unsigned int getFValue(void);
 	sf::Vector2u getGridCoords(void);
 
+	void setInitialisationTime(unsigned int _time);
+	unsigned int getInitalisationTime(void);
+
 	enum ListOption {NONE,
 					 OPEN,
 					 CLOSED};
@@ -43,6 +46,8 @@ private:
 	unsigned int					m_GValue;
 	sf::Text						m_H_Text;
 	unsigned int					m_HValue;
+
+	unsigned int					m_InitialisationTime;
 
 	sf::VertexArray					m_ParentPointer;
 

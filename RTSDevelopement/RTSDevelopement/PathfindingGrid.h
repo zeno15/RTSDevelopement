@@ -25,7 +25,7 @@ public:
 	void addObstacle(unsigned int _x, unsigned int _y, Tile::Type _type);
 	void removeObstacle(unsigned int _x, unsigned int _y, Tile::Type _type);
 
-	void requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, std::vector<PathfindingNode *> *_output);
+	void requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, Tile::Type _type, std::vector<PathfindingNode *> *_output);
 
 private:
 	PathfindingNode *findLowestFScoreOnOpenList(void);

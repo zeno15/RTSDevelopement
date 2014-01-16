@@ -44,6 +44,7 @@ public:
 	PathfindingGrid								m_PathfindingGrid;
 private:
 	sf::VertexArray								m_MapBackgroundVertices;
+	sf::VertexArray								DEBUG_path;
 
 	sf::Vector2u								m_MapTileDimensions;
 

@@ -6,9 +6,11 @@
 #include <string>
 
 #include "Game.h"
+#include "HelperFunctions.h"
 
 World::World(void) :
-	m_MapBackgroundVertices(sf::Quads, 0)
+	m_MapBackgroundVertices(sf::Quads, 0),
+	DEBUG_path(sf::LinesStrip, 0)
 {
 	Tile::loadTilesToTileInfoVector(&m_TileInformation);
 
@@ -16,6 +18,7 @@ World::World(void) :
 	m_SelectionBox.setOutlineThickness(1.0f);
 
 	sInput.registerButton(sf::Mouse::Left);
+	sInput.registerButton(sf::Mouse::Right);
 }
 
 World::~World(void)
@@ -23,6 +26,7 @@ World::~World(void)
 	m_CollisionGrid.~CollisionGrid();
 
 	sInput.unregisterButton(sf::Mouse::Left);
+	sInput.unregisterButton(sf::Mouse::Right);
 }
 
 
@@ -107,7 +111,24 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 		}
 	}
 
-	
+	std::vector<PathfindingNode *> path = std::vector<PathfindingNode *>();
+
+	if (m_SelectedWorldObjects.size() > 0)
+	{
+		if (sInput.getButtonState(sf::Mouse::Right) && !sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			m_PathfindingGrid.requestPath(m_SelectedWorldObjects.at(0)->getPosition(), MOUSE_POSITION_VIEW, Tile::Type::HEAVY_VEHICLE, &path);
+			
+			DEBUG_path.clear();
+
+			for (unsigned int i = 0; i < path.size(); i += 1)
+			{
+				sf::Vector2f point(path.at(i)->getGridCoords().x + TILESIZE_f / 2.0f, path.at(i)->getGridCoords().y + TILESIZE_f / 2.0f);
+				
+				DEBUG_path.append(sf::Vertex(point, sf::Color::Red));
+			}
+		}
+	}
 }
 void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
@@ -116,12 +137,14 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 	_target.draw(m_MapBackgroundVertices,		_states);
 
 	_target.draw(m_CollisionGrid,				_states);
-	_target.draw(m_PathfindingGrid,			_states);
+	_target.draw(m_PathfindingGrid,				_states);
 
 	if (m_RenderSelectionBox)
 	{
 		_target.draw(m_SelectionBox,			_states);
 	}
+
+	_target.draw(DEBUG_path,					_states);
 }
 
 void World::load(std::string _filename)
