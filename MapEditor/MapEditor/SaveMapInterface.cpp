@@ -79,13 +79,25 @@ void SaveMapInterface::onReceiverRegistered(Receiver *_receiver)
 
 bool SaveMapInterface::checkValidity(std::string _filename)
 {
+	static bool confirm = false;
+
 	std::ifstream input(_filename);
 
 	if (input.is_open())
 	{
-		std::cout << "File exists!" << std::endl;
-		input.close();
-		return false;
+		if (!confirm)
+		{
+			std::cout << "File exists!" << std::endl;
+			input.close();
+			confirm = !confirm;
+			return false;
+		}
+		else
+		{
+			std::cout << "Overwriting" << std::endl;
+			confirm = !confirm;
+			return true;
+		}
 	}
 	else
 	{
