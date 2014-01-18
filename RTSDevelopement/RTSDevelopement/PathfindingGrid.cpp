@@ -1,6 +1,9 @@
 #include "PathfindingGrid.h"
 
+#include <algorithm>
+
 #include "Game.h"
+#include "HelperFunctions.h"
 
 PathfindingGrid::PathfindingGrid(void) :
 	m_OverlayType(Tile::Type::NUM_TYPES)
@@ -17,9 +20,9 @@ void PathfindingGrid::draw(sf::RenderTarget &_target, sf::RenderStates _states) 
 	sf::RectangleShape temp = sf::RectangleShape(sf::Vector2f(TILESIZE_f, TILESIZE_f));
 	temp.setFillColor(sf::Color(255, 0, 0, 255));
 
-	for (unsigned int i = 0; i < m_GridSize.y; i += 1)
+	for (unsigned int i = 0; i < 28; i += 1)
 	{
-		for (unsigned int j = 0; j < m_GridSize.x; j += 1)
+		for (unsigned int j = 0; j < 45; j += 1)
 		{
 			if (m_OverlayType != Tile::Type::NUM_TYPES &&
 				!m_ObstacleGrid.at(i * m_GridSize.x + j).s_CanPass.at(m_OverlayType))
@@ -27,6 +30,8 @@ void PathfindingGrid::draw(sf::RenderTarget &_target, sf::RenderStates _states) 
 				temp.setPosition((float)(j * TILESIZE_f), (float)(i * TILESIZE_f));
 				_target.draw(temp,		_states);
 			}
+
+			_target.draw(m_AllNodes.at(i * m_GridSize.x + j),			_states);
 		}
 	}
 }
@@ -88,97 +93,118 @@ void PathfindingGrid::requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, 
 
 	sf::Clock clock;
 
-	m_OpenList.clear();
-	m_ClosedList.clear();
-
-	unsigned int initTime = (unsigned int)(time(nullptr));
-
-	//~ Input is in pixels, convert to tiles
-	sf::Vector2u startNodeCoords  = sf::Vector2u((unsigned int)(_startPos.x / TILESIZE_f), (unsigned int)(_startPos.y / TILESIZE_f));
-	sf::Vector2u finishNodeCoords = sf::Vector2u((unsigned int)(_endPos.x / TILESIZE_f), (unsigned int)(_endPos.y / TILESIZE_f));
-
-	PathfindingNode *endNode = &m_AllNodes.at(finishNodeCoords.y * m_GridSize.x + finishNodeCoords.x);
-
-	m_OpenList.push_back(&m_AllNodes.at(startNodeCoords.y * m_GridSize.x + startNodeCoords.x));
-	m_AllNodes.at(startNodeCoords.y * m_GridSize.x + startNodeCoords.x).m_ListOption = PathfindingNode::ListOption::OPEN;
-	m_AllNodes.at(startNodeCoords.y * m_GridSize.x + startNodeCoords.x).changePathEnd(sf::Vector2u((unsigned int)(_endPos.x), (unsigned int)(_endPos.y)));
-	m_AllNodes.at(startNodeCoords.y * m_GridSize.x + startNodeCoords.x).setInitialisationTime(initTime);
-	bool pathfindingComplete = false;
-
-	PathfindingNode *lowFScore = nullptr;
-
-	std::vector<sf::Time> whileLoopTimes = std::vector<sf::Time>();
-
-	while (!pathfindingComplete)
+	for (unsigned int i = 0; i < m_AllNodes.size(); i += 1)
 	{
-		lowFScore = findLowestFScoreOnOpenListAndRemove();
-		m_ClosedList.push_back(lowFScore);
-		lowFScore->m_ListOption = PathfindingNode::ListOption::CLOSED;
+		m_AllNodes.at(i).reset();
+		m_AllNodes.at(i).m_PathfindingGridCoordinates.x = i % m_GridSize.x;
+		m_AllNodes.at(i).m_PathfindingGridCoordinates.y = i / m_GridSize.y;
+	}
+
+	sf::Vector2u startNode = sf::Vector2u((unsigned int)(_startPos.x) / TILESIZE_u, (unsigned int)(_startPos.y) / TILESIZE_u);
+	sf::Vector2u endNode   = sf::Vector2u((unsigned int)(_endPos.x)   / TILESIZE_u, (unsigned int)(_endPos.y)   / TILESIZE_u);
+
+	PathfindingNode *endNodePointer = &m_AllNodes.at(endNode.y * m_GridSize.x + endNode.x);
+
+	m_OpenList.push_back(&m_AllNodes.at(startNode.y * m_GridSize.x + startNode.x));
+	m_OpenList.front()->m_ListOption = PathfindingNode::ListOption::OPEN;
+
+	while (true)
+	{
+		if (m_OpenList.size() == 0)
+		{
+			break;
+		}
+
+		PathfindingNode *currentNode = findLowestFScoreOnOpenListAndRemove();
+		//std::cout << "Open list remove" << std::endl;
+		if (currentNode == endNodePointer)
+		{
+			_output->clear();
+
+			//_output->push_back(currentNode);
+			
+			while (true)
+			{
+				_output->push_back(currentNode);
+				currentNode = currentNode->m_ParentNode;
+				if (currentNode == nullptr)
+				{
+					std::reverse(_output->begin(), _output->end());
+					break;
+				}
+			}
+			break;
+		}
+
+		m_ClosedList.push_back(currentNode);
+		currentNode->m_ListOption = PathfindingNode::ListOption::CLOSED;
 
 		for (unsigned int i = 0; i < 8; i += 1)
 		{
-			sf::Vector2i coords = returnCoordsAroundCentre(i, lowFScore->getGridCoords());
+			sf::Vector2i coords = returnCoordsAroundCentre(i, currentNode->m_PathfindingGridCoordinates);
 
-			if (coords.x < 0 || coords.y < 0 || coords.x >= (int)m_GridSize.x || coords.y >= (int)m_GridSize.y) continue;
+			if (coords.x < 0 || coords.y < 0 || coords.x >= (int)(m_GridSize.x) || coords.y >= (int)(m_GridSize.y)) continue;
 
-			if (m_AllNodes.at(coords.y * m_GridSize.x + coords.x).getInitalisationTime() != initTime)
+			PathfindingNode *n = &m_AllNodes.at(coords.y * m_GridSize.x + coords.x);
+
+			if (n == nullptr || !isTilePassable((unsigned int)(coords.x), (unsigned int)(coords.y), _type))
 			{
-				m_AllNodes.at(coords.y * m_GridSize.x + coords.x).setInitialisationTime(initTime);
-				m_AllNodes.at(coords.y * m_GridSize.x + coords.x).changePathEnd(sf::Vector2u((unsigned int)(_endPos.x), (unsigned int)(_endPos.y)));
-				m_AllNodes.at(coords.y * m_GridSize.x + coords.x).m_ListOption = PathfindingNode::ListOption::NONE;
-			}
-
-			if ((!m_ObstacleGrid.at(coords.y * m_GridSize.x + coords.x).s_CanPass.at(_type)) ||
-				(isNodeOnList(&m_AllNodes.at(coords.y * m_GridSize.x + coords.x), PathfindingNode::ListOption::CLOSED)))
-			{
-				//~ If on the closed list or you cannot traverse it.
 				continue;
 			}
 
-			if (isNodeOnList(&m_AllNodes.at(coords.y * m_GridSize.x + coords.x), PathfindingNode::ListOption::OPEN))
+			if (n->m_ListOption == PathfindingNode::ListOption::NONE)
 			{
-				//~ On the open list
-				if (m_AllNodes.at(coords.y * m_GridSize.x + coords.x).changeParent(lowFScore))
+				m_OpenList.push_back(n);
+				n->m_ListOption = PathfindingNode::ListOption::OPEN;
+
+				if (i == 0 || i == 2 || i == 5 || i == 7)
 				{
-					m_AllNodes.at(coords.y * m_GridSize.x + coords.x).setParent(lowFScore);
+					n->m_GValue = 14;
 				}
+				else
+				{
+					n->m_GValue = 10;
+				}
+
+				n->m_ParentNode = currentNode;
+				n->m_GValue += currentNode->m_GValue;
+
+				n->m_HValue = manhatten(sf::Vector2u((unsigned int)(coords.x), (unsigned int)(coords.y)), endNode);
+
+				n->m_FValue = n->m_GValue + n->m_HValue;
 			}
 			else
 			{
-				m_AllNodes.at(coords.y * m_GridSize.x + coords.x).setParent(lowFScore);
-				m_OpenList.push_back(&m_AllNodes.at(coords.y * m_GridSize.x + coords.x));
-				m_AllNodes.at(coords.y * m_GridSize.x + coords.x).m_ListOption = PathfindingNode::ListOption::OPEN;
+				unsigned int test = 0;
+				if (i == 0 || i == 2 || i == 5 || i == 7)
+				{
+					test = 14;
+				}
+				else
+				{
+					test = 10;
+				}
+
+				test += currentNode->m_GValue;
+				if (test < n->m_GValue)
+				{
+					n->m_GValue = test;
+					n->m_FValue = n->m_GValue + n->m_HValue;
+					n->m_ParentNode = currentNode;
+				}
 			}
-			
 		}
 
-		if (m_OpenList.size() == 0 || isNodeOnList(endNode, PathfindingNode::ListOption::CLOSED))
-		{
-			pathfindingComplete = true;
-			continue;
-		}
-		
 	}
+	m_OpenList.clear();
+	m_ClosedList.clear();
 
-	PathfindingNode *routeNode = endNode;
-	int count = 0;
+	std::cout << "Time: " << clock.getElapsedTime().asSeconds() << " seconds, path length: " << _output->size() << std::endl;
+}
 
-	while (routeNode != nullptr)
-	{
-		_output->push_back(routeNode);
-
-		routeNode->setFillColour(sf::Color(0, 255, 0, 125));
-
-		routeNode = routeNode->getParent();
-		count += 1;
-	}
-
-	if (count == 1)
-	{
-		_output->clear();
-	}
-
-	std::cout << "Time taken for a " << count << " long path: " << clock.getElapsedTime().asSeconds() << " seconds." << std::endl;
+bool PathfindingGrid::isTilePassable(unsigned int _x, unsigned int _y, Tile::Type _type)
+{
+	return m_ObstacleGrid.at(_y * m_GridSize.x + _x).s_CanPass.at(_type);
 }
 
 PathfindingNode *PathfindingGrid::findLowestFScoreOnOpenList(void)
@@ -221,7 +247,7 @@ PathfindingNode *PathfindingGrid::findLowestFScoreOnOpenListAndRemove(void)
 
 sf::Vector2i PathfindingGrid::returnCoordsAroundCentre(unsigned int _index, sf::Vector2u _startCoords/* = sf::Vector2u()*/)
 {
-	_startCoords /= TILESIZE_u;
+	//_startCoords /= TILESIZE_u;
 
 	switch (_index)
 	{
@@ -251,3 +277,7 @@ bool PathfindingGrid::isNodeOnList(PathfindingNode *_node, PathfindingNode::List
 	return _type == _node->m_ListOption;
 }
 
+unsigned int PathfindingGrid::manhatten(sf::Vector2u _current, sf::Vector2u _end)
+{
+	return 10 * (unsigned int)(fabs((float)(_current.x) - (float)(_end.x)) + fabs((float)(_current.y) - (float)(_end.y)));
+}

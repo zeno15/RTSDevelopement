@@ -20,9 +20,12 @@ public:
 
 	unsigned int getFValue(void);
 	sf::Vector2u getGridCoords(void);
+	sf::Vector2u getEndGridCoords(void);
 
 	void setInitialisationTime(unsigned int _time);
 	unsigned int getInitalisationTime(void);
+
+	void reset(void);
 
 	enum ListOption {NONE,
 					 OPEN,
@@ -34,7 +37,7 @@ private:
 	void updateAndPositionText(void);
 	unsigned int generateGValue(PathfindingNode *_parent);
 
-private:
+public:
 	sf::Vector2u					m_PathfindingGridCoordinates;
 	sf::Vector2u					m_EndpointGridCoordinates;
 

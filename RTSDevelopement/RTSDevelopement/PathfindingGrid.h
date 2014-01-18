@@ -27,6 +27,8 @@ public:
 
 	void requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, Tile::Type _type, std::vector<PathfindingNode *> *_output);
 
+	bool isTilePassable(unsigned int _x, unsigned int _y, Tile::Type _type);
+
 private:
 	PathfindingNode *findLowestFScoreOnOpenList(void);
 	PathfindingNode *findLowestFScoreOnOpenListAndRemove(void);
@@ -35,6 +37,8 @@ private:
 
 	bool isNodeOnList(PathfindingNode *_node, PathfindingNode::ListOption _type);
 
+	unsigned int manhatten(sf::Vector2u _current, sf::Vector2u _end);
+
 private:
 	std::vector<PathfindingNode *>			m_OpenList;
 	std::vector<PathfindingNode *>			m_ClosedList;
@@ -42,8 +46,8 @@ private:
 
 	struct Obstacle
 	{
-		std::vector<bool>		s_CanPass;
-		std::vector<unsigned int>	s_Count;
+		std::vector<bool>					s_CanPass;
+		std::vector<unsigned int>			s_Count;
 	};
 
 	std::vector<Obstacle>					m_ObstacleGrid;

@@ -6,8 +6,6 @@
 
 #include "HelperFunctions.h"
 
-#include "WorldBuildingMilitaryTest.h"
-#include "WorldBuildingFootprint.h"
 #include "WorldUnitTriangleTest.h"
 
 Game::Game(void)
@@ -74,12 +72,13 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_Interface = new Interface(topBarBounds, sideBarBounds);
 
 	m_World.setInterfaceSized(sideBarBounds.width, topBarBounds.height);
+
 	m_World.load("../../Resources/Maps/Path.RTSDMAP");
 
 	sInput.registerButton(sf::Mouse::Right);
 
 	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(48.0f, 48.0f)));
-		
+	
 	run();
 }
 

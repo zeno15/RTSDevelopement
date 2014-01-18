@@ -40,11 +40,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>C:\programminglibs\RTSD Common\lib\</OutDir>
+    <OutDir>C:\programminglibs\RTSDCommon\lib\</OutDir>
     <TargetName>$(ProjectName)-s</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>C:\programminglibs\RTSD Common\lib\</OutDir>
+    <OutDir>C:\programminglibs\RTSDCommon\lib\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)-s-d</TargetName>
   </PropertyGroup>
@@ -63,6 +63,15 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>robocopy C:\Users\Mark\Documents\GitHub\RTSDevelopement\Common\Common C:\programminglibs\RTSDCommon\include *.h
+if ERRORLEVEL 2 goto HandleError
+robocopy C:\Users\Mark\Documents\GitHub\RTSDevelopement\Common\Common C:\programminglibs\RTSDCommon\src *.cpp
+if ERRORLEVEL 2 goto HandleError
+exit 0
+:HandleError
+exit %ERRORLEVEL%</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -83,6 +92,15 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>robocopy C:\Users\Mark\Documents\GitHub\RTSDevelopement\Common\Common C:\programminglibs\RTSDCommon\include *.h
+if ERRORLEVEL 2 goto HandleError
+robocopy C:\Users\Mark\Documents\GitHub\RTSDevelopement\Common\Common C:\programminglibs\RTSDCommon\src *.cpp
+if ERRORLEVEL 2 goto HandleError
+exit 0
+:HandleError
+exit %ERRORLEVEL%</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

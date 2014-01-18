@@ -14,54 +14,6 @@ WorldUnitTriangleTest::~WorldUnitTriangleTest(void)
 
 void WorldUnitTriangleTest::update(sf::Time _delta)
 {
-	if (m_WorldUnitDirectionToMove == MovementDirection::NONE)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			move(MovementDirection::NORTH);
-			m_WorldUnitDestination = m_WorldObjectPosition + sf::Vector2f(0.0f, - TILESIZE_f);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			move(MovementDirection::SOUTH);
-			m_WorldUnitDestination = m_WorldObjectPosition + sf::Vector2f(0.0f, + TILESIZE_f);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			move(MovementDirection::WEST);
-			m_WorldUnitDestination = m_WorldObjectPosition + sf::Vector2f(- TILESIZE_f, 0.0f);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			move(MovementDirection::EAST);
-			m_WorldUnitDestination = m_WorldObjectPosition + sf::Vector2f(+ TILESIZE_f, 0.0f);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-		{
-			move(MovementDirection::NORTH_WEST);
-			m_WorldUnitDestination = m_WorldObjectPosition + sf::Vector2f(- TILESIZE_f, - TILESIZE_f);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		{
-			move(MovementDirection::NORTH_EAST);
-			m_WorldUnitDestination = m_WorldObjectPosition + sf::Vector2f(+ TILESIZE_f, - TILESIZE_f);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			move(MovementDirection::SOUTH_WEST);
-			m_WorldUnitDestination = m_WorldObjectPosition + sf::Vector2f(- TILESIZE_f, + TILESIZE_f);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			move(MovementDirection::SOUTH_EAST);
-			m_WorldUnitDestination = m_WorldObjectPosition + sf::Vector2f(+ TILESIZE_f, + TILESIZE_f);
-		}
-	}
-
-
-
-	updateMovement(_delta);	
-
 	updateCollisions();
 
 	updateHealthPosition(m_WorldObjectPosition);

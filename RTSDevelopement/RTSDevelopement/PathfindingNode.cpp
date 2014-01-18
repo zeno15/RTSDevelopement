@@ -126,6 +126,10 @@ sf::Vector2u PathfindingNode::getGridCoords(void)
 {
 	return m_PathfindingGridCoordinates;
 }
+sf::Vector2u PathfindingNode::getEndGridCoords(void)
+{
+	return m_EndpointGridCoordinates;
+}
 
 unsigned int PathfindingNode::generateGValue(PathfindingNode *_parent)
 {
@@ -147,4 +151,14 @@ void PathfindingNode::setInitialisationTime(unsigned int _time)
 unsigned int PathfindingNode::getInitalisationTime(void)
 {
 	return m_InitialisationTime;
+}
+
+void PathfindingNode::reset(void)
+{
+	m_GValue = 0;
+	m_FValue = 0;
+	m_HValue = 0;
+
+	m_ListOption = PathfindingNode::ListOption::NONE;
+	m_ParentNode = nullptr;
 }

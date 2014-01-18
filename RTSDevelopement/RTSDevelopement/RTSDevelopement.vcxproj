@@ -53,14 +53,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Mark\Documents\GitHub\RTSDevelopement\Common\Common;C:\programminglibs\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\programminglibs\ZenosParticleSystem\include;C:\programminglibs\ZenosSteeringBehaviour\include;C:\programminglibs\ZenosGUI\include;C:\programminglibs\RTSDCommon\include;C:\programminglibs\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\programminglibs\RTSD Common\lib;C:\programminglibs\ZenosGUI\lib;C:\programminglibs\SFML-2.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;sfml-audio-s-d.lib;%(AdditionalDependencies);ZenosGUI-s-d.lib;Common-s-d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\programminglibs\ZenosParticleSystem\lib;C:\programminglibs\ZenosSteeringBehaviour\libs;C:\programminglibs\RTSDCommon\lib;C:\programminglibs\ZenosGUI\lib;C:\programminglibs\SFML-2.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;sfml-audio-s-d.lib;%(AdditionalDependencies);ZenosGUI-s-d.lib;Common-s-d.lib;ZenosParticleSystem-s-d.lib;ZenosSteeringBehaviour-s-d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -72,7 +72,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Mark\Documents\GitHub\RTSDevelopement\Common\Common;C:\programminglibs\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\programminglibs\ZenosParticleSystem\include;C:\programminglibs\ZenosSteeringBehaviour\include;C:\programminglibs\ZenosGUI\include;C:\programminglibs\RTSDCommon\include;C:\programminglibs\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -80,8 +80,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\programminglibs\RTSD Common\lib;C:\programminglibs\ZenosGUI\lib;C:\programminglibs\SFML-2.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-s.lib;sfml-window-s.lib;sfml-graphics-s.lib;sfml-audio-s.lib;%(AdditionalDependencies);ZenosGUI-s.lib;Common-s.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\programminglibs\ZenosParticleSystem\lib;C:\programminglibs\ZenosSteeringBehaviour\libs;C:\programminglibs\RTSDCommon\lib;C:\programminglibs\ZenosGUI\lib;C:\programminglibs\SFML-2.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-s.lib;sfml-window-s.lib;sfml-graphics-s.lib;sfml-audio-s.lib;%(AdditionalDependencies);ZenosGUI-s.lib;Common-s.lib;ZenosParticleSystem-s.lib;ZenosSteeringBehaviour-s.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

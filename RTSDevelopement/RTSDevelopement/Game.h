@@ -6,7 +6,9 @@
 
 #include "DebugManager.h"
 #include "WorldObjectManager.h"
-#include "../../../ZenosGUI/ZenosGUI/ZenosGUIGlobalInclude.h"
+#include "ZenosGUIGlobalInclude.h"
+#include "ZenosSteeringBehaviourGlobalInclude.h"
+#include "ParticleSystem.h"
 
 #include "World.h"
 #include "Interface.h"

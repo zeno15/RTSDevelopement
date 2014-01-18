@@ -40,19 +40,19 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		//sGame.m_View.move(- WORLD_SCROLL_SPEED * _delta.asSeconds(), 0.0f);
+		sGame.m_View.move(- WORLD_SCROLL_SPEED * _delta.asSeconds(), 0.0f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		//sGame.m_View.move(+ WORLD_SCROLL_SPEED * _delta.asSeconds(), 0.0f);
+		sGame.m_View.move(+ WORLD_SCROLL_SPEED * _delta.asSeconds(), 0.0f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		//sGame.m_View.move(0.0f, - WORLD_SCROLL_SPEED * _delta.asSeconds());
+		sGame.m_View.move(0.0f, - WORLD_SCROLL_SPEED * _delta.asSeconds());
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		//sGame.m_View.move(0.0f, + WORLD_SCROLL_SPEED * _delta.asSeconds());
+		sGame.m_View.move(0.0f, + WORLD_SCROLL_SPEED * _delta.asSeconds());
 	}
 
 	ensureMapWithinBounds();
@@ -121,13 +121,18 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 			
 			DEBUG_path.clear();
 
-			for (unsigned int i = 0; i < path.size(); i += 1)
+			for (unsigned int i = 0; i < path.size() - 1; i += 1)
 			{
-				sf::Vector2f point(path.at(i)->getGridCoords().x + TILESIZE_f / 2.0f, path.at(i)->getGridCoords().y + TILESIZE_f / 2.0f);
+				sf::Vector2f point(path.at(i)->getGridCoords().x * 32.0f + TILESIZE_f / 2.0f, path.at(i)->getGridCoords().y * 32.0f + TILESIZE_f / 2.0f);
 				
 				DEBUG_path.append(sf::Vertex(point, sf::Color::Red));
 			}
 		}
+	}
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
+	{
+		std::cout << "Tile coords" << (MOUSE_TILE_POSITION_VIEW / TILESIZE_f) << ", passable: " << m_PathfindingGrid.isTilePassable((unsigned int)((MOUSE_TILE_POSITION_VIEW / TILESIZE_f).x), (unsigned int)((MOUSE_TILE_POSITION_VIEW / TILESIZE_f).y), Tile::Type::HEAVY_VEHICLE) << std::endl;
 	}
 }
 void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
@@ -136,8 +141,8 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 
 	_target.draw(m_MapBackgroundVertices,		_states);
 
-	_target.draw(m_CollisionGrid,				_states);
-	_target.draw(m_PathfindingGrid,				_states);
+	//_target.draw(m_CollisionGrid,				_states);
+	//_target.draw(m_PathfindingGrid,				_states);
 
 	if (m_RenderSelectionBox)
 	{
