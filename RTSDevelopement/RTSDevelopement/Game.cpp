@@ -77,7 +77,7 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 
 	sInput.registerButton(sf::Mouse::Right);
 
-	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(48.0f, 48.0f)));
+	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(512.0f, 512.0f)));
 	
 	run();
 }
@@ -94,7 +94,7 @@ void Game::run(void)
 	sf::Clock clock;
 	while (m_Running)
 	{
-		sf::sleep(sf::milliseconds(1));
+		sf::sleep(sf::milliseconds(10));
 
 		sWorld.update(clock.getElapsedTime());
 		m_Interface->update(clock.getElapsedTime());

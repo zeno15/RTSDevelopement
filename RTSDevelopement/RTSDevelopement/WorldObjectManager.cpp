@@ -1,6 +1,8 @@
 #include "WorldObjectManager.h"
 
 #include "Game.h"
+#include "WorldUnit.h"
+#include "SteeringBehaviourUnitBase.h"
 
 WorldObjectManager::WorldObjectManager(void)
 {

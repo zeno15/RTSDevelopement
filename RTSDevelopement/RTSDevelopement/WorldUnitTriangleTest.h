@@ -14,6 +14,8 @@ public:
 
 	virtual void updatePosition(void);
 
+
+
 private:
 	sf::VertexArray									m_Body;
 };

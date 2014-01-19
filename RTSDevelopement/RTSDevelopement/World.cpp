@@ -121,7 +121,7 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 			
 			DEBUG_path.clear();
 
-			for (unsigned int i = 0; i < path.size() - 1; i += 1)
+			for (unsigned int i = 0; i < path.size(); i += 1)
 			{
 				sf::Vector2f point(path.at(i)->getGridCoords().x * 32.0f + TILESIZE_f / 2.0f, path.at(i)->getGridCoords().y * 32.0f + TILESIZE_f / 2.0f);
 				

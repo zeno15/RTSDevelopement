@@ -4,9 +4,10 @@
 #include "WorldObject.h"
 #include "Tile.h"
 #include "Game.h"
+#include "SteeringBehaviourUnitBase.h"
 
 
-class WorldUnit : public WorldObject
+class WorldUnit : public WorldObject, public SteeringBehaviourUnitBase
 {
 public:
 	enum MovementDirection {NORTH,
@@ -27,13 +28,29 @@ public:
 	virtual void draw(sf::RenderTarget &_target, sf::RenderStates _states) const = 0;
 
 	void move(MovementDirection _dir);
-	void updateMovement(sf::Time _delta);
 	virtual void updatePosition(void) = 0;
 
-	void setSpeed(float _speed);
-	float getSpeed(void);
-
 	Tile::Type getType(void);
+
+	virtual float getMass(void);
+	virtual float getMaxSpeed(void);
+	virtual float getSightDistance(void);
+	virtual float getTooCloseDistance(void);
+	virtual float getMaxForce(void);
+	virtual float getWanderCircleRadius(void);
+	virtual float getSlowingDistance(void);
+	virtual float getAngleChange(void);
+	virtual float getRadius(void);
+
+	virtual float getRotation(void);
+	virtual unsigned int getWaypointIndex(void);
+	virtual sf::Vector2f getVelocity(void);
+	virtual sf::Vector2f getPosition(void);
+
+	virtual void setRotation(float _Rotation);
+	virtual void setWaypointIndex(unsigned int _index);
+	virtual void setVelocity(sf::Vector2f _vel);
+	virtual void setPosition(sf::Vector2f _pos);
 
 protected:
 	float getAngleFromDirection(MovementDirection _dir);
@@ -41,11 +58,20 @@ protected:
 	sf::Vector2f getUnitVectorFromDirection(MovementDirection _dir);
 
 protected:
-	float								m_WorldUnitSpeed;
-	float								m_WorldUnitRotationSpeed;
+	float								m_WorldUnitMaxSpeed;
 	float								m_WorldUnitRotation;
+	float								m_WorldUnitMass;
+	float								m_WorldUnitSightDistance;
+	float								m_WorldUnitTooCloseDistance;
+	float								m_WorldUnitMaxForce;
+	float								m_WorldUnitWanderCircleRadius;
+	float								m_WorldUnitSlowingDistance;
+	float								m_WorldUnitRotationChange;
 
 	sf::Vector2f						m_WorldUnitDestination;
+	sf::Vector2f						m_WorldUnitVelocity;
+
+	unsigned int						m_WorldUnitWaypointIndex;
 
 	Tile::Type							m_WorldUnitType;
 

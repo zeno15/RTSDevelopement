@@ -99,7 +99,7 @@ void PathfindingGrid::requestPath(sf::Vector2f _startPos, sf::Vector2f _endPos, 
 		m_AllNodes.at(i).m_PathfindingGridCoordinates.x = i % m_GridSize.x;
 		m_AllNodes.at(i).m_PathfindingGridCoordinates.y = i / m_GridSize.y;
 	}
-
+	
 	sf::Vector2u startNode = sf::Vector2u((unsigned int)(_startPos.x) / TILESIZE_u, (unsigned int)(_startPos.y) / TILESIZE_u);
 	sf::Vector2u endNode   = sf::Vector2u((unsigned int)(_endPos.x)   / TILESIZE_u, (unsigned int)(_endPos.y)   / TILESIZE_u);
 
