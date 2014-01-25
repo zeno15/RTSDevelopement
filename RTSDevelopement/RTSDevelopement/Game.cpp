@@ -76,8 +76,6 @@ void Game::initialise(sf::Vector2u _screenSize, std::string _windowName)
 	m_World.load("../../Resources/Maps/Path.RTSDMAP");
 
 	sInput.registerButton(sf::Mouse::Right);
-
-	sWorldObj.addWorldObject(new WorldUnitTriangleTest(sf::Vector2f(512.0f, 512.0f)));
 	
 	run();
 }

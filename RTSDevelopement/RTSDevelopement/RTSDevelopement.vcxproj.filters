@@ -126,14 +126,17 @@
     <ClCompile Include="WorldObjectHealth.cpp">
       <Filter>Source Files\World Objects</Filter>
     </ClCompile>
-    <ClCompile Include="WorldBuildingFootprint.cpp">
-      <Filter>Source Files\World Objects</Filter>
-    </ClCompile>
     <ClCompile Include="TempBuildBar.cpp">
       <Filter>Source Files\Interface</Filter>
     </ClCompile>
     <ClCompile Include="Interface.cpp">
       <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldBuildingFootprint.cpp">
+      <Filter>Source Files\World Objects\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldUnitFoorint.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -195,7 +198,10 @@
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
     <ClInclude Include="WorldBuildingFootprint.h">
-      <Filter>Header Files\World Objects</Filter>
+      <Filter>Header Files\World Objects\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldUnitFootprint.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

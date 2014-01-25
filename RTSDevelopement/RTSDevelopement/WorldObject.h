@@ -5,9 +5,9 @@
 #include <vector>
 #include <iostream>
 
+#include "HelperFunctions.h"
 #include "WorldObjectHealth.h"
-#include "../../../ZenosGUI/ZenosGUI/Publisher.h"
-#include "../../../ZenosGUI/ZenosGUI/Receiver.h"
+#include "ZenosGUIGlobalInclude.h"
 
 class CollisionCell;
 

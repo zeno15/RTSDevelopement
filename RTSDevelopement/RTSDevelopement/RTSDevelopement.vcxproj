@@ -105,6 +105,7 @@
     <ClCompile Include="WorldObjectHealth.cpp" />
     <ClCompile Include="WorldObjectManager.cpp" />
     <ClCompile Include="WorldUnit.cpp" />
+    <ClCompile Include="WorldUnitFoorint.cpp" />
     <ClCompile Include="WorldUnitTriangleTest.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +128,7 @@
     <ClInclude Include="WorldObjectHealth.h" />
     <ClInclude Include="WorldObjectManager.h" />
     <ClInclude Include="WorldUnit.h" />
+    <ClInclude Include="WorldUnitFootprint.h" />
     <ClInclude Include="WorldUnitTriangleTest.h" />
   </ItemGroup>
   <ItemGroup>

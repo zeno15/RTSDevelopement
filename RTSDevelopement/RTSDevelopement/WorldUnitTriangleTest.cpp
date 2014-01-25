@@ -10,7 +10,7 @@ WorldUnitTriangleTest::WorldUnitTriangleTest(sf::Vector2f _position, float _curr
 	m_WorldUnitTooCloseDistance = 20.0f;
 	m_WorldUnitMaxForce = 50.0f;
 	m_WorldUnitWanderCircleRadius = 10.0f;
-	m_WorldUnitSlowingDistance = 50.0f;
+	m_WorldUnitSlowingDistance = 32.0f;
 	m_WorldUnitRotationChange = 45.0f;
 
 	m_WorldUnitWaypointIndex = 0;
@@ -36,7 +36,6 @@ void WorldUnitTriangleTest::update(sf::Time _delta)
 void WorldUnitTriangleTest::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 {
 	_target.draw(m_Body,					_states);
-
 
 	if (m_Selected)
 	{

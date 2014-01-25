@@ -16,6 +16,9 @@ public:
 
 private:
 	sf::FloatRect								m_Bounds;
+
+	unsigned int								m_UnitId;
+	unsigned int								m_BuildingId;
 };
 
 #endif //~ INCLUDED_TEMPBUILDBAR_H

@@ -7,6 +7,7 @@
 
 #include "Game.h"
 #include "HelperFunctions.h"
+#include "WorldUnit.h"
 
 World::World(void) :
 	m_MapBackgroundVertices(sf::Quads, 0),
@@ -119,20 +120,19 @@ void World::update(sf::Time _delta)	//~ Used to update animated tiles
 		{
 			m_PathfindingGrid.requestPath(m_SelectedWorldObjects.at(0)->getPosition(), MOUSE_POSITION_VIEW, Tile::Type::HEAVY_VEHICLE, &path);
 			
-			DEBUG_path.clear();
+			std::vector<sf::Vector2f> pointPath;
 
 			for (unsigned int i = 0; i < path.size(); i += 1)
 			{
-				sf::Vector2f point(path.at(i)->getGridCoords().x * 32.0f + TILESIZE_f / 2.0f, path.at(i)->getGridCoords().y * 32.0f + TILESIZE_f / 2.0f);
-				
-				DEBUG_path.append(sf::Vertex(point, sf::Color::Red));
-			}
-		}
-	}
+				sf::Vector2f point(path.at(i)->getGridCoords().x * TILESIZE_f + TILESIZE_f / 2.0f, path.at(i)->getGridCoords().y * TILESIZE_f + TILESIZE_f / 2.0f);
 
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
-	{
-		std::cout << "Tile coords" << (MOUSE_TILE_POSITION_VIEW / TILESIZE_f) << ", passable: " << m_PathfindingGrid.isTilePassable((unsigned int)((MOUSE_TILE_POSITION_VIEW / TILESIZE_f).x), (unsigned int)((MOUSE_TILE_POSITION_VIEW / TILESIZE_f).y), Tile::Type::HEAVY_VEHICLE) << std::endl;
+				pointPath.push_back(point);
+			}
+
+			WorldUnit *unit = (WorldUnit *)m_SelectedWorldObjects.at(0);
+
+			unit->followPath(pointPath);
+		}
 	}
 }
 void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
@@ -148,8 +148,6 @@ void World::draw(sf::RenderTarget &_target, sf::RenderStates _states) const
 	{
 		_target.draw(m_SelectionBox,			_states);
 	}
-
-	_target.draw(DEBUG_path,					_states);
 }
 
 void World::load(std::string _filename)

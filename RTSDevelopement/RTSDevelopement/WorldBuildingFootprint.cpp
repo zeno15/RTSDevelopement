@@ -78,8 +78,6 @@ void WorldBuildingFootprint::update(sf::Time _delta)
 		unsigned int x = (unsigned int)(m_Footprint.getBounds().left + m_Footprint.getBounds().width / 2.0f);
 		unsigned int y = (unsigned int)(m_Footprint.getBounds().top + m_Footprint.getBounds().height / 2.0f);
 
-		std::cout << std::to_string(x) + "x" + std::to_string(y) << std::endl;
-
 		notifyReceivers(MessageData::BUILDING_PLACE_DATA, 0.0f, std::to_string(x) + "x" + std::to_string(y));
 		kill();
 	}
@@ -89,8 +87,6 @@ void WorldBuildingFootprint::draw(sf::RenderTarget &_target, sf::RenderStates _s
 	_states.texture = sTexture.getTexture(0);
 
 	_target.draw(m_Footprint,			_states);
-
-
 }
 
 
